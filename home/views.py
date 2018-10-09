@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from blog.models import BlogVideo
 
 def index(request):
-    return render(request, 'home/index.html')
+    vid = BlogVideo.objects.all()[0]
+    return render(request, 'home/index.html', {"vid":vid})
