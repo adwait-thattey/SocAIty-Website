@@ -32,52 +32,52 @@ class Blog(models.Model):
                                  validators=[validate_blog_file_extension])
 
 
-class BlogMeta(models.Model):
-    blog = models.OneToOneField(to=Blog, on_delete=models.CASCADE)
-
-
-def get_blog_video_upload_path(instance, filename):
-    return os.path.join("blogs", str(instance.blog.id), "videos", filename)
-
-
-def validate_blog_video_file_extension(incoming_file):
-    extension = os.path.splitext(incoming_file.name)[1]
-    allowed_extensions = ['.mp4', '.ogg', '.webm']
-    if extension.lower() not in allowed_extensions:
-        raise ValidationError("This file type is not allowed/supported")
-
-
-class BlogVideo(models.Model):
-    blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
-    video = models.FileField(upload_to=get_blog_video_upload_path, validators=[validate_blog_video_file_extension])
-
-def get_blog_audio_upload_path(instance, filename):
-    return os.path.join("blogs", str(instance.blog.id), "audios", filename)
-
-
-def validate_blog_audio_file_extension(incoming_file):
-    extension = os.path.splitext(incoming_file.name)[1]
-    allowed_extensions = ['.mp3', '.wav']
-    if extension.lower() not in allowed_extensions:
-        raise ValidationError("This file type is not allowed/supported")
-
-
-class BlogAudio(models.Model):
-    blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
-    audio = models.FileField(upload_to=get_blog_audio_upload_path, validators=[validate_blog_audio_file_extension])
-
-
-def get_blog_image_upload_path(instance, filename):
-    return os.path.join("blogs", str(instance.blog.id), "images", filename)
-
-
-class BlogImage(models.Model):
-    blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=get_blog_image_upload_path)
-
-def get_blog_other_file_upload_path(instance, filename):
-    return os.path.join("blogs", str(instance.blog.id), "other_files", filename)
-
-class BlogFile(models.Model):
-    blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=get_blog_other_file_upload_path)
+# class BlogMeta(models.Model):
+#     blog = models.OneToOneField(to=Blog, on_delete=models.CASCADE)
+#
+#
+# def get_blog_video_upload_path(instance, filename):
+#     return os.path.join("blogs", str(instance.blog.id), "videos", filename)
+#
+#
+# def validate_blog_video_file_extension(incoming_file):
+#     extension = os.path.splitext(incoming_file.name)[1]
+#     allowed_extensions = ['.mp4', '.ogg', '.webm']
+#     if extension.lower() not in allowed_extensions:
+#         raise ValidationError("This file type is not allowed/supported")
+#
+#
+# class BlogVideo(models.Model):
+#     blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
+#     video = models.FileField(upload_to=get_blog_video_upload_path, validators=[validate_blog_video_file_extension])
+#
+# def get_blog_audio_upload_path(instance, filename):
+#     return os.path.join("blogs", str(instance.blog.id), "audios", filename)
+#
+#
+# def validate_blog_audio_file_extension(incoming_file):
+#     extension = os.path.splitext(incoming_file.name)[1]
+#     allowed_extensions = ['.mp3', '.wav']
+#     if extension.lower() not in allowed_extensions:
+#         raise ValidationError("This file type is not allowed/supported")
+#
+#
+# class BlogAudio(models.Model):
+#     blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
+#     audio = models.FileField(upload_to=get_blog_audio_upload_path, validators=[validate_blog_audio_file_extension])
+#
+#
+# def get_blog_image_upload_path(instance, filename):
+#     return os.path.join("blogs", str(instance.blog.id), "images", filename)
+#
+#
+# class BlogImage(models.Model):
+#     blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
+#     image = models.ImageField(upload_to=get_blog_image_upload_path)
+#
+# def get_blog_other_file_upload_path(instance, filename):
+#     return os.path.join("blogs", str(instance.blog.id), "other_files", filename)
+#
+# class BlogFile(models.Model):
+#     blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
+#     file = models.FileField(upload_to=get_blog_other_file_upload_path)
