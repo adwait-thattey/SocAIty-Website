@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -44,7 +44,7 @@
 
 
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="css/style_blog.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style_blog.css' %}">
         <style>
 
             @media only screen and (max-width: 1600px) {
@@ -310,6 +310,6 @@
 
     <!-- Custom JavaScript -->
 
-    <script src="js/script_blog.js"></script>
+    <script src="{% static 'blog/js/script_blog.js' %}"></script>
 </body>
 </html>
