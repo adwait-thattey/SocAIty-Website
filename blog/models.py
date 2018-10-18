@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils import timezone
+import datetime
 import os
 
 
@@ -21,16 +25,23 @@ def validate_blog_file_extension(incoming_file):
 def get_blog_upload_path(instance, filename):
     return os.path.join("blogs", str(instance.id), filename)
 
+def get_blog_image_upload_path(instance, filename):
+    return os.path.join("blogs", str(instance.id), "images", filename)
 
 class Blog(models.Model):
     title = models.CharField(max_length=50)
     author = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True)
-    create_date = models.DateTimeField()
+    create_date = models.DateTimeField('Date Published',default=timezone.now())
     upvotes = models.ManyToManyField(to=Vote, related_name="upvoted_blog")
     downvotes = models.ManyToManyField(to=Vote, related_name="downvoted_blog")
-    main_file = models.FileField(verbose_name="Blog Content File", upload_to=get_blog_upload_path,
-                                 validators=[validate_blog_file_extension])
-
+    short_description = models.TextField(blank=True,null=True)
+    body = RichTextUploadingField(blank=True,null=True)
+    picture = models.ImageField(blank=True,null=True,upload_to=get_blog_image_upload_path)
+    slug = models.SlugField(max_length=200)
+    def __str__(self):
+        return str(self.title) + ' : by ' + str(self.author)
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(minutes=1)
 
 # class BlogMeta(models.Model):
 #     blog = models.OneToOneField(to=Blog, on_delete=models.CASCADE)
@@ -66,9 +77,6 @@ class Blog(models.Model):
 #     blog = models.ForeignKey(to=BlogMeta, on_delete=models.CASCADE)
 #     audio = models.FileField(upload_to=get_blog_audio_upload_path, validators=[validate_blog_audio_file_extension])
 #
-#
-# def get_blog_image_upload_path(instance, filename):
-#     return os.path.join("blogs", str(instance.blog.id), "images", filename)
 #
 #
 # class BlogImage(models.Model):
