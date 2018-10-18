@@ -1,0 +1,109 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>RegistrationForm_v2 by Colorlib</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{% static 'registration/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
+		
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static 'registration/css/style.css' %}">
+		
+	</head>
+
+	<body>
+
+		<div class="wrapper">
+			<div class="inner">
+				<form class="form-style" action="" method="post">
+					{% csrf_token %}
+                    <h3 class="heading">Signup</h3>
+					<div class="form-group">
+						<div class="form-wrapper">
+							<label for="{{ register_form.first_name.id_for_label }}">First Name</label>
+							{{ register_form.first_name|attr:"placeholder:First Name"|add_class:"form-control" }}
+						</div>
+						<div class="form-wrapper">
+							<label for="{{ register_form.last_name.id_for_label }}">Last Name</label>
+							{{ register_form.last_name|attr:"placeholder:Last Name"|add_class:"form-control" }}
+						</div>
+					</div>
+					<div class="form-wrapper">
+						<label for="{{ register_form.username.id_for_label }}">Username</label>
+						{{ register_form.username|attr:"placeholder:username"|add_class:"form-control" }}
+                        <p class="message" id="username_errors"></p>
+					</div>
+					<div class="form-wrapper">
+						<label for="{{ register_form.email.id_for_label }}">Email</label>
+						{{ register_form.email|attr:"placeholder:Email"|add_class:"form-control" }}
+                        <p class="message" id="email_errors"></p>
+					</div>
+					<div class="form-wrapper" >
+						<label for="{{ register_form.password.id_for_label }}">Password</label>
+						{{ register_form.password|attr:"placeholder:Password"|add_class:"form-control" }}
+                        <p class="message" id="password_errors"></p>
+					</div>
+					<div class="form-wrapper" >
+						<label for="{{ register_form.confirm_password.id_for_label }}">Confirm Password</label>
+						{{ register_form.confirm_password|attr:"placeholder:Confirm Password"|add_class:"form-control" }}
+						<p class="message" id="password_confirm_errors"></p>
+					</div>
+
+                    <div style="display: none;">
+                        <label for="id_next_page">Next Page Redirect URL</label>
+                        <input type="text" name="next_page" id="id_next_page" value="{{ next_page }}">
+                    </div>
+					
+                    <button type="submit">Register</button>
+					
+					<div class="row">
+						<p>or<p>
+					</div>
+					
+					<div class="row">
+						<div class="col">
+							<a><img class="img-position" src="{% static 'registration/images/google.png' %}" width="64" height="64"></a>
+						</div>
+					
+						<div class="col">
+							<a><img class="img-position" src="{% static 'registration/images/github.png' %}" width="64" height="64"></a>
+						</div>
+					</div>
+					
+					<div class="row-3">
+						<p>Alerady have an account ? <a href="{% url 'registration:login' %}"><span style="color:blue;">Login</span></a> instead</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		$('#id_password, #id_confirm_password').on('keyup', function () {
+		  if ($('#id_password').val() == $('#id_confirm_password').val()) {
+			$('#password_confirm_errors').html('Matching').css('color', 'green');
+		  } else 
+			$('#password_confirm_errors').html('Not Matching').css('color', 'red');
+		});
+
+        {% if register_form.confirm_password.errors %}
+            $('#password_confirm_errors').html('{{ register_form.confirm_password.errors }}').css('color', 'red');
+        {% endif %}
+
+        {% if register_form.username.errors %}
+            $('#username_errors').html('{{ register_form.username.errors }}').css('color', 'red');
+        {% endif %}
+
+        {% if register_form.email.errors %}
+            $('#email_errors').html('{{ register_form.email.errors }}').css('color', 'red');
+        {% endif %}
+
+        {% if register_form.password.errors %}
+            $('#password_errors').html('{{ register_form.password.errors }}').css('color', 'red');
+        {% endif %}
+	</script>
+	</body>
+</html>
