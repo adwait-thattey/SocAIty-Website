@@ -4,6 +4,9 @@ from django.core.exceptions import ValidationError
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils.text import slugify
 import datetime
 import os
 
@@ -31,17 +34,39 @@ def get_blog_image_upload_path(instance, filename):
 class Blog(models.Model):
     title = models.CharField(max_length=50)
     author = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True)
-    create_date = models.DateTimeField('Date Published',default=timezone.now())
-    upvotes = models.ManyToManyField(to=Vote, related_name="upvoted_blog")
-    downvotes = models.ManyToManyField(to=Vote, related_name="downvoted_blog")
+    create_date = models.DateTimeField('Date Published',default=timezone.now)
+    upvotes = models.ManyToManyField(to=Vote, related_name="upvoted_blog",blank=True)
+    downvotes = models.ManyToManyField(to=Vote, related_name="downvoted_blog",blank=True)
     short_description = models.TextField(blank=True,null=True)
     body = RichTextUploadingField(blank=True,null=True)
     picture = models.ImageField(blank=True,null=True,upload_to=get_blog_image_upload_path)
-    slug = models.SlugField(max_length=200)
+    slug = models.SlugField(max_length=200,unique=True)
+
     def __str__(self):
         return str(self.title) + ' : by ' + str(self.author)
+
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(minutes=1)
+    # #
+    # def _get_unique_slug(self):
+    #     slug = slugify(self.title)
+    #     unique_slug = slug
+    #     num = 1
+    #     while Blog.objects.filter(slug=unique_slug).exists():
+    #         unique_slug = '{}-{}'.format(slug, num)
+    #         num += 1
+    #     return unique_slug
+    # #TODO
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = self._get_unique_slug()
+    #     super().save(*args, **kwargs)
+    #TODO
+
+@receiver(pre_save,sender=Blog)
+def pre_save_slug(sender,**kwargs):
+    slug = slugify(kwargs['instance'].title)
+    kwargs['instance'].slug=slug
 
 # class BlogMeta(models.Model):
 #     blog = models.OneToOneField(to=Blog, on_delete=models.CASCADE)
