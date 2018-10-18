@@ -1,4 +1,4 @@
-"""home URL Configuration
+"""testing_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -15,16 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from home import views as home_views
 from django.conf import settings
-from django.conf.urls.static import static
-
+from . import views
+app_name = 'blog'
 urlpatterns = [
-    path('', home_views.index, name="home"),
-    path('blogs/',include('blog.urls')),
-    path('admin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('',views.blog_list,name='blog_list'),
+    path('blog_create/',views.blog_create,name='blog_create'),
+    # path('blog_detail/<str:username>/<slug:blog_slug>/',views.blog_detail,name='blog_detail'),
+    # path('blog_edit/<str:username>/<slug:blog_slug>/',views.blog_edit,name='blog_edit'),
 ]
-
-if settings.DEBUG is True:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
