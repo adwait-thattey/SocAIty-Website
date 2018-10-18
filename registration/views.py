@@ -21,7 +21,7 @@ def ajaxlogin(request):
     if len(q_set) > 0:
         user = q_set[0]
         if user.check_password(password):
-            login(request, user)
+            login(request, user,backend='django.contrib.auth.backends.ModelBackend')
             ret_data["logged_in"] = True
 
     return ret_data
@@ -55,6 +55,7 @@ def register(request):
         registerform = RegisterForm(request.POST)
         next_page = request.POST.get("next_page", "")
 
+
         if registerform.is_valid():
             user = User.objects.create_user(username=registerform.cleaned_data["username"],
                                             email=registerform.cleaned_data["email"],
@@ -65,10 +66,10 @@ def register(request):
             user.last_name = registerform.cleaned_data["last_name"]
 
             user.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
             try:
                 url_match = resolve(next_page)
-
                 return redirect(next_page)
             except Resolver404:
                 return redirect('home')

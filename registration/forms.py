@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 import django.forms as forms
 from django.core.exceptions import ValidationError
+from django.core.validators import MinLengthValidator
 
 
 class RegisterForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput())
-    password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput(), validators=[MinLengthValidator(8)])
 
     class Meta:
         model = User
@@ -23,7 +24,7 @@ class RegisterForm(forms.ModelForm):
 
         email = cleaned_data.get("email")
 
-        email_qset = User.objects.filter(email=username)
+        email_qset = User.objects.filter(email=email)
 
         if len(email_qset) > 0:
             self.add_error("email",
