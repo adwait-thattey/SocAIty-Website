@@ -17,14 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from home import views as home_views
 
-
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('', home_views.index, name="home"),
     path('admin/', admin.site.urls),
-    path('registration/', include('registration.urls'))
+    path('registration/', include('registration.urls')),
+    path('auth/', include('social_django.urls', namespace='social'))
 ]
 
 if settings.DEBUG is True:
