@@ -10,13 +10,16 @@ import os
 
 
 # Create your models here.
+def tag_name_validator(tag_name):
+    if '_' in tag_name:
+        raise ValidationError("The Tag Name can not contain underscores (_)")
 
 
 class Tag(models.Model):
-    tag_name = models.CharField(verbose_name="Tag Name", max_length=15)
+    name = models.CharField(verbose_name="Tag Name", max_length=15, validators=[tag_name_validator])
 
     def __str__(self):
-        return self.tag_name
+        return self.name
 
     @property
     def blogcount(self):
@@ -45,10 +48,14 @@ class Blog(models.Model):
     upvotes = models.PositiveIntegerField(verbose_name="Upvotes", editable=False, default=0)
     downvotes = models.PositiveIntegerField(verbose_name="Downvotes", editable=False, default=0)
     short_description = models.TextField(blank=True, null=True)
+    #TODO Put relevant maxlength limit here
     body = RichTextUploadingField(blank=True, null=True)
     picture = models.ImageField(blank=True, null=True, upload_to=get_blog_image_upload_path)
     slug = models.SlugField(max_length=200)
     tags = models.ManyToManyField(to=Tag, blank=True)
+
+    class Meta:
+        ordering = ['-create_date']
 
     def __str__(self):
         return str(self.title) + ' : by ' + str(self.author)
@@ -72,12 +79,14 @@ class Blog(models.Model):
     # TODO Set Cron Job to call recount periodically
 
     def upvote(self, user):
-        vote = Vote(voter=user, blog=self, upvote_downvote=1)
+        vote = Vote(voter=user, blog=self, upvote_downvote=0)
         vote.save()
+        vote.upvote()
 
     def downvote(self, user):
-        vote = Vote(voter=user, blog=self, upvote_downvote=-1)
+        vote = Vote(voter=user, blog=self, upvote_downvote=0)
         vote.save()
+        vote.downvote()
 
 
 class Vote(models.Model):
@@ -93,19 +102,38 @@ class Vote(models.Model):
 
     def upvote(self):
         if self.upvote_downvote != 1:
+            pre = self.upvote_downvote
             self.upvote_downvote = 1
             self.save()
 
             self.blog.upvotes += 1
+            if pre == -1:
+                self.blog.downvotes -= 1
             self.blog.save()
 
     def downvote(self):
         if self.upvote_downvote != -1:
+            pre = self.upvote_downvote
             self.upvote_downvote = -1
             self.save()
 
             self.blog.upvotes -= 1
+            if pre == 1:
+                self.blog.upvotes -= 1
             self.blog.save()
+
+    def novote(self):
+        if self.upvote_downvote == 1:
+            self.upvote_downvote = 0
+            self.save()
+            self.blog.upvotes -= 1
+
+        elif self.upvote_downvote == -1:
+            self.upvote_downvote = 0
+            self.save()
+            self.blog.downvotes -= 1
+
+        self.blog.save()
 
     def __str__(self):
         return str(self.id)
@@ -115,9 +143,15 @@ class Vote(models.Model):
             super().save(*args, **kwargs)
         except IntegrityError:
             vote = Vote.objects.get(voter=self.voter, blog=self.blog)
-            vote.delete()
-            super().save(*args, *kwargs)
-
+            if self.upvote_downvote == -1:
+                vote.downvote()
+            elif self.upvote_downvote == 0:
+                self.novote()
+            elif self.upvote_downvote == 1:
+                self.upvote()
+            else:
+                self.novote()
+                raise ValueError("One of the votes has a value other than -1, 0 1")
 
 # class BlogMeta(models.Model):
 #     blog = models.OneToOneField(to=Blog, on_delete=models.CASCADE)
