@@ -45,11 +45,10 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-
     {% comment %}<link href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %}">
     <link href="{% static 'ckeditor/ckeditor/contents.css' %}">
     <script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>{% endcomment %}
-{#    <script src="{% static 'blog/js/script_blog.js' %}"></script>#}
+    {#    <script src="{% static 'blog/js/script_blog.js' %}"></script>#}
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style_blog.css' %}">
 
@@ -59,10 +58,13 @@
     <script>hljs.initHighlightingOnLoad();</script>
 
     <style>
-        code{
+        code {
 
         }
     </style>
+    <script>
+        var disqus_developer = 1;
+    </script>
 </head>
 <body>
 <header class="header">
@@ -127,10 +129,10 @@
                 <div class="blog-info mt-4">
                     <p><span class="date mr-5"><i class="far fa-eye text-red">&nbsp;</i> {{ blog.views }}</span>
                         <span class="main_tags"><i class="fa fa-bookmark-o text-red">&nbsp;</i></span>
-                            {% for tag in blog.tags.all %}
-                                <a href="{% url 'blog:blog_list' %}?tag={{ tag.name|strtosnake }}">{{ tag.name }}
-                                </a>
-                            {% endfor %}
+                        {% for tag in blog.tags.all %}
+                            <a href="{% url 'blog:blog_list' %}?tag={{ tag.name|strtosnake }}">{{ tag.name }}
+                            </a>
+                        {% endfor %}
                 </div>
 
                 <div class="row">
@@ -174,6 +176,31 @@
             {{ blog.body|safe }}
         </div>
 
+
+        <div class=container">
+
+        <div id="disqus_thread"></div>
+        <script>
+
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+            var disqus_url = 'http://localhost:8000{{ request.path }}';
+            var disqus_config = function () {
+            this.page.url = {{ request.path }};  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = {{ blog.disqus_identifier }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+
+            (function () { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://socaity.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        </div>
     </section>
 
 
@@ -188,22 +215,16 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 
 <!-- Custom JavaScript -->
-
-
-
-
+{#TODO DISQUS NOT WORKING. TRY USING LIBRARY#}
 
 <script>
-   {% comment %} setInterval(function () {
-        $('iframe[src*="disqusads.com"]').each(function () {
-            $(this).css("display", "none");
-        });
-    }, 100);{% endcomment %}
+    {% comment %} setInterval(function () {
+         $('iframe[src*="disqusads.com"]').each(function () {
+             $(this).css("display", "none");
+         });
+     }, 100);{% endcomment %}
 </script>
 
-
-
-
-
+<script id="dsq-count-scr" src="//socaity.disqus.com/count.js" async></script>
 </body>
 </html>

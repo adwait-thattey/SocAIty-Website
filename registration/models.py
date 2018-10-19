@@ -21,7 +21,7 @@ class EmailConfirmation(models.Model):
 class UserProfile(models.Model):
     DEFAULT_IMG = '/accounts/default/default_profile_pic.jpg'
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    about = models.TextField(null=True)
+    about = models.TextField(null=True, blank=True)
     profile_pic = models.ImageField(upload_to=get_user_profile_pic_upload_path, default=DEFAULT_IMG, blank=False,
                                     null=False)
     github_url = models.URLField(verbose_name="Github Profile Url", blank=True)

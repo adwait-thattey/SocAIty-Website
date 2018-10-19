@@ -58,11 +58,13 @@ class Blog(models.Model):
     short_description = models.TextField(blank=True, null=True)
     # TODO Put relevant maxlength limit here
     body = RichTextUploadingField(blank=True, null=True)
-    picture = models.ImageField(blank=True, null=True, upload_to=get_blog_image_upload_path)
+    picture = models.ImageField(blank=False, upload_to=get_blog_image_upload_path)
     slug = models.SlugField(max_length=200, null=True, blank=True,
                             help_text="This slug will form the url of your blog. The Url will be blogs/blog/<your username>/<slug>")
     tags = models.ManyToManyField(to=Tag, blank=True)
     views = models.PositiveIntegerField(verbose_name="Views", default=0, editable=False)
+
+    disqus_identifier = models.BigIntegerField(editable=False, default=0)
 
     # TODO Improve the procedure of counting views (See the blog detail view)
 
@@ -102,6 +104,9 @@ class Blog(models.Model):
         vote.downvote()
 
     def save(self, *args, **kwargs):
+        if self.disqus_identifier == 0:
+            self.disqus_identifier = 16*(self.id + 1024)
+
         if str(self.slug) == "None":
             self.slug = self.title.lower().replace(' ', '-')
 

@@ -27,6 +27,7 @@ urlpatterns = [
     path('registration/', include('registration.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
 
 if settings.DEBUG is True:

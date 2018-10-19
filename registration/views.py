@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -90,3 +90,8 @@ def register(request):
 
 def disqus(request):
     return render(request, 'registration/disqustrial.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
