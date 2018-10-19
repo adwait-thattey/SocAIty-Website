@@ -10,21 +10,24 @@
 
 <style>
 	
+	@import url('https://fonts.googleapis.com/css?family=Raleway');
+	
 	.edit_blog{
 		margin: 2rem;
 		padding: 1.1rem;
-		width: 46vw;
+		width: 65vw;
 		background-color: aliceblue;
 		border-radius:3rem;
 		border:none;
 		outline:none;
+		font-size:15px;
+		font-weight:bold;
+		color:#949494;
 	}
 	
 	.title{
 		margin-left:3.5rem;
 		padding-left:1.5rem;
-		font-size:15px;
-		font-weight:bold;
 	}
 	
 	
@@ -32,12 +35,10 @@
 	.description{
 		resize:none;
 		margin-left:3.5rem;
-		font-size:15px;
-		font-weight:bold;
 	}
 	
 	.picture_file{
-		width:23vw;
+		width:30vw;
 		margin-left:3.5rem;
 		outline:none;
 		padding-left:1.5rem;
@@ -47,27 +48,40 @@
 	.edit_blog_form{
 		width:50%;
 		margin:7rem 5rem;
+		font-family: 'Raleway', sans-serif;
 	}
 	
-
+	
+	span{
+		font-size:25px;
+		font-weight:bold;
+		color:#594236
+	}
+	
+	
+	.edit_blog_body{
+}
+	
 </style>
 
 </head>
 
 
 
-<body>
+<body class="edit_blog_body">
 
 <form class="edit_blog_form">
 	
 	<span class="title">Title :- </span>
-	<input class="edit_blog title" type="text" name="title">
+	<input class="edit_blog title" type="text" name="title" placeholder="Add title here">
 		
 	<span class="title">Description :- </span>
-	<textarea class="edit_blog description" name="description" rows="10" cols="65">	</textarea>
+	<textarea class="edit_blog description" name="description" rows="13" cols="68" placeholder="Give a brief description here">	</textarea>
 	
+	<span class="title">Upload Picture :- </span>
 	<input class="edit_blog picture_file" type="file" name="photo">
 	
+	<span class="title">URL :- </span>
 	<input class="edit_blog title">
 	
 </form>
