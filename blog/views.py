@@ -45,7 +45,7 @@ def blog_list(request):
 @login_required
 def blog_create(request):
     if not request.user.userprofile.blog_create_permission:
-        return Http404()
+        raise Http404('This page does not exist')
 
     if request.method == 'POST':
         form = BlogCreateForm(request.POST)

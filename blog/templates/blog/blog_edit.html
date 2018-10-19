@@ -1,3 +1,5 @@
+{% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,16 +63,63 @@
 <form class="edit_blog_form">
 	
 	<span class="title">Title :- </span>
-	<input class="edit_blog title" type="text" name="title">
+	{{ form.title|add_class:"edit_blog title"|attr:"onchange:change_slug(this.value)" }}
 		
 	<span class="title">Description :- </span>
-	<textarea class="edit_blog description" name="description" rows="10" cols="65">	</textarea>
-	
-	<input class="edit_blog picture_file" type="file" name="photo">
-	
-	<input class="edit_blog title">
-	
+	{{ form.short_description|add_class:"edit_blog description" }}
+
+    <div onchange="update_profile_image()">
+	{{ form.picture|add_class:"edit_blog picture_file" }}
+    </div>
+    <div>
+        <img style="width:20vw; height: auto" id='display_image' src="{{ form.picture.value.url }}" onclick="open_profile_pic_upload_box()">
+    </div>
+    <div>
+    {{ form.media }}
+    {{ form.body }}
+    </div>
+
+    <div>
+	Url Slug : {{ form.slug }}
+    </div>
+    <div>
+    <input type="submit" value="Edit Changes">
+    </div>
 </form>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+      file_upload_box = document.getElementById('{{ form.picture.id_for_label }}');
+      function open_profile_pic_upload_box() {
+        file_upload_box.click();
+      }
+      profile_image = document.getElementById('display_image');
+      profile_image.onclick = open_profile_pic_upload_box();
+
+      function update_profile_image() {
+
+
+        if (file_upload_box.files && file_upload_box.files[0]) {
+          let reader = new FileReader();
+
+          reader.onload = function(e) {
+            profile_image.src = e.target.result;
+          };
+
+          reader.readAsDataURL(file_upload_box.files[0]);
+        }
+      }
+
+
+    </script>
+<script>
+
+    slug = document.getElementById('id_slug');
+    title = document.getElementById('id_title');
+    function change_slug(incoming_value) {
+        slug.value = incoming_value.replace(' ', '-').toLowerCase();
+    }
+
+</script>
 </body>
 
 
