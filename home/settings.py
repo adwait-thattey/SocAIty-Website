@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 try:
     from . import secret_settings
 except ImportError:
-   raise ImportError("This module contains contains secret settings and is not uploaded on GitHub. Please contact Adwait Thattey, to get this module running on your machine ")
+    raise ImportError("This module contains contains secret settings and is not uploaded on GitHub. Please contact Adwait Thattey, to get this module running on your machine ")
 
 import os
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'home',
     'blog',
+    'social_django',
     'ckeditor',
     'ckeditor_uploader',
     'registration'
@@ -149,10 +150,22 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+    'social_core.backends.github.GithubOAuth2',  # for Github authentication
+    # 'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'home.wsgi.application'
 
@@ -204,3 +217,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'registration:login'
+
+
+#OAuth Keys
+#TODO Replace with javascript oauth (Go to google dev console to see javascript oauth redirects)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='488190015416-mr8l4qv8fe27fgf0c696la03gsdgmnpc.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'puKXZyEbH4x4w0yBnOiKWLM1'
+
+SOCIAL_AUTH_GITHUB_KEY = '8b678c55e669235eeafd'
+SOCIAL_AUTH_GITHUB_SECRET = '6d7a801769bc8410f5254c7aed4ef1c71c244c0b'
