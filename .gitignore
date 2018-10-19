@@ -106,4 +106,8 @@ venv.bak/
 
 #Editors
 .idea/
-.vscode/
+.vscode/ 
+
+
+# Secret Settings
+secret_settings.py
