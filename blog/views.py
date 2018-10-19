@@ -26,6 +26,8 @@ def blog_list(request):
     if sortby:
         if sortby == "like":
             blogs = blogs.order_by('-upvotes')
+        elif sortby == "view":
+            blogs = blogs.order_by('-views')
         elif sortby == "old":
             # print(sortby)
             blogs = blogs.order_by('create_date')
@@ -36,7 +38,8 @@ def blog_list(request):
 
     # print(blogs)
     return render(request, 'blog/blog_list2.html',
-                  {'tags': tags, 'blogs': blogs, "default_profile_pic": default_profile_pic, "selected_tag": ret_selected_tag, "sortby":sortby})
+                  {'tags': tags, 'blogs': blogs, "default_profile_pic": default_profile_pic,
+                   "selected_tag": ret_selected_tag, "sortby": sortby})
 
 
 @login_required
@@ -52,26 +55,29 @@ def blog_create(request):
     return render(request, 'blog/blog_create.html', {'form': form})
 
 
-def blog_detail(request,username,slug):
+def blog_detail(request, username, slug):
     author = User.objects.get(username=username)
-    blog = get_object_or_404(Blog,author=author,slug=slug)
+    blog = get_object_or_404(Blog, author=author, slug=slug)
+    blog.views += 1  # TODO Change this method of counting views. Not correct
+    blog.save()
     context = {
         'blog': blog,
     }
-    return render(request,'blog/blog_detail.html',context)
+    return render(request, 'blog/blog_detail_view.html', context)
+
 
 @login_required
-def blog_edit(request,username,slug):
+def blog_edit(request, username, slug):
     author = User.objects.get(username=username)
-    blog = get_object_or_404(Blog,author=author,slug=slug)
+    blog = get_object_or_404(Blog, author=author, slug=slug)
     if request.method == 'POST':
-        form = BlogCreateForm(data=request.POST,instance=blog)
+        form = BlogCreateForm(data=request.POST, instance=blog)
         if form.is_valid:
             form.save()
             return HttpResponseRedirect(reverse('blog:blog_list'))
     else:
         form = BlogCreateForm(instance=blog)
     context = {
-        'form':form,
+        'form': form,
     }
-    return render(request,'blog/blog_edit.html',context)
+    return render(request, 'blog/blog_edit.html', context)

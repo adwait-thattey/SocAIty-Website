@@ -56,6 +56,8 @@ class Blog(models.Model):
     picture = models.ImageField(blank=True, null=True, upload_to=get_blog_image_upload_path)
     slug = models.SlugField(max_length=200)
     tags = models.ManyToManyField(to=Tag, blank=True)
+    views = models.PositiveIntegerField(verbose_name="Views", default=0, editable=False)
+    #TODO Improve the procedure of counting views (See the blog detail view)
 
     class Meta:
         ordering = ['-create_date']

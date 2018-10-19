@@ -118,6 +118,7 @@ CKEDITOR_CONFIGS = {
             'codesnippet',
         ]),
     },
+
     'special': {
         'toolbar': 'Special',
         'toolbar_Special': [

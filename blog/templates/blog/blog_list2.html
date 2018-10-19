@@ -129,6 +129,17 @@
             <label class="form-check-label" for="materialInline2">Most Liked</label>
         </div>
 
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample"
+            onclick="sortbyarg('view')"
+                   {% if sortby == "view" %}
+
+                       checked = "checked"
+                    {% endif %}
+            >
+            <label class="form-check-label" for="materialInline2">Most Viewed</label>
+        </div>
+
         <!-- Material inline 3 -->
         <div class="form-check form-check-inline">
             <input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample"
@@ -197,7 +208,7 @@
                                         {% endfor %}
 
                                     </div>
-                                    <a href="post.html">
+                                    <a href="{% url 'blog:blog_detail' blog.author.username blog.slug %}">
                                         <h2 class="h4">{{ blog.title|title }}</h2></a>
                                 </header>
                                 <p>{{ blog.short_description }}</p>
