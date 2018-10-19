@@ -1,9 +1,78 @@
-<br><br>
-<form method="post">
-  {% csrf_token %}
-  {{ form.media }}
-  {{ form.as_p }}
-  <input type="submit" value="Save Changes" class="btn btn-outlined-success">
-</form>
+<!DOCTYPE html>
+<html>
+<head>
 
-<br><br>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+	
+	.edit_blog{
+		margin: 2rem;
+		padding: 1.1rem;
+		width: 46vw;
+		background-color: aliceblue;
+		border-radius:3rem;
+		border:none;
+		outline:none;
+	}
+	
+	.title{
+		margin-left:3.5rem;
+		padding-left:1.5rem;
+		font-size:15px;
+		font-weight:bold;
+	}
+	
+	
+	
+	.description{
+		resize:none;
+		margin-left:3.5rem;
+		font-size:15px;
+		font-weight:bold;
+	}
+	
+	.picture_file{
+		width:23vw;
+		margin-left:3.5rem;
+		outline:none;
+		padding-left:1.5rem;
+	}
+	
+	
+	.edit_blog_form{
+		width:50%;
+		margin:7rem 5rem;
+	}
+	
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<form class="edit_blog_form">
+	
+	<span class="title">Title :- </span>
+	<input class="edit_blog title" type="text" name="title">
+		
+	<span class="title">Description :- </span>
+	<textarea class="edit_blog description" name="description" rows="10" cols="65">	</textarea>
+	
+	<input class="edit_blog picture_file" type="file" name="photo">
+	
+	<input class="edit_blog title">
+	
+</form>
+</body>
+
+
+</html>
+
