@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, Http404
 from django.urls import reverse
 from .models import Blog, Tag
 from .forms import BlogCreateForm
@@ -44,6 +44,9 @@ def blog_list(request):
 
 @login_required
 def blog_create(request):
+    if not request.user.userprofile.blog_create_permission:
+        return Http404()
+
     if request.method == 'POST':
         form = BlogCreateForm(request.POST)
         if form.is_valid:
