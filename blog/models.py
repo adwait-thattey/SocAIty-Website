@@ -5,6 +5,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils.text import slugify
 import datetime
 import os
 
@@ -88,6 +91,10 @@ class Blog(models.Model):
         vote.save()
         vote.downvote()
 
+@receiver(pre_save,sender=Blog)
+def pre_save_slug(sender,**kwargs):
+    slug = slugify(kwargs['instance'].title)
+    kwargs['instance'].slug=slug
 
 class Vote(models.Model):
     voter = models.ForeignKey(to=User, on_delete=models.CASCADE)

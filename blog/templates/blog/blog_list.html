@@ -15,7 +15,7 @@
       <div class="col-md-6">
         <br><br>
         <div class="img-thumbnail">
-          <a>{{b.title}}</a><br>
+          <a href="{% url 'blog:blog_detail' b.author.username b.slug %}">{{b.title}}</a><br>
           <p>{{b.short_description | safe }}</p>
           <p>{{b.body | safe}}</p>
         </div>

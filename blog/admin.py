@@ -4,10 +4,12 @@ from .models import Vote, Blog, Tag
 
 # Register your models here.
 
-class PostAdmin(admin.ModelAdmin):
-    search_fields = ('author__username', 'title')
-    prepopulated_fields = {'slug': ('title',)}
-    date_hierarchy = ('created')
+class BlogAdmin(admin.ModelAdmin):
+    search_fields = ('author__username','title')
+    prepopulated_fields = {'slug':('title',)}
+    date_hierarchy = ('create_date')
+
+admin.site.register(Blog,BlogAdmin)
 
 
 class VoteAdmin(admin.ModelAdmin):
@@ -38,6 +40,5 @@ admin.site.register(Vote,VoteAdmin)
 
 admin.site.register((
     Tag,
-    Blog,
 
 ))

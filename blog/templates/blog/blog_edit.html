@@ -1,0 +1,8 @@
+<br><br>
+<form method="post">
+  {% csrf_token %}
+  {{ form.media }}
+  {{ form.as_p }}
+  <input type="submit" value="Save Changes" class="btn btn-outlined-success">
+</form>
+<br><br>

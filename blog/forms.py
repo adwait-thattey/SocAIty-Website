@@ -7,7 +7,7 @@ class BlogCreateForm(forms.ModelForm):
         model = Blog
         fields = (
             'title',
-            'body',
             'short_description',
             'picture',
+            'body',
         )
