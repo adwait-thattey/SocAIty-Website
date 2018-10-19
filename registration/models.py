@@ -26,6 +26,8 @@ class UserProfile(models.Model):
                                     null=False)
     github_url = models.URLField(verbose_name="Github Profile Url", blank=True)
 
+    blog_create_permission = models.BooleanField(default=False)
+
     def __str__(self):
         return self.user.username
 

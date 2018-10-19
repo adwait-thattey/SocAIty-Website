@@ -1,7 +1,8 @@
-
+{% load static %}
+{% load blog_filters %}
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SocAIty Blog Page</title>
@@ -10,200 +11,199 @@
     <meta name="robots" content="all,follow">
 
     <!-- Bootstrap CSS-->
-    
+
     <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/bootstrap/css/bootstrap.min.css">
 
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/font-awesome/css/font-awesome.min.css">
-    
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/font-awesome/css/font-awesome.min.css">
+
     <!-- Custom icon font-->
     <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/fontastic.css">
-    
+
     <!-- Google fonts - Open Sans-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-    
+
     <!-- Fancybox-->
-    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
-    
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
+
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/style.default.css" id="theme-stylesheet">
-    
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/style.default.css"
+          id="theme-stylesheet">
+
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/custom.css">
-    
+
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
 
     <!-- Fontawesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-        
-        
+
+
+    {% comment %}<link href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %}">
+    <link href="{% static 'ckeditor/ckeditor/contents.css' %}">
+    <script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>{% endcomment %}
+{#    <script src="{% static 'blog/js/script_blog.js' %}"></script>#}
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="css/style_blog.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style_blog.css' %}">
 
-  </head>
-  <body>
-    <header class="header">
-      <!-- Main Navbar-->
+    <link rel="stylesheet"
+          href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/default.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <style>
+        code{
+
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <!-- Main Navbar-->
 
 
-      <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
         <div class="search-area">
-          <div class="search-area-inner d-flex align-items-center justify-content-center">
-            <div class="close-btn"><i class="icon-close"></i></div>
-            <div class="row d-flex justify-content-center">
-              <div class="col-md-8">
-                <form action="#">
-                  <div class="form-group">
-                    <input type="search" name="search" id="search" placeholder="What are you looking for?">
-                    <button type="submit" class="submit"><i class="icon-search-1"></i></button>
-                  </div>
-                </form>
-              </div>
+            <div class="search-area-inner d-flex align-items-center justify-content-center">
+                <div class="close-btn"><i class="icon-close"></i></div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8">
+                        <form action="#">
+                            <div class="form-group">
+                                <input type="search" name="search" id="search" placeholder="What are you looking for?">
+                                <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
         <div class="container">
-          <!-- Navbar Brand -->
-          <div class="navbar-header d-flex align-items-center justify-content-between">
-            <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
-            <!-- Toggle Button-->
-            <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
-          </div>
-          <!-- Navbar Menu -->
-          <div id="navbarcollapse" class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href="index.html" class="nav-link active ">Home</a>
-              </li>
-              <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a>
-              </li>
-              <li class="nav-item"><a href="post.html" class="nav-link ">Post</a>
-              </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
-              </li>
-            </ul>
-            <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
-            <ul class="langs navbar-text"><a href="#" class="active">EN</a><span>           </span><a href="#">ES</a></ul>
-          </div>
+            <!-- Navbar Brand -->
+            <div class="navbar-header d-flex align-items-center justify-content-between">
+                <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+                <!-- Toggle Button-->
+                <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
+                        aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler"><span></span><span></span><span></span></button>
+            </div>
+            <!-- Navbar Menu -->
+            <div id="navbarcollapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link active ">Home</a>
+                    </li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a>
+                    </li>
+                    <li class="nav-item"><a href="post.html" class="nav-link ">Post</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
+                    </li>
+                </ul>
+                <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+                <ul class="langs navbar-text"><a href="#" class="active">EN</a><span>           </span><a
+                        href="#">ES</a></ul>
+            </div>
         </div>
-      </nav>
- 
-    </header>
-    
-    <div class="container">
+    </nav>
+
+</header>
+
+<div class="container">
 
 
-            
+    <section class="row pb-0">
 
+        <article>
 
-                    <section class="row justify-content-md-center pb-0">
-                      
-                        <article>
+            <div class="heading float-right">
+                <h1>{{ blog.title|title }}  </h1>
+                <div class="blog-info mt-4">
+                    <p><span class="date mr-5"><i class="far fa-eye text-red">&nbsp;</i> {{ blog.views }}</span>
+                        <span class="main_tags"><i class="fa fa-bookmark-o text-red">&nbsp;</i></span>
+                            {% for tag in blog.tags.all %}
+                                <a href="{% url 'blog:blog_list' %}?tag={{ tag.name|strtosnake }}">{{ tag.name }}
+                                </a>
+                            {% endfor %}
+                </div>
 
-                          <div class="heading float-right">
-                                <h1>Aaquib developed a new machine learning algortihm </h1>   
-                                <div class="blog-info mt-4">
-                                        <p><span class="date mr-5"><i class="far fa-eye text-red">&nbsp;</i> 1546</span>  
-                                        <span class="main_tags" ><i class="fa fa-bookmark-o text-red">&nbsp;</i> <a href="/blog/tags/bootstrap.stml">Tag 1<span>,</span></a> <a href="/blog/tags/tutorials.stml">Tag 2<span>,</span></a> <a href="/blog/tags/posts.stml">TAg 3<span>,</span></a> </span>          </p>
-                                </div>
-                                <div class="row">
-                                   <div class="col-2"><img class="img-thumbnail img-circle"  src="https://www.w3schools.com/bootstrap/newyork.jpg" alt="" width="100" height="100"></div> 
-                                   <div class="col-8" style="padding:16px 0;">
-                                    <div > <i>Author</i> </div>   
-                                    <span ><i class="fa fa-clock-o text-red"></i> October 27, 2016</span></div>   
-                                </div>
-                                
-                                <div class="fixed-share my-3">
+                <div class="row">
+                    <div class="col-2"><img class="img-thumbnail img-circle" style="border-radius: 100px;"
+                                            src="{{ blog.author.userprofile.profile_pic.url }}" alt="" width="100"
+                                            height="100"></div>
+                    <div class="col-8" style="padding:16px 0;">
+                        <div><i>{{ blog.author.get_full_name }}</i></div>
+                        <span><i class="fa fa-clock-o text-red"></i> {{ blog.create_date }}</span></div>
+                </div>
 
-                                    <a class="d-inline-block" href="https://www.facebook.com/share.php?u=https://www.solodev.com/blog/web-design/creating-a-blog-with-bootstrap.stml" target="_blank" aria-label="Share on Facebook"><i class="fa rounded-circle text-space-gray fa-facebook border-x border-y text-center" aria-hidden="true">&nbsp;&nbsp;</i></a> 
+                <div class="fixed-share my-3">
+
+                    {% comment %}<a class="d-inline-block" href="https://www.facebook.com/share.php?u=https://www.solodev.com/blog/web-design/creating-a-blog-with-bootstrap.stml" target="_blank" aria-label="Share on Facebook"><i class="fa rounded-circle text-space-gray fa-facebook border-x border-y text-center" aria-hidden="true">&nbsp;&nbsp;</i></a>
                                     <a class="d-inline-block" href="//www.twitter.com/intent/tweet?text=Creating a Blog with Bootstrap&amp;url=https://www.solodev.com/blog/web-design/creating-a-blog-with-bootstrap.stml" target="_blank" aria-label="Share on Twitter"><i class="fa rounded-circle text-space-gray fa-twitter border-x border-y text-center" aria-hidden="true">&nbsp;&nbsp;</i></a> 
                                     <a class="d-inline-block" href="https://www.linkedin.com/shareArticle?&amp;url=https://www.solodev.com/blog/web-design/creating-a-blog-with-bootstrap.stml" target="_blank" aria-label="Share on Linkedin"><i class="fa rounded-circle text-space-gray fa-linkedin border-x border-y text-center" aria-hidden="true">&nbsp;&nbsp;</i></a> 
                                     <a class="d-inline-block" href="mailto:?subject=Link%20on%20solodev.com/blog&amp;body=https://www.solodev.com/blog/web-design/creating-a-blog-with-bootstrap.stml" aria-label="Email"><i class="fa rounded-circle text-space-gray fa-envelope-o border-x border-y text-center" aria-hidden="true">&nbsp;&nbsp;</i></a>
-                                </div>
-                                <hr>
-                          </div>
-                                
-                          </article>
+{% endcomment %}
+                    {#                                TODO These links are not working. Make these work #}
+                </div>
+                <hr>
+            </div>
 
-                      
-                    </section>
+        </article>
 
-                    <section>
-                            <div class="container">
-                                  <div class="d-flex justify-content-center">
-                              <img class="mb-5" src="https://i0.wp.com/www.pctechguide.com/wp-content/uploads/2015/08/cool-computer-2.png?ssl=1" alt="">
-                            </div>
-                              <h2> Mauris placerat eleifend leo.</h2>
-                              <p class="lead">Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+
+    </section>
+
+    <section>
+        <div class="container">
+            <div class=" justify-content-center">
+                <img class="mb-5" style="width: 100%; height: auto" src="{{ blog.picture.url }}" alt="">
+            </div>
+            {#                              <h2> Mauris placerat eleifend leo.</h2>#}
+            {% comment %}<p class="lead">Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
                               <p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
-                            </div>
-                    </section>
+
+          {% endcomment %}
+            {#                            TODO Short DIscription is not currently put. Check this with Sri Harsha#}
+
+            {{ blog.body|safe }}
+        </div>
+
+    </section>
+
+
+</div>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/jquery/jquery.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/popper.js/umd/popper.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/js/front.js"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+<!-- Custom JavaScript -->
 
 
 
 
-                    
+
+<script>
+   {% comment %} setInterval(function () {
+        $('iframe[src*="disqusads.com"]').each(function () {
+            $(this).css("display", "none");
+        });
+    }, 100);{% endcomment %}
+</script>
 
 
-    </div>
-    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/jquery/jquery.min.js"></script>
-    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
-    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/js/front.js"></script>
- 
-    <!-- Custom JavaScript -->
-    <script type="application/ld+json">
-        {  
-          "@context": "http://schema.org",
-          "@type": "NewsArticle",
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://www.solodev.com/blog/web-design/creating-a-blog-with-bootstrap.stml"
-          },
-          "headline": "Creating a Blog with Bootstrap",
-          "image": {
-            "@type": "ImageObject",
-            "url": "https://www.solodev.com/core/fileparse.php/131/urlt/bootstrap-blog-full-rss.png",
-            "width": "480",
-            "height": "285"
-          },
-          "datePublished": "October 27, 2016 9:00am",
-          "dateModified": "October 27, 2016 9:00am",
-          "author": {
-            "@type": "Organization",
-            "name": "Solodev CMS"
-          },
-           "publisher": {
-            "@type": "Organization",
-            "name": "Solodev CMS",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://www.solodev.com/_/images/solodev-logo.png",
-              "width": "140",
-              "height": "31"
-            }
-          },
-          "description": "A blog is a great way to add interactivity to your website. This tutorial provides the code you need to build an enterprise-level blog using the Bootstrap framework."
-        }
-        </script>         
-        
-        
-        
-        <script>
-        setInterval(function() {
-            $('iframe[src*="disqusads.com"]').each(function() {
-              $(this).css("display", "none");
-            }); 
-        }, 100);
-        </script>
-    <script src="js/script_blog.js"></script>
+
+
+
 </body>
 </html>

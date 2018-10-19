@@ -44,21 +44,31 @@ def get_blog_image_upload_path(instance, filename):
     return os.path.join("blogs", str(instance.id), "images", filename)
 
 
+def blog_title_validator(title):
+    if '-' in title:
+        raise ValidationError("The Title can not contain '-' as it will interfere with the slug url!")
+
+
 class Blog(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, validators=[blog_title_validator])
     author = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True)
     create_date = models.DateTimeField(verbose_name='Date Published', auto_now_add=True, editable=False)
     upvotes = models.PositiveIntegerField(verbose_name="Upvotes", editable=False, default=0)
     downvotes = models.PositiveIntegerField(verbose_name="Downvotes", editable=False, default=0)
     short_description = models.TextField(blank=True, null=True)
-    #TODO Put relevant maxlength limit here
+    # TODO Put relevant maxlength limit here
     body = RichTextUploadingField(blank=True, null=True)
     picture = models.ImageField(blank=True, null=True, upload_to=get_blog_image_upload_path)
-    slug = models.SlugField(max_length=200)
+    slug = models.SlugField(max_length=200, null=True, blank=True,
+                            help_text="This slug will form the url of your blog. The Url will be blogs/blog/<your username>/<slug>")
     tags = models.ManyToManyField(to=Tag, blank=True)
+    views = models.PositiveIntegerField(verbose_name="Views", default=0, editable=False)
+
+    # TODO Improve the procedure of counting views (See the blog detail view)
 
     class Meta:
         ordering = ['-create_date']
+        unique_together = ['slug', 'author', 'title']
 
     def __str__(self):
         return str(self.title) + ' : by ' + str(self.author)
@@ -91,10 +101,21 @@ class Blog(models.Model):
         vote.save()
         vote.downvote()
 
-@receiver(pre_save,sender=Blog)
-def pre_save_slug(sender,**kwargs):
-    slug = slugify(kwargs['instance'].title)
-    kwargs['instance'].slug=slug
+    def save(self, *args, **kwargs):
+        if str(self.slug) == "None":
+            self.slug = self.title.lower().replace(' ', '-')
+
+        try:
+            super().save()
+        except IntegrityError:
+            raise ValidationError(
+                "You have another blog with either same title or same slug. Please change title of this blog")
+
+
+# @receiver(pre_save,sender=Blog)
+# def pre_save_slug(sender,**kwargs):
+#     slug = slugify(kwargs['instance'].title)
+#     kwargs['instance'].slug=slug
 
 class Vote(models.Model):
     voter = models.ForeignKey(to=User, on_delete=models.CASCADE)

@@ -6,7 +6,7 @@ from .models import Vote, Blog, Tag
 
 class BlogAdmin(admin.ModelAdmin):
     search_fields = ('author__username','title')
-    prepopulated_fields = {'slug':('title',)}
+    # prepopulated_fields = {'slug':('title',)}
     date_hierarchy = ('create_date')
 
 admin.site.register(Blog,BlogAdmin)
