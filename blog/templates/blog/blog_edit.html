@@ -12,21 +12,24 @@
 
 <style>
 	
+	@import url('https://fonts.googleapis.com/css?family=Raleway');
+	
 	.edit_blog{
 		margin: 2rem;
 		padding: 1.1rem;
-		width: 46vw;
+		width: 65vw;
 		background-color: aliceblue;
 		border-radius:3rem;
 		border:none;
 		outline:none;
+		font-size:15px;
+		font-weight:bold;
+		color:#949494;
 	}
 	
 	.title{
 		margin-left:3.5rem;
 		padding-left:1.5rem;
-		font-size:15px;
-		font-weight:bold;
 	}
 	
 	
@@ -34,12 +37,10 @@
 	.description{
 		resize:none;
 		margin-left:3.5rem;
-		font-size:15px;
-		font-weight:bold;
 	}
 	
 	.picture_file{
-		width:23vw;
+		width:30vw;
 		margin-left:3.5rem;
 		outline:none;
 		padding-left:1.5rem;
@@ -49,27 +50,40 @@
 	.edit_blog_form{
 		width:50%;
 		margin:7rem 5rem;
+		font-family: 'Raleway', sans-serif;
 	}
 	
-
+	
+	span{
+		font-size:25px;
+		font-weight:bold;
+		color:#594236
+	}
+	
+	
+	.edit_blog_body{
+}
+	
 </style>
 
 </head>
 
 
 
-<body>
+<body class="edit_blog_body">
 
 <form class="edit_blog_form">
 	
 	<span class="title">Title :- </span>
-	{{ form.title|add_class:"edit_blog title"|attr:"onchange:change_slug(this.value)" }}
+	{{ form.title|add_class:"edit_blog title"|attr:"onchange:change_slug(this.value)"|attr:"placeholder:Add Title Here" }}
 		
 	<span class="title">Description :- </span>
-	{{ form.short_description|add_class:"edit_blog description" }}
+	{{ form.short_description|add_class:"edit_blog description"|attr:"placeholder:Give a brief description here" }}
 
-    <div onchange="update_profile_image()">
-	{{ form.picture|add_class:"edit_blog picture_file" }}
+    
+		<span class="title">Upload Picture :- </span>
+	<div onchange="update_profile_image()"></div> 
+		{{ form.picture|add_class:"edit_blog picture_file" }}
     </div>
     <div>
         <img style="width:20vw; height: auto" id='display_image' src="{{ form.picture.value.url }}" onclick="open_profile_pic_upload_box()">
@@ -79,9 +93,9 @@
     {{ form.body }}
     </div>
 
-    <div>
-	Url Slug : {{ form.slug }}
-    </div>
+	<span class="title">URL :- </span>
+	{{form.slug|add_class:"edit_blog title"}}
+    
     <div>
     <input type="submit" value="Edit Changes">
     </div>
