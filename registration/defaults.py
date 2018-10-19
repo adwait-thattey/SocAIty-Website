@@ -1,0 +1,1 @@
+profile_picture = '/registration/default_profile_pic.jpg'
