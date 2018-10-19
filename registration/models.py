@@ -19,18 +19,21 @@ class EmailConfirmation(models.Model):
 
 
 class UserProfile(models.Model):
+    DEFAULT_IMG = '/accounts/default/default_profile_pic.jpg'
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
     about = models.TextField(null=True)
-    profile_pic = models.ImageField(upload_to=get_user_profile_pic_upload_path, blank=True, null=True)
+    profile_pic = models.ImageField(upload_to=get_user_profile_pic_upload_path, default=DEFAULT_IMG, blank=False,
+                                    null=False)
     github_url = models.URLField(verbose_name="Github Profile Url", blank=True)
 
     def __str__(self):
         return self.user.username
 
+
 @receiver(models.signals.post_save, sender=User)
 def set_email_confirmed_false(sender, instance, created, **kwargs):
     if created:
-        EmailConfirmation.objects.create(user=instance)
+        EmailConfirmation.objects.create(user=instance, email_confirmed=False)
 
         # Users passsing via oauth don't need to confirm email
         if instance.has_usable_password() is False:
