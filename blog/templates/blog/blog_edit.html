@@ -255,12 +255,14 @@
 
 .checkbox_div{
 	padding:0.5rem;
+	
 }
 
 
 
 .label_tag{
-	
+	--box-shadow-color: #9f9f9f;
+	box-shadow:1px 2px 0px 0px var(--box-shadow-color);
 	padding:0 1.5rem;
 	background-color:#dfdfdf;
 	border-radius:1rem;
@@ -360,7 +362,7 @@
     <span class="title" style="margin-bottom:0rem ! important;">Tags :- </span>
     <span class="help_text" >{{ edit_form.tags.help_text }}</span>
     <div class="row justify-content-center ml-5">
-        <div id="checkbox" class="d-flex col-3 checkbox_div">
+        <div id="checkbox" class="d-flex col-3 checkbox_div mr-4">
 			<label class="customcheck">
 			<div class="label_tag">One</div>
 			  <input type="checkbox">
@@ -368,28 +370,28 @@
 			</label>
 
 		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
+		<div id="checkbox" class="d-flex col-3 checkbox_div mr-4">
 			<label class="customcheck">
 			<div class="label_tag">Two</div>
 			  <input type="checkbox">
 			  <span class="checkmark"></span>
 			</label>
 		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
+		<div id="checkbox" class="d-flex col-3 checkbox_div mr-4">
 			<label class="customcheck">
 			<div class="label_tag">Three</div>
 			  <input type="checkbox">
 			  <span class="checkmark"></span>
 			</label>
 		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
+		<div id="checkbox" class="d-flex col-3 checkbox_div mr-4">
 			<label class="customcheck">
 			<div class="label_tag">Four</div>
 			  <input type="checkbox">
 			  <span class="checkmark"></span>
 			</label>
 		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
+		<div id="checkbox" class="d-flex col-3 checkbox_div mr-4">
 			<label class="customcheck">
 			<div class="label_tag">One</div>
 			  <input type="checkbox">
@@ -397,7 +399,7 @@
 			</label>
 
 		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
+		<div id="checkbox" class="d-flex col-3 checkbox_div mr-4">
 			<label class="customcheck">
 			<div class="label_tag">Two</div>
 			  <input type="checkbox">
@@ -451,11 +453,6 @@
 
     </script>
 	
-<script>
-	
-
-
-</script>
 </body>
 
 
