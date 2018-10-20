@@ -61,7 +61,7 @@
 
 
 	.title:after {
-		margin-left:3.5rem;
+		margin-left:0.5rem;
 		margin-bottom:0;
 		content:' ';
 		display:block;
@@ -112,11 +112,11 @@
 
     .error_field{
         position: absolute;
-        top:5%;
-        left:50%;
+        top:6rem;
+        left:40%;
         margin-bottom:2rem;
         font-weight:bold;
-        font-size:2rem;
+        font-size:1.3rem;
         color:red;
         border-bottom:2px solid red;
         font-family: 'Raleway', sans-serif;
@@ -124,11 +124,12 @@
 
 
     .help_text{
-       margin: 0.5rem 0 0 5.5rem;
+       margin: 0.5rem 0 0.5rem 5.5rem;
         font-weight: bold;
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-family: 'Raleway', sans-serif;
         color: green;
+		width:100%;
     }
 
     .error_text{
@@ -137,7 +138,7 @@
 
     .error_text span{
         font-weight: bold;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-family: 'Raleway', sans-serif;
         color: red;
     }
@@ -180,6 +181,88 @@
 
 .btnLightBlue.btnPush {
   box-shadow: 0px 5px 0px 0px #1E8185;
+}
+
+
+.customcheck {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.customcheck input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.customcheck:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.customcheck input:checked ~ .checkmark {
+    background-color: #02cf32;
+    border-radius: 5px;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.customcheck input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.customcheck .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+.checkbox_div{
+	padding:0.5rem;
+}
+
+
+
+.label_tag{
+
+	padding:0 0.7rem;
+	background-color:#dfdfdf;
+	border-radius:1rem;
 }
 
 </style>
@@ -271,6 +354,35 @@
 
     </div>
 
+    <span class="title" style="margin-bottom:0rem ! important;" id="select_tags">Tags :- </span>
+    <span class="help_text" >{{ edit_form.tags.help_text }}</span>
+    <div class="row justify-content-center ml-5">
+        {% for tag in tags %}
+        <div id="checkbox" class="d-flex col-3 checkbox_div">
+			<label class="customcheck">
+			<div class="label_tag">{{ tag.name }}</div>
+			  <input type="checkbox" name="selected_tags" value="{{ tag.name }}" {% if tag.name in selected_tags %} checked="checked" {% endif %}>
+			  <span class="checkmark"></span>
+			</label>
+
+		</div>
+        {% endfor %}
+
+    </div>
+	<br>
+
+
+    <span class="title" style="margin-bottom:0.8rem ! important;">Add Another Tag </span>
+
+	<div style="margin-bottom:5rem;">
+		<input class="edit_blog title" type="text" style="width:32vw;" placeholder="Create a new tag if required" id="create_tag_input">
+		<a style="margin-left:3.5rem;" href="javascript:void(0);" title="Button fade lightblue" class="button btnFade btnLightBlue" id="create_tag_button">Add</a>
+	    <div class="error_text" style="margin-left: 17.5rem;"><span id="create_tag_status"></span></div><br>
+    </div>
+
+    <input name="validation_status" id="edit_form_validation_status" type="number" style="display: none;" value="1">
+
+
 	<span class="title">URL Slug :- </span>
     <span class="help_text">{{ create_form.slug.help_text }}</span>
 	{{ create_form.slug|add_class:"edit_blog title"}}
@@ -312,7 +424,42 @@
     $('#{{ create_form.title.id_for_label }}').on('keyup', function(){
     $('#{{ create_form.slug.id_for_label }}').val($(this).val());
     slug.value = slug.value.toLowerCase().replace(/ /g, '-')
-    })
+    });
+
+     create_tag_status = document.getElementById('create_tag_status');
+    edit_form_validation_status = document.getElementById('edit_form_validation_status');
+$('#create_tag_button').click(function () {
+        console.log("sendingrequest");
+
+        create_tag_status.innerText = "Creating...";
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'blog:create_tag' %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'tag_name': document.getElementById('create_tag_input').value,
+
+            },
+            success: function(result){
+
+                console.log(result);
+                if (result.tag_created == false){
+
+                    error = result.error;
+                    create_tag_status.innerText = error;
+
+
+
+                }
+                else{
+                    edit_form_validation_status.value = 0;
+                    document.getElementById('blog_create_form').submit()
+                }
+            }
+        });
+    });
+
+
 
 </script>
 </body>

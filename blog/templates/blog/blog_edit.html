@@ -261,7 +261,7 @@
 
 .label_tag{
 	
-	padding:0 1.5rem;
+	padding:0 7rem;
 	background-color:#dfdfdf;
 	border-radius:1rem;
 }
@@ -357,53 +357,20 @@
 
     </div>
 
-    <span class="title" style="margin-bottom:0rem ! important;">Tags :- </span>
+    <span class="title" style="margin-bottom:0rem ! important;" id="select_tags">Tags :- </span>
     <span class="help_text" >{{ edit_form.tags.help_text }}</span>
     <div class="row justify-content-center ml-5">
+        {% for tag in tags %}
         <div id="checkbox" class="d-flex col-3 checkbox_div">
 			<label class="customcheck">
-			<div class="label_tag">One</div>
-			  <input type="checkbox">
+			<div class="label_tag">{{ tag.name }}</div>
+			  <input type="checkbox" name="selected_tags" value="{{ tag.name }}" {% if tag.name in selected_tags %} checked="checked" {% endif %}>
 			  <span class="checkmark"></span>
 			</label>
 
 		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
-			<label class="customcheck">
-			<div class="label_tag">Two</div>
-			  <input type="checkbox">
-			  <span class="checkmark"></span>
-			</label>
-		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
-			<label class="customcheck">
-			<div class="label_tag">Three</div>
-			  <input type="checkbox">
-			  <span class="checkmark"></span>
-			</label>
-		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
-			<label class="customcheck">
-			<div class="label_tag">Four</div>
-			  <input type="checkbox">
-			  <span class="checkmark"></span>
-			</label>
-		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
-			<label class="customcheck">
-			<div class="label_tag">One</div>
-			  <input type="checkbox">
-			  <span class="checkmark"></span>
-			</label>
+        {% endfor %}
 
-		</div>
-		<div id="checkbox" class="d-flex col-3 checkbox_div">
-			<label class="customcheck">
-			<div class="label_tag">Two</div>
-			  <input type="checkbox">
-			  <span class="checkmark"></span>
-			</label>
-		</div>
     </div>
 	<br>
 	
@@ -411,10 +378,12 @@
     <span class="title" style="margin-bottom:0.8rem ! important;">Add Another Tag </span>
     
 	<div style="margin-bottom:5rem;">
-		<input class="edit_blog title" type="text" style="width:32vw;" placeholder="Create a new tag if required">
-		<a style="margin-left:3.5rem;" href="#" title="Button fade lightblue" class="button btnFade btnLightBlue">Add</a>
-	</div>
+		<input class="edit_blog title" type="text" style="width:32vw;" placeholder="Create a new tag if required" id="create_tag_input">
+		<a style="margin-left:3.5rem;" href="javascript:void(0);" title="Button fade lightblue" class="button btnFade btnLightBlue" id="create_tag_button">Add</a>
+	    <div class="error_text" style="margin-left: 17.5rem;"><span id="create_tag_status"></span></div><br>
+    </div>
 	
+    <input name="validation_status" id="edit_form_validation_status" type="number" style="display: none;" value="1">
 	
 	<span class="title">URL Slug :- </span>
     <span class="help_text">{{ edit_form.slug.help_text }}</span>
@@ -423,7 +392,7 @@
     <div>
         <a style="margin-left:3.5rem;" href="javascript:$('#blog_edit_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Edit</a>
     </div>
-    {#    TODO Tags option not put as new tags need to be created using ajax#}
+
 </form>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
@@ -448,11 +417,12 @@
         }
       }
 
-
+    create_tag_status = document.getElementById('create_tag_status');
+    edit_form_validation_status = document.getElementById('edit_form_validation_status');
 $('#create_tag_button').click(function () {
         console.log("sendingrequest");
 
-
+        create_tag_status.innerText = "Creating...";
         $.ajax({
             type: 'POST',
             url: "{% url 'blog:create_tag' %}",
@@ -467,10 +437,14 @@ $('#create_tag_button').click(function () {
                 if (result.tag_created == false){
 
                     error = result.error;
-                    $('#login_error').css('display', 'block');
+                    create_tag_status.innerText = error;
+
+
+
                 }
                 else{
-                    window.location = window.location.href + "#create_tag"
+                    edit_form_validation_status.value = 0;
+                    document.getElementById('blog_edit_form').submit()
                 }
             }
         });

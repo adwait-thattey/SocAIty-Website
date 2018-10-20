@@ -48,22 +48,31 @@ def blog_create(request):
     if not request.user.userprofile.blog_create_permission:
         raise Http404('This page does not exist')
 
+    tags = Tag.objects.all()
+
     if request.method == 'POST':
+        selected_tags = request.POST.getlist("selected_tags")
         blog_create_form = BlogCreateForm(request.POST, request.FILES)
-        if blog_create_form.is_valid():
-            blog = blog_create_form.save(commit=False)
-            blog.author = request.user
-            try:
-                blog.save()
-                return redirect('blog:blog_detail', request.user, blog.slug)
-            except ValidationError as v:
-                blog_create_form.add_error('slug',
-                                           "You have another blog with the same slug url. Please change the slug")
+        validation_status = request.POST.get("validation_status", 1)
+        if int(validation_status) == 1:
+            if blog_create_form.is_valid():
+                blog = blog_create_form.save(commit=False)
+                blog.author = request.user
+                try:
+                    blog.save()
+                    tag_qset = Tag.objects.filter(name__in=selected_tags)
+                    blog.tags.set(tag_qset)
+                    blog.save()
+                    return redirect('blog:blog_detail', request.user, blog.slug)
+                except ValidationError as v:
+                    blog_create_form.add_error('slug',
+                                               "You have another blog with the same slug url. Please change the slug")
 
     else:
+        selected_tags = list()
         blog_create_form = BlogCreateForm()
 
-    return render(request, 'blog/blog_create.html', {'create_form': blog_create_form})
+    return render(request, 'blog/blog_create.html', {'create_form': blog_create_form, "tags": tags, "selected_tags": selected_tags})
 
 
 def blog_detail(request, username, slug):
@@ -83,22 +92,34 @@ def blog_detail(request, username, slug):
 
 @login_required
 def blog_edit(request, username, slug):
+    #TODO This tag selector mechanism seems to be inefficient. Think Alternate ways
     author = request.user
     blog = get_object_or_404(Blog, author=author, slug=slug)
+    tags = Tag.objects.all()
     if request.method == 'POST':
 
         edit_form = BlogCreateForm(request.POST, request.FILES, instance=blog)
-        if edit_form.is_valid():
-            try:
-                blog_instance = edit_form.save()
-                return redirect('blog:blog_detail', username, blog_instance.slug)
-            except ValidationError as v:
-                edit_form.add_error('slug', "You have another blog with the same slug url. Please change the slug")
+        selected_tags = request.POST.getlist("selected_tags")
+        validation_status = request.POST.get("validation_status", 1)
+        if int(validation_status) == 1:
+
+            if edit_form.is_valid():
+                try:
+                    blog_instance = edit_form.save(commit=False)
+                    tag_qset = Tag.objects.filter(name__in=selected_tags)
+                    blog_instance.tags.set(tag_qset)
+                    blog_instance.save()
+                    return redirect('blog:blog_detail', username, blog_instance.slug)
+                except ValidationError as v:
+                    edit_form.add_error('slug', "You have another blog with the same slug url. Please change the slug")
 
     else:
+        selected_tags = list(blog.tags.values_list('name', flat=True))
         edit_form = BlogCreateForm(instance=blog)
     context = {
         'edit_form': edit_form,
+        "tags": tags,
+        "selected_tags": selected_tags
     }
     return render(request, 'blog/blog_edit.html', context)
 

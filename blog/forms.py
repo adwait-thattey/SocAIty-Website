@@ -11,4 +11,5 @@ class BlogCreateForm(forms.ModelForm):
             'picture',
             'body',
             'slug',
+            'tags'
         )
