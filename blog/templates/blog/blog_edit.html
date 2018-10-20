@@ -4,11 +4,36 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/bootstrap/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/font-awesome/css/font-awesome.min.css">
+
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/fontastic.css">
+
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+    <!-- Fancybox-->
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
+
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/style.default.css"
+          id="theme-stylesheet">
+
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/custom.css">
+
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="favicon.png">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 <style>
 	
@@ -37,7 +62,7 @@
 	
 	
 	.title:after {
-		margin-left:3.5rem;
+		margin-left:0.5rem;
 		margin-bottom:0;
 		content:' ';
 		display:block;
@@ -88,11 +113,11 @@
 
     .error_field{
         position: absolute;
-        top:5%;
-        left:50%;
+        top:6rem;
+        left:40%;
         margin-bottom:2rem;
         font-weight:bold;
-        font-size:2rem;
+        font-size:1.3rem;
         color:red;
         border-bottom:2px solid red;
         font-family: 'Raleway', sans-serif;
@@ -102,7 +127,7 @@
     .help_text{
        margin: 0.5rem 0 0 5.5rem;
         font-weight: bold;
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-family: 'Raleway', sans-serif;
         color: green;
     }
@@ -113,7 +138,7 @@
 
     .error_text span{
         font-weight: bold;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-family: 'Raleway', sans-serif;
         color: red;
     }
@@ -166,11 +191,57 @@
 
 <body class="edit_blog_body">
 
-<span class="error_field">{{ edit_form.non_field_errors }}</span>
+<nav class="navbar navbar-expand-lg">
+        <div class="search-area">
+            <div class="search-area-inner d-flex align-items-center justify-content-center">
+                <div class="close-btn"><i class="icon-close"></i></div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8">
+                        <form action="#">
+                            <div class="form-group">
+                                <input type="search" name="search" id="search" placeholder="What are you looking for?">
+                                <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Navbar Brand -->
+            <div class="navbar-header d-flex align-items-center justify-content-between">
+                <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+                <!-- Toggle Button-->
+                <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
+                        aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler"><span></span><span></span><span></span></button>
+            </div>
+            <!-- Navbar Menu -->
+            <div id="navbarcollapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link active ">Home</a>
+                    </li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a>
+                    </li>
+                    <li class="nav-item"><a href="post.html" class="nav-link ">Post</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
+                    </li>
+                </ul>
+                <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+                <ul class="langs navbar-text"><a href="#" class="active">EN</a><span>           </span><a
+                        href="#">ES</a></ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+<span class="error_field">{% if edit_form.errors %} Some fields are incorrect {% endif %} {{ edit_form.non_field_errors }}</span>
 
 <form class="edit_blog_form" action="" method="post" id="blog_edit_form" enctype="multipart/form-data">
     {% csrf_token %}
-	<span class="title">Title :- </span>
+	<span class="title">Title :- </span><br>
     <span class="help_text">{{ edit_form.title.help_text }}</span>
 	{{ edit_form.title|add_class:"edit_blog title"|attr:"onchange:change_slug(this.value)"|attr:"placeholder:Add Title Here" }}
     <div class="error_text"><span>{{ edit_form.title.errors }}</span></div><br>
@@ -181,7 +252,7 @@
 	{{ edit_form.short_description|add_class:"edit_blog description"|attr:"placeholder:Give a brief description here" }}
         <div class="error_text"><span>{{ edit_form.short_description.errors }}</span></div><br>
     
-		<span class="title">Upload Picture :- </span>
+		<span class="title">Upload Picture :- </span><br>
             <span class="help_text">{{ edit_form.picture.help_text }}</span>
 	<div style="margin-left:3.5rem;margin-bottom: 3rem;" onchange="update_profile_image()">
 
@@ -208,7 +279,7 @@
 	{{ edit_form.slug|add_class:"edit_blog title"}}
     <div class="error_text"><span>{{ edit_form.slug.errors }}</span></div><br>
     <div>
-        <a style="margin-left:3.5rem;" href="javascript:$('#blog_edit_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Edit Changes</a>
+        <a style="margin-left:3.5rem;" href="javascript:$('#blog_edit_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Edit</a>
     </div>
     {#    TODO Tags option not put as new tags need to be created using ajax#}
 </form>
