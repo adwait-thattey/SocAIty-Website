@@ -4,6 +4,7 @@
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
+
 @font-face {
   font-family: Ubuntu-Regular;
   src: url('../fonts/ubuntu/Ubuntu-Regular.ttf'); 
@@ -19,6 +20,8 @@
   src: url('../fonts/JosefinSans/JosefinSans-Bold.ttf'); 
 }
 
+
+
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
@@ -26,7 +29,7 @@
 	margin: 0px; 
 	padding: 0px; 
 	box-sizing: border-box;
-	font-family: 'Kodchasan', sans-serif;
+	font-family:
 }
 
 body, html {
@@ -139,14 +142,14 @@ iframe {
 .txt2 {
   font-family: Ubuntu-Regular;
   font-size: 15px;
-  color: #57b846;
+  color: #4648ff;
   line-height: 1.4;
 }
 
 .txt3 {
   font-family: Ubuntu-Bold;
   font-size: 15px;
-  color: #57b846;
+  color: #4648ff;
   line-height: 1.4;
   text-transform: uppercase;
 }
@@ -315,7 +318,6 @@ iframe {
   height: 50px;
   background-color: #9FA0C3;
   border-radius: 25px;
-
   font-family: Ubuntu-Bold;
   font-size: 15px;
   color: #fff;
@@ -329,7 +331,7 @@ iframe {
 }
 
 .login100-form-btn:hover {
-  background-color: #1b3815;
+  background-color: #8B85C1;
 }
 
 
@@ -424,7 +426,7 @@ iframe {
 	margin:2rem;
 	text-align:center;
 	font-weight:bold;
-	font-size:1.2rem;
+	font-size:1.5rem;
 }
 
 .row-3{
@@ -439,6 +441,8 @@ iframe {
 	display:inline-block;
 	width:48%;
 }
+
+
 
 .message{
 	margin:10px 0 0 20px;
