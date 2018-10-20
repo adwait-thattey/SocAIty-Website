@@ -24,6 +24,7 @@ urlpatterns = [
     path('blog/create', views.blog_create, name='blog_create'),
     path('blog/<str:username>/<slug:slug>/', views.blog_detail, name='blog_detail'),
     path('blog/<str:username>/<slug:slug>/edit', views.blog_edit, name='blog_edit'),
+    path('create-tag', views.create_tag, name="create_tag"),
 
     # path('blog_edit/<str:username>/<slug:blog_slug>/',views.blog_edit,name='blog_edit'),
 ]

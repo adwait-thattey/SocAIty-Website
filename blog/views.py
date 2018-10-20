@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404, Http404
 from django.urls import reverse
 from .models import Blog, Tag
 from .forms import BlogCreateForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from registration.defaults import profile_picture as default_profile_pic
@@ -57,7 +57,8 @@ def blog_create(request):
                 blog.save()
                 return redirect('blog:blog_detail', request.user, blog.slug)
             except ValidationError as v:
-                blog_create_form.add_error('slug', "You have another blog with the same slug url. Please change the slug")
+                blog_create_form.add_error('slug',
+                                           "You have another blog with the same slug url. Please change the slug")
 
     else:
         blog_create_form = BlogCreateForm()
@@ -100,3 +101,23 @@ def blog_edit(request, username, slug):
         'edit_form': edit_form,
     }
     return render(request, 'blog/blog_edit.html', context)
+
+
+def create_tag(request):
+    tag_name = request.POST.get("tag_name", "")
+
+    # print(username,password)
+
+    data = {
+        'tag_created': False
+    }
+
+    T = Tag(name=tag_name)
+    try:
+        T.save()
+        data["tag_created"] = True
+
+    except ValidationError as ve:
+        data["error"] = ve
+
+    return JsonResponse(data)
