@@ -15,7 +15,7 @@
 	@import url('https://fonts.googleapis.com/css?family=Raleway');
 	
 	.edit_blog{
-		margin: 0 0rem 7rem 2rem;
+		margin: 0 0rem 0.5rem 0rem;
 		padding: 1.1rem;
 		width: 65vw;
 		background-color: aliceblue;
@@ -30,14 +30,14 @@
 	
 	.title{
 		margin-left:3.5rem;
-		padding-left:1.5rem;
+
 		
 	}
 	
 	
 	
 	.title:after {
-		margin-left:5.2rem;
+		margin-left:3.5rem;
 		margin-bottom:0;
 		content:' ';
 		display:block;
@@ -55,6 +55,7 @@
 	.description{
 		resize:none;
 		margin-left:3.5rem;
+        padding:3rem;
 	}
 	
 	.picture_file{
@@ -78,12 +79,85 @@
 		color:#594236
 	}
 	
-    
+
 	.edit_blog_body{
-		background:url('../../static/blog/images/bg.png') no-repeat center;
+		background:url('{% static "blog/images/bg.png" %}') no-repeat center;
 		background-size:cover;
+    }
+
+
+    .error_field{
+        position: absolute;
+        top:5%;
+        left:50%;
+        margin-bottom:2rem;
+        font-weight:bold;
+        font-size:2rem;
+        color:red;
+        border-bottom:2px solid red;
+        font-family: 'Raleway', sans-serif;
+    }
+
+
+    .help_text{
+       margin: 0.5rem 0 0 5.5rem;
+        font-weight: bold;
+        font-size: 1.3rem;
+        font-family: 'Raleway', sans-serif;
+        color: green;
+    }
+
+    .error_text{
+        margin: 0.5rem 0 3.0rem 5.5rem;
+    }
+
+    .error_text span{
+        font-weight: bold;
+        font-size: 1.5rem;
+        font-family: 'Raleway', sans-serif;
+        color: red;
+    }
+
+    .submit_buttonz{
+        width:5vw;
+        border-radius:3rem;
+        background-color: #00FF00;
+        height:15px;
+    }
+
+
+
+    a.button {
+      display: block;
+      position: relative;
+      float: left;
+      width: 120px;
+      padding: 0;
+      margin: 10px 20px 10px 0;
+      font-weight: 600;
+      text-align: center;
+      line-height: 50px;
+      color: #FFF;
+      border-radius: 5px;
+      transition: all 0.2s ;
+    }
+
+
+    .btnLightBlue {
+  background: #5DC8CD;
 }
-	
+    .btnLightBlue.btnBorder {
+  box-shadow: 0px 0px 0px 0px #01939A;
+}
+
+.btnLightBlue.btnBorder:hover {
+  box-shadow: 0px 0px 0px 5px #01939A;
+}
+
+.btnLightBlue.btnPush {
+  box-shadow: 0px 5px 0px 0px #1E8185;
+}
+
 </style>
 
 </head>
@@ -92,37 +166,55 @@
 
 <body class="edit_blog_body">
 
-<form class="edit_blog_form">
-	
-	<span class="title">Title :- </span>
-	{{ form.title|add_class:"edit_blog title"|attr:"onchange:change_slug(this.value)"|attr:"placeholder:Add Title Here" }}
-		
-	<span class="title">Description :- </span>
-	{{ form.short_description|add_class:"edit_blog description"|attr:"placeholder:Give a brief description here" }}
+<span class="error_field">{{ edit_form.non_field_errors }}</span>
 
+<form class="edit_blog_form" action="" method="post" id="blog_edit_form" enctype="multipart/form-data">
+    {% csrf_token %}
+	<span class="title">Title :- </span>
+    <span class="help_text">{{ edit_form.title.help_text }}</span>
+	{{ edit_form.title|add_class:"edit_blog title"|attr:"onchange:change_slug(this.value)"|attr:"placeholder:Add Title Here" }}
+    <div class="error_text"><span>{{ edit_form.title.errors }}</span></div><br>
+
+
+	<span class="title">Description :- </span>
+    <span class="help_text">{{ edit_form.short_description.help_text }}</span>
+	{{ edit_form.short_description|add_class:"edit_blog description"|attr:"placeholder:Give a brief description here" }}
+        <div class="error_text"><span>{{ edit_form.short_description.errors }}</span></div><br>
     
 		<span class="title">Upload Picture :- </span>
-	<div class="editor" onchange="update_profile_image()">
-		{{ form.picture|add_class:"edit_blog picture_file" }}
+            <span class="help_text">{{ edit_form.picture.help_text }}</span>
+	<div style="margin-left:3.5rem;margin-bottom: 3rem;" onchange="update_profile_image()">
+
+		{{ edit_form.picture|add_class:"edit_blog picture_file" }}
+        <div class="error_text" style="margin-bottom:0;!important;margin-left:1.5rem!important;"><span>{{ edit_form.picture.errors }}</span></div><br>
     </div>
-    <div class="editor">
-        <img style="width:20vw; height: auto" id='display_image' src="{{ form.picture.value.url }}" onclick="open_profile_pic_upload_box()">
-    </div>
-    <div class="editor">
-    {{ form.media }}
-    {{ form.body }}
+    <div style="margin-left:3rem;">
+        <img style="width:20vw; height: auto;margin-bottom:5rem;" id='display_image' src="{{ edit_form.picture.value.url }}" onclick="open_profile_pic_upload_box()">
     </div>
 
-	<span class="title">URL :- </span>
-	{{form.slug|add_class:"edit_blog title"}}
-    
-    <div>
-    <input type="submit" value="Edit Changes">
+    <br>
+
+    <span class="title" style="margin-bottom:1.5rem ! important;">Main Body :- </span>
+    <div style="margin:0rem 0 3rem 3rem;">
+    <span class="help_text" style="margin-bottom:3rem;">{{ edit_form.body.help_text }}</span>
+    {{ edit_form.media }}
+    {{ edit_form.body }}
+        <div class="error_text"><span>{{ edit_form.body.errors }}</span></div><br>
+
     </div>
+
+	<span class="title">URL Slug :- </span>
+    <span class="help_text">{{ edit_form.slug.help_text }}</span>
+	{{ edit_form.slug|add_class:"edit_blog title"}}
+    <div class="error_text"><span>{{ edit_form.slug.errors }}</span></div><br>
+    <div>
+        <a style="margin-left:3.5rem;" href="javascript:$('#blog_edit_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Edit Changes</a>
+    </div>
+    {#    TODO Tags option not put as new tags need to be created using ajax#}
 </form>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
-      file_upload_box = document.getElementById('{{ form.picture.id_for_label }}');
+      file_upload_box = document.getElementById('{{ edit_form.picture.id_for_label }}');
       function open_profile_pic_upload_box() {
         file_upload_box.click();
       }
@@ -147,11 +239,7 @@
     </script>
 <script>
 
-    slug = document.getElementById('id_slug');
-    title = document.getElementById('id_title');
-    function change_slug(incoming_value) {
-        slug.value = incoming_value.replace(' ', '-').toLowerCase();
-    }
+
 
 </script>
 </body>

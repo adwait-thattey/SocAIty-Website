@@ -1,8 +1,254 @@
-<br><br>
-<form method="post">
-  {% csrf_token %}
-  {{ form.media }}
-  {{ form.as_p }}
-  <input type="submit" value="Create Blog" class="btn btn-outlined-success">
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+
+	@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+	.edit_blog{
+		margin: 0 0rem 0.5rem 0rem;
+		padding: 1.1rem;
+		width: 65vw;
+		background-color: aliceblue;
+		border-radius:3rem;
+		border:none;
+		outline:none;
+		font-size:15px;
+		font-weight:bold;
+		color:#949494;
+		box-shadow:1px 3px 3px 1px;
+	}
+
+	.title{
+		margin-left:3.5rem;
+
+
+	}
+
+
+
+	.title:after {
+		margin-left:3.5rem;
+		margin-bottom:0;
+		content:' ';
+		display:block;
+		border:2px solid #d0d0d0;
+		width:28px;
+		border-radius:4px;
+		-webkit-border-radius:4px;
+		-moz-border-radius:4px;
+		box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+		-webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+		-moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+	}
+
+
+	.description{
+		resize:none;
+		margin-left:3.5rem;
+        padding:3rem;
+	}
+
+	.picture_file{
+		width:30vw;
+
+		outline:none;
+		padding-left:1.5rem;
+	}
+
+
+	.edit_blog_form{
+		width:50%;
+		margin:7rem 5rem;
+		font-family: 'Raleway', sans-serif;
+	}
+
+
+	span{
+		font-size:25px;
+		font-weight:bold;
+		color:#594236
+	}
+
+
+	.edit_blog_body{
+		background:url('{% static "blog/images/bg.png" %}') no-repeat center;
+		background-size:cover;
+    }
+
+
+    .error_field{
+        position: absolute;
+        top:5%;
+        left:50%;
+        margin-bottom:2rem;
+        font-weight:bold;
+        font-size:2rem;
+        color:red;
+        border-bottom:2px solid red;
+        font-family: 'Raleway', sans-serif;
+    }
+
+
+    .help_text{
+       margin: 0.5rem 0 0 5.5rem;
+        font-weight: bold;
+        font-size: 1.3rem;
+        font-family: 'Raleway', sans-serif;
+        color: green;
+    }
+
+    .error_text{
+        margin: 0.5rem 0 3.0rem 5.5rem;
+    }
+
+    .error_text span{
+        font-weight: bold;
+        font-size: 1.5rem;
+        font-family: 'Raleway', sans-serif;
+        color: red;
+    }
+
+    .submit_buttonz{
+        width:5vw;
+        border-radius:3rem;
+        background-color: #00FF00;
+        height:15px;
+    }
+
+
+
+    a.button {
+      display: block;
+      position: relative;
+      float: left;
+      width: 120px;
+      padding: 0;
+      margin: 10px 20px 10px 0;
+      font-weight: 600;
+      text-align: center;
+      line-height: 50px;
+      color: #FFF;
+      border-radius: 5px;
+      transition: all 0.2s ;
+    }
+
+
+    .btnLightBlue {
+  background: #5DC8CD;
+}
+    .btnLightBlue.btnBorder {
+  box-shadow: 0px 0px 0px 0px #01939A;
+}
+
+.btnLightBlue.btnBorder:hover {
+  box-shadow: 0px 0px 0px 5px #01939A;
+}
+
+.btnLightBlue.btnPush {
+  box-shadow: 0px 5px 0px 0px #1E8185;
+}
+
+</style>
+
+</head>
+
+
+
+<body class="edit_blog_body">
+
+<span class="error_field">{{ create_form.non_field_errors }}</span>
+
+<form class="edit_blog_form" action="" method="post" id="blog_create_form" enctype="multipart/form-data">
+    {% csrf_token %}
+	<span class="title">Title :- </span>
+    <span class="help_text">{{ create_form.title.help_text }}</span>
+	{{ create_form.title|add_class:"edit_blog title"|attr:"onchange:change_slug(this.value)"|attr:"placeholder:Add Title Here" }}
+    <div class="error_text"><span>{{ create_form.title.errors }}</span></div><br>
+
+
+	<span class="title">Description :- </span>
+    <span class="help_text">{{ create_form.short_description.help_text }}</span>
+	{{ create_form.short_description|add_class:"edit_blog description"|attr:"placeholder:Give a brief description here" }}
+        <div class="error_text"><span>{{ create_form.short_description.errors }}</span></div><br>
+
+		<span class="title">Upload Picture :- </span>
+            <span class="help_text">{{ create_form.picture.help_text }}</span>
+	<div style="margin-left:3.5rem;margin-bottom: 3rem;" onchange="update_profile_image()">
+
+		{{ create_form.picture|add_class:"edit_blog picture_file" }}
+        <div class="error_text" style="margin-bottom:0;!important;margin-left:1.5rem!important;"><span>{{ create_form.picture.errors }}</span></div><br>
+    </div>
+    <div style="margin-left:3rem;">
+        <img style="width:20vw; height: auto;margin-bottom:5rem;" id='display_image' src="{{ create_form.picture.value.url }}" onclick="open_profile_pic_upload_box()">
+    </div>
+
+    <br>
+
+    <span class="title" style="margin-bottom:1.5rem ! important;">Main Body :- </span>
+    <div style="margin:0rem 0 3rem 3rem;">
+    <span class="help_text" style="margin-bottom:3rem;">{{ create_form.body.help_text }}</span>
+    {{ create_form.media }}
+    {{ create_form.body }}
+        <div class="error_text"><span>{{ create_form.body.errors }}</span></div><br>
+
+    </div>
+
+	<span class="title">URL Slug :- </span>
+    <span class="help_text">{{ create_form.slug.help_text }}</span>
+	{{ create_form.slug|add_class:"edit_blog title"}}
+    <div class="error_text"><span>{{ create_form.slug.errors }}</span></div><br>
+    <div>
+        <a style="margin-left:3.5rem;" href="javascript:$('#blog_create_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Edit Changes</a>
+    </div>
+
+{#    TODO Tags option not put as new tags need to be created using ajax#}
 </form>
-<br><br>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+      file_upload_box = document.getElementById('{{ create_form.picture.id_for_label }}');
+      function open_profile_pic_upload_box() {
+        file_upload_box.click();
+      }
+      profile_image = document.getElementById('display_image');
+      profile_image.onclick = open_profile_pic_upload_box();
+
+      function update_profile_image() {
+
+
+        if (file_upload_box.files && file_upload_box.files[0]) {
+          let reader = new FileReader();
+
+          reader.onload = function(e) {
+            profile_image.src = e.target.result;
+          };
+
+          reader.readAsDataURL(file_upload_box.files[0]);
+        }
+      }
+
+
+    </script>
+<script>
+
+    slug = document.getElementById('{{ create_form.slug.id_for_label }}');
+    $('#{{ create_form.title.id_for_label }}').on('keyup', function(){
+    $('#{{ create_form.slug.id_for_label }}').val($(this).val());
+    slug.value = slug.value.toLowerCase().replace(/ /g, '-')
+    })
+
+</script>
+</body>
+
+
+</html>
+

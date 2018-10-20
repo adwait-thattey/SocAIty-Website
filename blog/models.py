@@ -50,18 +50,19 @@ def blog_title_validator(title):
 
 
 class Blog(models.Model):
-    title = models.CharField(max_length=50, validators=[blog_title_validator])
+    title = models.CharField(max_length=50, validators=[blog_title_validator],
+                             help_text="This is the title of your blog. (limit to 50 characters)")
     author = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True)
     create_date = models.DateTimeField(verbose_name='Date Published', auto_now_add=True, editable=False)
     upvotes = models.PositiveIntegerField(verbose_name="Upvotes", editable=False, default=0)
     downvotes = models.PositiveIntegerField(verbose_name="Downvotes", editable=False, default=0)
-    short_description = models.TextField(blank=True, null=True)
+    short_description = models.TextField(blank=True, null=True, max_length=500, help_text="This is the short description that appears in blog list. (Limit to 500 characters)")
     # TODO Put relevant maxlength limit here
-    body = RichTextUploadingField(blank=True, null=True)
-    picture = models.ImageField(blank=False, upload_to=get_blog_image_upload_path)
-    slug = models.SlugField(max_length=200, null=True, blank=True,
+    body = RichTextUploadingField(blank=True, null=True, help_text="This is the main content of the blog. You can style the content , put images, videos, code-snippets and a lot more things directly into the editor")
+    picture = models.ImageField(blank=False, upload_to=get_blog_image_upload_path, help_text="This picture is the cover image of your blog.")
+    slug = models.SlugField(max_length=60, null=True, blank=True,
                             help_text="This slug will form the url of your blog. The Url will be blogs/blog/<your username>/<slug>")
-    tags = models.ManyToManyField(to=Tag, blank=True)
+    tags = models.ManyToManyField(to=Tag, blank=True, help_text="Please select relevant tags for your blog. or create a new tag")
     views = models.PositiveIntegerField(verbose_name="Views", default=0, editable=False)
 
     disqus_identifier = models.BigIntegerField(editable=False, default=0)
@@ -70,7 +71,7 @@ class Blog(models.Model):
 
     class Meta:
         ordering = ['-create_date']
-        unique_together = ['slug', 'author', 'title']
+        unique_together = ['slug', 'author']
 
     def __str__(self):
         return str(self.title) + ' : by ' + str(self.author)
@@ -104,17 +105,20 @@ class Blog(models.Model):
         vote.downvote()
 
     def save(self, *args, **kwargs):
-        if self.disqus_identifier == 0:
-            self.disqus_identifier = 16*(self.id + 1024)
-
-        if str(self.slug) == "None":
-            self.slug = self.title.lower().replace(' ', '-')
-
         try:
             super().save()
         except IntegrityError:
             raise ValidationError(
                 "You have another blog with either same title or same slug. Please change title of this blog")
+
+        if self.disqus_identifier == 0:
+            self.disqus_identifier = 16 * (int(self.id) + 1024)
+
+
+        if str(self.slug) == "None":
+            self.slug = self.title.lower().replace(' ', '-')
+
+        super().save()
 
 
 # @receiver(pre_save,sender=Blog)

@@ -111,6 +111,7 @@
                 <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
                 <ul class="langs navbar-text"><a href="#" class="active">EN</a><span>           </span><a
                         href="#">ES</a></ul>
+
             </div>
         </div>
     </nav>
@@ -133,6 +134,13 @@
                             <a href="{% url 'blog:blog_list' %}?tag={{ tag.name|strtosnake }}">{{ tag.name }}
                             </a>
                         {% endfor %}
+                        {% if editable %}
+                        <span class="mr-5"></span>
+                        <span class="main_tags"><i class="far fa-edit text-red"></i></span>
+                        <a href="{{ request.get_full_path }}edit"><span>Edit</span></a>
+                        {% endif %}
+                    {#                TODO Like option not put. Put option and make ajax call to like#}
+                    </p>
                 </div>
 
                 <div class="row">
@@ -176,8 +184,8 @@
             {{ blog.body|safe }}
         </div>
 
-
-        <div class=container">
+{#TODO DISQUS NOT WORKING. TRY USING LIBRARY#}
+        {% comment %}<div class=container">
 
         <div id="disqus_thread"></div>
         <script>
@@ -201,7 +209,7 @@
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
             Disqus.</a></noscript>
         </div>
-    </section>
+    </section>{% endcomment %}
 
 
 </div>
@@ -215,16 +223,16 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 
 <!-- Custom JavaScript -->
-{#TODO DISQUS NOT WORKING. TRY USING LIBRARY#}
 
+{% comment %}
 <script>
-    {% comment %} setInterval(function () {
+     setInterval(function () {
          $('iframe[src*="disqusads.com"]').each(function () {
              $(this).css("display", "none");
          });
-     }, 100);{% endcomment %}
+     }, 100);
 </script>
 
 <script id="dsq-count-scr" src="//socaity.disqus.com/count.js" async></script>
-</body>
+</body>{% endcomment %}
 </html>

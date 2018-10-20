@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404, Http404
 from django.urls import reverse
 from .models import Blog, Tag
@@ -48,14 +49,20 @@ def blog_create(request):
         raise Http404('This page does not exist')
 
     if request.method == 'POST':
-        form = BlogCreateForm(request.POST)
-        if form.is_valid:
-            blog = form.save(commit=False)
-            blog.save()
-            return HttpResponseRedirect(reverse('blog:blog_list'))
+        blog_create_form = BlogCreateForm(request.POST, request.FILES)
+        if blog_create_form.is_valid():
+            blog = blog_create_form.save(commit=False)
+            blog.author = request.user
+            try:
+                blog.save()
+                return redirect('blog:blog_detail', request.user, blog.slug)
+            except ValidationError as v:
+                blog_create_form.add_error('slug', "You have another blog with the same slug url. Please change the slug")
+
     else:
-        form = BlogCreateForm()
-    return render(request, 'blog/blog_create.html', {'form': form})
+        blog_create_form = BlogCreateForm()
+
+    return render(request, 'blog/blog_create.html', {'create_form': blog_create_form})
 
 
 def blog_detail(request, username, slug):
@@ -63,24 +70,33 @@ def blog_detail(request, username, slug):
     blog = get_object_or_404(Blog, author=author, slug=slug)
     blog.views += 1  # TODO Change this method of counting views. Not correct
     blog.save()
+    editable = False
+    if request.user == author:
+        editable = True
     context = {
         'blog': blog,
+        'editable': editable
     }
     return render(request, 'blog/blog_detail_view.html', context)
 
 
 @login_required
 def blog_edit(request, username, slug):
-    author = User.objects.get(username=username)
+    author = request.user
     blog = get_object_or_404(Blog, author=author, slug=slug)
     if request.method == 'POST':
-        form = BlogCreateForm(data=request.POST, instance=blog)
-        if form.is_valid:
-            form.save()
-            return HttpResponseRedirect(reverse('blog:blog_list'))
+
+        edit_form = BlogCreateForm(request.POST, request.FILES, instance=blog)
+        if edit_form.is_valid():
+            try:
+                blog_instance = edit_form.save()
+                return redirect('blog:blog_detail', username, blog_instance.slug)
+            except ValidationError as v:
+                edit_form.add_error('slug', "You have another blog with the same slug url. Please change the slug")
+
     else:
-        form = BlogCreateForm(instance=blog)
+        edit_form = BlogCreateForm(instance=blog)
     context = {
-        'form': form,
+        'edit_form': edit_form,
     }
     return render(request, 'blog/blog_edit.html', context)
