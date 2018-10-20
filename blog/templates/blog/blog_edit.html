@@ -36,6 +36,8 @@
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 <style>
+	@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 	
 	@import url('https://fonts.googleapis.com/css?family=Raleway');
 	
@@ -255,17 +257,44 @@
 
 .checkbox_div{
 	padding:0.5rem;
+	
 }
 
 
+	
 
 .label_tag{
-	
-	padding:0 7rem;
+	--box-shadow-color: #9f9f9f;
+	box-shadow:1px 2px 0px 0px var(--box-shadow-color);
+	padding:0 1.5rem;
 	background-color:#dfdfdf;
 	border-radius:1rem;
 }
 
+
+.navbar-brand{
+	font-family: 'Raleway', sans-serif;
+	font-size:20px;
+	font-weight:100;
+}
+
+.navbar{
+	--box-shadow-color: #9f9f9f;
+	padding-bottom: 5px !important;
+	background-color:#efefef;
+	box-shadow:0 0 8px 0px var(--box-shadow-color); 
+}
+
+
+.nav-link{
+	font-weight:500 ! important;
+	font-family: 'Open Sans', sans-serif;
+	font-size:1.2rem!important;
+}
+
+.active{
+	color:#0def0d ! important;
+}
 </style>
 
 </head>
@@ -293,7 +322,7 @@
         <div class="container">
             <!-- Navbar Brand -->
             <div class="navbar-header d-flex align-items-center justify-content-between">
-                <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+                <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><strong style="font-size:2rem;">SocAIty</strong>  Developers</a>
                 <!-- Toggle Button-->
                 <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -306,14 +335,12 @@
                     </li>
                     <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a>
                     </li>
-                    <li class="nav-item"><a href="post.html" class="nav-link ">Post</a>
+                    <li class="nav-item"><a href="post.html" class="nav-link ">Signup</a>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
+                    <li class="nav-item"><a href="#" class="nav-link ">Login</a>
                     </li>
                 </ul>
-                <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
-                <ul class="langs navbar-text"><a href="#" class="active">EN</a><span>           </span><a
-                        href="#">ES</a></ul>
+                
 
             </div>
         </div>
@@ -361,7 +388,7 @@
     <span class="help_text" >{{ edit_form.tags.help_text }}</span>
     <div class="row justify-content-center ml-5">
         {% for tag in tags %}
-        <div id="checkbox" class="d-flex col-3 checkbox_div">
+        <div id="checkbox" class="d-flex col-3 checkbox_div mr-4">
 			<label class="customcheck">
 			<div class="label_tag">{{ tag.name }}</div>
 			  <input type="checkbox" name="selected_tags" value="{{ tag.name }}" {% if tag.name in selected_tags %} checked="checked" {% endif %}>
@@ -453,11 +480,6 @@ $('#create_tag_button').click(function () {
 
     </script>
 	
-<script>
-	
-
-
-</script>
 </body>
 
 
