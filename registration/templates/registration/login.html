@@ -38,10 +38,16 @@
 						Login
 					</span>
 
+                    {% if form.non_field_errors %}
+                        <div class="message" style="color: red; text-align: center">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
                         <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
                             {{ form.username|attr:"placeholder:username"|add_class:"input100" }}
                             <span class="focus-input100"></span>
                         </div>
+
 
                         <div class="wrap-input100 validate-input" data-validate = "Please enter password">
                             {{ form.password|attr:"placeholder:password"|add_class:"input100" }}
@@ -79,7 +85,7 @@
 							Don’t have an account?
 						</span>
 
-						<a href="{% url 'registration:register' %}" class="txt3">
+						<a id="signup_redirect" href="{% url 'registration:register' %}" class="txt3">
 							Sign up now
 						</a>
 					</div>
@@ -105,6 +111,11 @@
 	<script src="{% static 'registration/vendor/countdowntime/countdowntime.js' %}"></script>
 <!--===============================================================================================-->
 	<script src="{% static 'registration/js/main.js' %}"></script>
+
+    <script>
+        signup_redirect = document.getElementById('signup_redirect');
+        signup_redirect.href = signup_redirect.href + "?" + window.location.search.substr(1)
+    </script>
 
 </body>
 </html>

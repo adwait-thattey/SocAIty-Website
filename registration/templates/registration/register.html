@@ -22,7 +22,10 @@
 				<form class="form-style" action="" method="post">
 					{% csrf_token %}
                     <h3 class="heading">Signup</h3>
-					<div class="form-group">
+                    {% if register_form.non_field_errors %}
+                        <p class="message" id="non_field_errors" style="color: red; text-align: center">{{ register_form.non_field_errors }}</p>
+					{% endif %}
+                    <div class="form-group">
 						<div class="form-wrapper">
 							<label for="{{ register_form.first_name.id_for_label }}">First Name</label>
 							{{ register_form.first_name|attr:"placeholder:First Name"|add_class:"form-control" }}
@@ -35,7 +38,7 @@
 					<div class="form-wrapper">
 						<label for="{{ register_form.username.id_for_label }}">Username</label>
 						{{ register_form.username|attr:"placeholder:username"|add_class:"form-control" }}
-                        <p class="message" id="username_errors"></p>
+                        <p class="message" id="username_errors" style="color: red"></p>
 			<!-- TODO Put help text here -->			
 					</div>
 					<div class="form-wrapper">
@@ -76,7 +79,7 @@
 					</div>
 					
 					<div class="row-3">
-						<p>Alerady have an account ? <a href="{% url 'registration:login' %}"><span style="color:blue;">Login</span></a> instead</p>
+						<p>Alerady have an account ? <a id="login_redirect" href="{% url 'registration:login' %}"><span style="color:blue;">Login</span></a> instead</p>
 					</div>
 				</form>
 			</div>
@@ -105,6 +108,10 @@
         {% if register_form.password.errors %}
             $('#password_errors').html('{{ register_form.password.errors }}').css('color', 'red');
         {% endif %}
+
+    login_redirect = document.getElementById('login_redirect');
+    login_redirect.href = login_redirect.href + "?" + window.location.search.substr(1)
+
 	</script>
 	</body>
 </html>
