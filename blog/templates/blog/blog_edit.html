@@ -41,7 +41,7 @@
 	
 	.picture_file{
 		width:30vw;
-		margin-left:3.5rem;
+
 		outline:none;
 		padding-left:1.5rem;
 	}
@@ -61,8 +61,7 @@
 	}
 	
 	
-	.edit_blog_body{
-}
+
 	
 </style>
 
@@ -82,13 +81,13 @@
 
     
 		<span class="title">Upload Picture :- </span>
-	<div onchange="update_profile_image()"></div> 
+	<div class="editor" onchange="update_profile_image()">
 		{{ form.picture|add_class:"edit_blog picture_file" }}
     </div>
-    <div>
+    <div class="editor">
         <img style="width:20vw; height: auto" id='display_image' src="{{ form.picture.value.url }}" onclick="open_profile_pic_upload_box()">
     </div>
-    <div>
+    <div class="editor">
     {{ form.media }}
     {{ form.body }}
     </div>
