@@ -212,7 +212,7 @@
     <span class="title" style="margin-bottom:1.5rem ! important;">Create New Tag :- </span>
     <span class="help_text" style="margin-bottom:3rem;">Create a new tag if required</span>
     <div>
-        
+
     </div>
 	<span class="title">URL Slug :- </span>
     <span class="help_text">{{ edit_form.slug.help_text }}</span>
@@ -245,6 +245,34 @@
           reader.readAsDataURL(file_upload_box.files[0]);
         }
       }
+
+
+$('#create_tag_button').click(function () {
+        console.log("sendingrequest");
+
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'blog:create_tag' %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'tag_name': document.getElementById('create_tag_input').value,
+
+            },
+            success: function(result){
+
+                console.log(result);
+                if (result.tag_created == false){
+
+                    error = result.error;
+                    $('#login_error').css('display', 'block');
+                }
+                else{
+                    window.location = window.location.href + "#create_tag"
+                }
+            }
+        });
+    });
 
 
     </script>
