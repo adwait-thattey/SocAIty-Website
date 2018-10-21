@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404, Http404
 from django.urls import reverse
-from .models import Blog, Tag
+from .models import Blog, Tag, Vote
 from .forms import BlogCreateForm
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -72,7 +72,8 @@ def blog_create(request):
         selected_tags = list()
         blog_create_form = BlogCreateForm()
 
-    return render(request, 'blog/blog_create.html', {'create_form': blog_create_form, "tags": tags, "selected_tags": selected_tags})
+    return render(request, 'blog/blog_create.html',
+                  {'create_form': blog_create_form, "tags": tags, "selected_tags": selected_tags})
 
 
 def blog_detail(request, username, slug):
@@ -92,7 +93,7 @@ def blog_detail(request, username, slug):
 
 @login_required
 def blog_edit(request, username, slug):
-    #TODO This tag selector mechanism seems to be inefficient. Think Alternate ways
+    # TODO This tag selector mechanism seems to be inefficient. Think Alternate ways
     author = request.user
     blog = get_object_or_404(Blog, author=author, slug=slug)
     tags = Tag.objects.all()
@@ -142,3 +143,49 @@ def create_tag(request):
         data["error"] = ve
 
     return JsonResponse(data)
+
+
+def like_blog(request):
+    ret_data = {
+        "like_success": False
+    }
+
+    if request.user.is_anonymous:
+        return JsonResponse(ret_data)
+
+    blog_id = request.POST.get("blog_id")
+
+    blog = get_object_or_404(Blog, pk=blog_id)
+
+
+
+    try:
+        blog.upvote(request.user)
+        ret_data["like_success"] = True
+
+    except:
+        pass
+
+    return JsonResponse(ret_data)
+
+
+def like_status(request):
+    ret_data = {
+        "like_status": False
+    }
+
+    if request.user.is_anonymous:
+        return JsonResponse(ret_data)
+
+    blog_id = request.POST.get("blog_id")
+
+    blog = get_object_or_404(Blog, pk=blog_id)
+
+    ret_data = {
+        "like_status": False
+    }
+
+    if Vote.objects.filter(voter=request.user, blog=blog, upvote_downvote=1).exists():
+        ret_data["like_status"] = True
+
+    return JsonResponse(ret_data)
