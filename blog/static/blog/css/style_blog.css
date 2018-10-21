@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+	           
+
+		   * {
+              box-sizing: inherit;
+            }
+        
+            .pn-ProductNav_Wrapper {
+              position: relative;
+              padding: 0 11px;
+              box-sizing: border-box;
+            }
+        
+            .pn-ProductNav {
+              /* Make this scrollable when needed */
+              overflow-x: auto;
+              /* We don't want vertical scrolling */
+              overflow-y: hidden;
+              /* For WebKit implementations, provide inertia scrolling */
+              -webkit-overflow-scrolling: touch;
+              /* We don't want internal inline elements to wrap */
+              white-space: nowrap;
+              /* If JS present, let's hide the default scrollbar */
+              /* positioning context for advancers */
+              position: relative;
+              font-size: 0;
+            }
+            .js .pn-ProductNav {
+              /* Make an auto-hiding scroller for the 3 people using a IE */
+              -ms-overflow-style: -ms-autohiding-scrollbar;
+              /* Remove the default scrollbar for WebKit implementations */
+            }
+            .js .pn-ProductNav::-webkit-scrollbar {
+              display: none;
+            }
+        
+            .pn-ProductNav_Contents {
+              float: left;
+              -webkit-transition: -webkit-transform .2s ease-in-out;
+              transition: -webkit-transform .2s ease-in-out;
+              transition: transform .2s ease-in-out;
+              transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+              position: relative;
+            }
+        
+            .pn-ProductNav_Contents-no-transition {
+              -webkit-transition: none;
+              transition: none;
+            }
+        
+            .pn-ProductNav_Link {
+              text-decoration: none;
+              color: #888;
+              font-size: 1.2rem;
+              font-family: -apple-system, sans-serif;
+              display: -webkit-inline-box;
+              display: -ms-inline-flexbox;
+              display: inline-flex;
+              -webkit-box-align: center;
+                  -ms-flex-align: center;
+                      align-items: center;
+              min-height: 44px;
+              border: 1px solid transparent;
+              padding: 0 11px;
+            }
+            .pn-ProductNav_Link + .pn-ProductNav_Link {
+              border-left-color: #eee;
+            }
+            .pn-ProductNav_Link[aria-selected="true"] {
+              color: #111;
+            }
+        
+            .pn-Advancer {
+              /* Reset the button */
+              -webkit-appearance: none;
+                 -moz-appearance: none;
+                      appearance: none;
+              background: transparent;
+              padding: 0;
+              border: 0;
+              /* Now style it as needed */
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              /* Set the buttons invisible by default */
+              opacity: 0;
+              -webkit-transition: opacity .3s;
+              transition: opacity .3s;
+            }
+            .pn-Advancer:focus {
+              outline: 0;
+            }
+            .pn-Advancer:hover {
+              cursor: pointer;
+            }
+        
+            .pn-Advancer_Left {
+              left: 0;
+            }
+            [data-overflowing="both"] ~ .pn-Advancer_Left, [data-overflowing="left"] ~ .pn-Advancer_Left {
+              opacity: 1;
+            }
+        
+            .pn-Advancer_Right {
+              right: 0;
+            }
+            [data-overflowing="both"] ~ .pn-Advancer_Right, [data-overflowing="right"] ~ .pn-Advancer_Right {
+              opacity: 1;
+            }
+        
+            .pn-Advancer_Icon {
+              width: 20px;
+              height: 44px;
+              fill: #bbb;
+            }
+        
+            .pn-ProductNav_Indicator {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              height: 4px;
+              width: 100px;
+              background-color: transparent;
+              -webkit-transform-origin: 0 0;
+                      transform-origin: 0 0;
+              -webkit-transition: background-color .2s ease-in-out, -webkit-transform .2s ease-in-out;
+              transition: background-color .2s ease-in-out, -webkit-transform .2s ease-in-out;
+              transition: transform .2s ease-in-out, background-color .2s ease-in-out;
+              transition: transform .2s ease-in-out, background-color .2s ease-in-out, -webkit-transform .2s ease-in-out;
+            }
+
+			
+			
+			/***************************************   Custom CSS  ****************************************/
+			
+
+					   			
+			
+
+	.edit_blog{
+		margin: 0 0rem 0.5rem 0rem;
+		padding: 1.1rem;
+		width: 65vw;
+		background-color: aliceblue;
+		border-radius:3rem;
+		border:none;
+		outline:none;
+		font-size:15px;
+		font-weight:bold;
+		color:#949494;
+		box-shadow:1px 3px 3px 1px;
+	}
+	
+	.title{
+		margin-left:3.5rem;
+
+		
+	}
+	
+	
+	
+	.title:after {
+		margin-left:0.5rem;
+		margin-bottom:0;
+		content:' ';
+		display:block;
+		border:2px solid #d0d0d0;
+		width:28px;
+		border-radius:4px;
+		-webkit-border-radius:4px;
+		-moz-border-radius:4px;
+		box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+		-webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+		-moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+	}
+	
+	
+	.description{
+		resize:none;
+		margin-left:3.5rem;
+        padding:3rem;
+	}
+	
+	.picture_file{
+		width:30vw;
+
+		outline:none;
+		padding-left:1.5rem;
+	}
+	
+	
+	.edit_blog_form{
+		width:50%;
+		margin:7rem 5rem;
+		font-family: 'Raleway', sans-serif;
+	}
+	
+	
+	span{
+		font-size:25px;
+		font-weight:bold;
+		color:#594236
+	}
+	
+
+	.edit_blog_body{
+		
+		background-size:cover;
+    }
+
+
+    .error_field{
+        position: absolute;
+        top:6rem;
+        left:40%;
+        margin-bottom:2rem;
+        font-weight:bold;
+        font-size:1.3rem;
+        color:red;
+        border-bottom:2px solid red;
+        font-family: 'Raleway', sans-serif;
+    }
+
+
+    .help_text{
+       margin: 0.5rem 0 0.5rem 5.5rem;
+        font-weight: bold;
+        font-size: 1rem;
+        font-family: 'Raleway', sans-serif;
+        color: green;
+		width:100%;
+    }
+
+    .error_text{
+        margin: 0.5rem 0 3.0rem 5.5rem;
+    }
+
+    .error_text span{
+        font-weight: bold;
+        font-size: 1rem;
+        font-family: 'Raleway', sans-serif;
+        color: red;
+    }
+
+    .submit_buttonz{
+        width:5vw;
+        border-radius:3rem;
+        background-color: #00FF00;
+        height:15px;
+    }
+
+
+
+    a.button {
+      display: block;
+      position: relative;
+      float: left;
+      width: 120px;
+      padding: 0;
+      margin: 10px 20px 10px 0;
+      font-weight: 600;
+      text-align: center;
+      line-height: 50px;
+      color: #FFF;
+      border-radius: 5px;
+      transition: all 0.2s ;
+    }
+
+
+    .btnLightBlue {
+  background: #5DC8CD;
+}
+    .btnLightBlue.btnBorder {
+  box-shadow: 0px 0px 0px 0px #01939A;
+}
+
+.btnLightBlue.btnBorder:hover {
+  box-shadow: 0px 0px 0px 5px #01939A;
+}
+
+.btnLightBlue.btnPush {
+  box-shadow: 0px 5px 0px 0px #1E8185;
+}
+
+
+.customcheck {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.customcheck input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.customcheck:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.customcheck input:checked ~ .checkmark {
+    background-color: #02cf32;
+    border-radius: 5px;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.customcheck input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.customcheck .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+.checkbox_div{
+	padding:0.5rem;
+	
+}
+
+
+	
+
+.label_tag{
+	--box-shadow-color: #9f9f9f;
+	box-shadow:1px 2px 0px 0px var(--box-shadow-color);
+	padding:0 1.5rem;
+	background-color:#dfdfdf;
+	border-radius:1rem;
+}
+
+
+.navbar-brand{
+	font-family: 'Raleway', sans-serif;
+	font-size:20px;
+	font-weight:100;
+}
+
+.navbar{
+	--box-shadow-color: #9f9f9f;
+	padding-bottom: 5px !important;
+	background-color:#efefef;
+	box-shadow:0 0 8px 0px var(--box-shadow-color); 
+}
+
+
+.nav-link{
+	font-weight:500 ! important;
+	font-family: 'Open Sans', sans-serif;
+	font-size:1.2rem!important;
+}
+
+.active{
+	color:#0def0d ! important;
+}		
+			
+	
+.scrollup{
+			width:40px;
+			height:40px;			
+			text-indent:-9999px;
+			opacity:0.3;
+			position:fixed;
+			bottom:20px;
+			right:100px;
+			display:none;			
+			
+		}	
+			
