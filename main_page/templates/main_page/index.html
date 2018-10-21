@@ -131,9 +131,13 @@
 								<li><a href="#section-testimonial">Testimonials</a></li>
 
                                 <li><a href="#section-contact">Contact Us</a></li>
+                                {% if user.is_authenticated %}
+                                    <li><a href="#">Profile</a></li>
+                                    <li class="mr-5"><a href="{% url 'registration:logout' %}">Logout</a></li>
+                                {% else %}
                                 <li><a href="{% url 'registration:login' %}">Login</a></li>
                                 <li class="mr-5"><a href="{% url 'registration:register' %}">Signup</a></li>
-
+                                {% endif %}
 
                             </ul>
                     </nav>
