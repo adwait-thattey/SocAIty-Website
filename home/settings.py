@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'home',
     'blog',
+    'main_page',
     'social_django',
     'ckeditor',
     'ckeditor_uploader',
