@@ -37,9 +37,18 @@
 		  
 	<!-- Custom CSS file -->	  
 	<link href="{% static 'blog/css/style_blog.css' %}" rel="stylesheet">
+	
+	<script src="{% static 'blog/js/blog.jquery.min.js' %}"></script>
 
 <style>
-	
+	.scrollup{
+			background: url('{% static "blog/images/icon_top.png" %}') no-repeat;
+		}
+		
+	.edit_blog_body{
+		background:url('{% static "blog/images/bg.png" %}') no-repeat center;
+		
+    }
 </style>
 
 </head>
@@ -174,6 +183,8 @@
         <a style="margin-left:3.5rem;" href="javascript:$('#blog_edit_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Edit</a>
     </div>
 
+	<a class="scrollup" style="display: none;">Scroll</a>
+	
 </form>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
@@ -230,9 +241,26 @@ $('#create_tag_button').click(function () {
             }
         });
     });
-
-
     </script>
+	<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
+<!-- Custom JavaScript -->
 	
 </body>
 

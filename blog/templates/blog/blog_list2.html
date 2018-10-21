@@ -49,6 +49,10 @@
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style_blog.css' %}">
+	
+	<script src="{% static 'blog/js/blog.jquery.min.js' %}"></script>
+	
+	
     <style>
 
         @media only screen and (max-width: 1600px) {
@@ -61,6 +65,11 @@
        section.featured-posts .image img{
             width: 100%;
         }
+		
+		
+		.scrollup{
+			background: url('{% static "blog/images/icon_top.png" %}') no-repeat;
+		}
     </style>
 
 </head>
@@ -405,7 +414,9 @@
         </div>
         <!-- </div>--> <!-- container -->
     </section>
-
+	<a class="scrollup" style="display: none;">Scroll</a>
+	
+	
 </div>
 <!-- Divider Section-->
 
@@ -458,5 +469,25 @@
             });
     });
 </script>
+<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
+<!-- Custom JavaScript -->
+
 </body>
 </html>

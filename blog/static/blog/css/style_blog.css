@@ -205,7 +205,7 @@
 	
 
 	.edit_blog_body{
-		background:url('{% static "blog/images/bg.png" %}') no-repeat center;
+		
 		background-size:cover;
     }
 
@@ -394,5 +394,15 @@
 }		
 			
 	
+.scrollup{
+			width:40px;
+			height:40px;			
+			text-indent:-9999px;
+			opacity:0.3;
+			position:fixed;
+			bottom:20px;
+			right:100px;
+			display:none;			
 			
+		}	
 			

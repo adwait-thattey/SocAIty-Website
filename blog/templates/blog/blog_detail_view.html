@@ -56,11 +56,18 @@
           href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/default.min.css">
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-
+	<script src="{% static 'blog/js/blog.jquery.min.js' %}"></script>
+	
+	
+	
     <style>
         code {
 
         }
+		
+		.scrollup{
+			background: url('{% static "blog/images/icon_top.png" %}') no-repeat;
+		}
     </style>
     <script>
         var disqus_developer = 1;
@@ -218,7 +225,7 @@
             Disqus.</a></noscript>
         </div>
     </section>{% endcomment %}
-
+	<a class="scrollup" style="display: none;">Scroll</a>
 
 </div>
 <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/jquery/jquery.min.js"></script>
@@ -229,7 +236,24 @@
 <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/js/front.js"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-
+<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
 <!-- Custom JavaScript -->
 
 {% comment %}
