@@ -1,0 +1,210 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V8</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'registration/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/css/main.css' %}">
+<!--===============================================================================================-->
+
+<!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/bootstrap/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/font-awesome/css/font-awesome.min.css">
+
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/fontastic.css">
+
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+    <!-- Fancybox-->
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
+
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/style.default.css"
+          id="theme-stylesheet">
+
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/custom.css">
+
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="favicon.png">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+	<!-- Custom CSS file -->
+	<link href="{% static 'blog/css/blog_custom.css' %}" rel="stylesheet">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="search-area">
+            <div class="search-area-inner d-flex align-items-center justify-content-center">
+                <div class="close-btn"><i class="icon-close"></i></div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8">
+                        <form action="#">
+                            <div class="form-group">
+                                <input type="search" name="search" id="search" placeholder="What are you looking for?">
+                                <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Navbar Brand -->
+            <div class="navbar-header d-flex align-items-center justify-content-between">
+                <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><strong style="font-size:2rem;">SocAIty</strong>  Developers</a>
+                <!-- Toggle Button-->
+                <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
+                        aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler"><span></span><span></span><span></span></button>
+            </div>
+            <!-- Navbar Menu -->
+            <div id="navbarcollapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'blog:blog_list' %}" class="nav-link active">Blog</a>
+                    </li>
+                    {% if user.is_authenticated %}
+
+                        <li class="nav-item"><a href="#" class="nav-link ">Profile</a>
+                        </li>
+{#                        TODO Set Profile link after profile is created#}
+                        <li class="nav-item"><a href="{% url 'registration:logout' %}?next={{ request.path }}" class="nav-link ">Logout</a>
+                        </li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'registration:register' %}?next={{ request.path }}" class="nav-link ">Signup</a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'registration:login' %}?next={{ request.path }}" class="nav-link ">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+
+            </div>
+        </div>
+    </nav>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="post" action="">
+					{% csrf_token %}
+                    <span class="login100-form-title">
+						Login
+					</span>
+
+                    {% if form.non_field_errors %}
+                        <div class="message" style="color: red; text-align: center">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+                            {{ form.username|attr:"placeholder:username"|add_class:"input100" }}
+                            <span class="focus-input100"></span>
+                        </div>
+
+
+                        <div class="wrap-input100 validate-input" data-validate = "Please enter password">
+                            {{ form.password|attr:"placeholder:password"|add_class:"input100" }}
+                            <span class="focus-input100"></span>
+                        </div>
+
+                        <div class="text-right p-t-13 p-b-23">
+                            <a href="#" class="txt2">
+                                Forgot Password?
+                            </a>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn">
+                                Sign in
+                            </button>
+                        </div>
+
+					<div class="row">
+						<div class="col">
+                            <span>or</span>
+                        </div>
+					</div>
+					
+					<div class="row">
+						<div class="col">
+							<a href="{% url 'social:begin' 'google-oauth2' %}"><img class="img-position" src="{% static 'registration/images/google.png' %}" width="64" height="64"></a>
+						</div>
+					
+						<div class="col">
+                            <a href="{% url 'social:begin' 'github' %}"><img class="img-position" src="{% static 'registration/images/github.png' %}" width="64" height="64"></a>
+						</div>
+					</div>
+
+					<div class="flex-col-c p-t-170 p-b-40">
+						<span class="txt1 p-b-9">
+							Don’t have an account?
+						</span>
+
+						<a id="signup_redirect" href="{% url 'registration:register' %}" class="txt3">
+							Sign up now
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+<!--===============================================================================================-->
+	<script src="{% static 'registration/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'registration/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'registration/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'registration/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'registration/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'registration/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'registration/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'registration/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'registration/js/main.js' %}"></script>
+
+    <script>
+        signup_redirect = document.getElementById('signup_redirect');
+        signup_redirect.href = signup_redirect.href + "?" + window.location.search.substr(1)
+    </script>
+
+</body>
+</html>

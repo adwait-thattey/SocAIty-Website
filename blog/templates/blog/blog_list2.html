@@ -1,0 +1,493 @@
+{% load static %}
+{% load blog_filters %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SocAIty Blog Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/bootstrap/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/font-awesome/css/font-awesome.min.css">
+
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/fontastic.css">
+
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+    <!-- Fancybox-->
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
+
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/style.default.css"
+          id="theme-stylesheet">
+
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/custom.css">
+
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="favicon.png">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style_blog.css' %}">
+	
+	<script src="{% static 'blog/js/blog.jquery.min.js' %}"></script>
+	
+	
+    <style>
+
+        @media only screen and (max-width: 1600px) {
+            #fadeshow1 {
+                display: none;
+            }
+
+        }
+
+       section.featured-posts .image img{
+            width: 100%;
+        }
+		
+		
+		.scrollup{
+			background: url('{% static "blog/images/icon_top.png" %}') no-repeat;
+		}
+    </style>
+
+</head>
+<body>
+<header class="header">
+    <!-- Main Navbar-->
+<nav class="navbar navbar-expand-lg">
+        <div class="search-area">
+            <div class="search-area-inner d-flex align-items-center justify-content-center">
+                <div class="close-btn"><i class="icon-close"></i></div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8">
+                        <form action="#">
+                            <div class="form-group">
+                                <input type="search" name="search" id="search" placeholder="What are you looking for?">
+                                <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Navbar Brand -->
+            <div class="navbar-header d-flex align-items-center justify-content-between">
+                <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><strong style="font-size:2rem;">SocAIty</strong>  Developers</a>
+                <!-- Toggle Button-->
+                <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
+                        aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler"><span></span><span></span><span></span></button>
+            </div>
+            <!-- Navbar Menu -->
+            <div id="navbarcollapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'blog:blog_list' %}" class="nav-link active">Blog</a>
+                    </li>
+                    {% if user.is_authenticated %}
+
+                        <li class="nav-item"><a href="#" class="nav-link ">Profile</a>
+                        </li>
+{#                        TODO Set Profile link after profile is created#}
+                        <li class="nav-item"><a href="{% url 'registration:logout' %}?next={{ request.path }}" class="nav-link ">Logout</a>
+                        </li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'registration:register' %}?next={{ request.path }}" class="nav-link ">Signup</a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'registration:login' %}?next={{ request.path }}" class="nav-link ">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+
+<!-- Intro Section-->
+<section class="intro pb-0">
+    <div class="container mt-0">
+        <div class="pn-ProductNav_Wrapper ">
+            <nav id="pnProductNav" class="pn-ProductNav dragscroll">
+                <div id="pnProductNavContents" class="pn-ProductNav_Contents">
+{#                    <a href="#" class="pn-ProductNav_Link" aria-selected="true">Chairs</a>#}
+                    <a href="#" class="pn-ProductNav_Link" id="id_tag_all" aria-selected="true">All</a>
+                    {% for t in tags %}
+                        <a href="#" class="pn-ProductNav_Link" id="id_tag_{{ t.name|strtosnake }}">{{ t.name }}</a>
+                    {% endfor %}
+
+                    <span id="pnIndicator" class="pn-ProductNav_Indicator"></span>
+                </div>
+
+            </nav>
+            <button id="pnAdvancerLeft" class="pn-Advancer pn-Advancer_Left" style="margin:-7px;" type="button">
+                <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024">
+                    <path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/>
+                </svg>
+            </button>
+            <button id="pnAdvancerRight" class="pn-Advancer pn-Advancer_Right " style="margin:-7px;" type="button">
+                <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024">
+                    <path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-lg-8">
+                <p class="text-big">Our <strong>Blogs</strong> here <strong>for our readers</strong>
+                    {% if user.userprofile.blog_create_permission %}
+                        <span class="mr-5"></span>
+                    <span class="main_tags"><i class="far fa-edit text-red"></i></span>
+                        <a href="{% url 'blog:blog_create' %}"><span>Write A Blog</span></a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Material inline 1 -->
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample"
+                   {% if sortby == "recent" %}
+
+                       checked = "checked"
+                    {% endif %}
+                onclick="sortbyarg('recent')"
+            >
+            <label class="form-check-label" for="materialInline1">Most Recent</label>
+        </div>
+
+        <!-- Material inline 2 -->
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample"
+            onclick="sortbyarg('like')"
+                   {% if sortby == "like" %}
+
+                       checked = "checked"
+                    {% endif %}
+            >
+            <label class="form-check-label" for="materialInline2">Most Liked</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample"
+            onclick="sortbyarg('view')"
+                   {% if sortby == "view" %}
+
+                       checked = "checked"
+                    {% endif %}
+            >
+            <label class="form-check-label" for="materialInline2">Most Viewed</label>
+        </div>
+
+        <!-- Material inline 3 -->
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample"
+
+                   {% if sortby == "old" %}
+
+                       checked = "checked"
+                    {% endif %}
+                   onclick="sortbyarg('old')"
+            >
+            <label class="form-check-label" for="materialInline3">Oldest</label>
+        </div>
+    </div>
+
+
+</section>
+
+<div class="container-fluid ml-lg-5 pl-lg-5">
+
+    <section class="featured-posts no-padding-top">
+        <!-- <div class="container float-left ml-5 pl-5"> -->
+
+        <div id="fadeshow1" class="row float-right col-lg-3 "
+             style=";margin-right: 160px;padding-right:10px;margin-top: 44px;padding-top:33px;padding-bottom:21px;">
+            <div class="container " style="background-color:#b3d0ec;margin-left: 27px;padding-top: 23px;">
+
+
+                <div class="alert alert-primary" role="alert" style="text-align: center;font-weight: bolder">
+                    Trending Blogs !
+                </div>
+                <div class="alert alert-secondary" role="alert">
+                    Trending Blog 1 Title
+                </div>
+                <div class="alert alert-success" role="alert">
+                    Trending Blog 2 Title
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    Trending Blog 3 Title
+                </div>
+                <div class="alert alert-warning" role="alert">
+                    Trending Blog 4 Title
+                </div>
+                <div class="alert alert-info" role="alert">
+                    Trending Blog 5 Title
+                </div>
+                <div class="alert alert-light" role="alert">
+                    Trending Blog 6 Title
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            {% for blog in blogs %}
+                <!-- Post-->
+                <div id="post" class="row d-flex align-items-stretch my-5 bg-white">
+                    <div class="image col-lg-5"><img
+                            src="{{ blog.picture.url }}" alt="..."></div>
+                    <div class="text col-lg-6 bg-white">
+                        <div class="text-inner d-flex align-items-center">
+                            <div class="content">
+                                <header class="post-header">
+                                    <div class="category">
+                                        {% for blogtag in blog.tags.all %}
+                                            <a href="#">{{ blogtag }}</a>
+                                        {% endfor %}
+
+                                    </div>
+                                    <a href="{% url 'blog:blog_detail' blog.author.username blog.slug %}">
+                                        <h2 class="h4">{{ blog.title|title }}</h2></a>
+                                </header>
+                                <p>{{ blog.short_description }}</p>
+                                <footer class="post-footer d-flex align-items-center"><a href="#"
+                                                                                         class="author d-flex align-items-center flex-wrap">
+                                    <div class="avatar"><img
+                                            src="{{ blog.author.userprofile.profile_pic.url }}"
+                                            alt="..." class="img-fluid"></div>
+                                    <div class="title"><span style="border:none!importa;">{{ blog.author.get_full_name }} </span></div>
+                                </a>
+                                    <div class="date"><i class="far fa-clock"></i> {{ blog.create_date }}</div>
+                                    <div class="date"><i class="far fa-heart"></i> {{ blog.upvotes }}</div>
+
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div id="post" class="row d-flex align-items-stretch my-5 bg-white">
+                    <div class="image col-lg-5"><img
+                            src="{{ blog.picture.url }}" alt="..."></div>
+                    <div class="text col-lg-6 bg-white">
+                        <div class="text-inner d-flex align-items-center">
+                            <div class="content">
+                                <header class="post-header">
+
+                                    <a href="post.html">
+                                        <h2 class="h4">No Blogs Found Matching Your Query :(</h2></a>
+                                </header>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- End post -->
+
+            {% comment %}<!-- Post-->
+            <div class="row d-flex align-items-stretch my-5  bg-light">
+                <div class="image col-lg-5"><img
+                        src="https://d19m59y37dris4.cloudfront.net/blog/1-2/img/featured-pic-2.jpeg" alt="..."></div>
+                <div class="text col-lg-6 bg-light">
+                    <div class="text-inner d-flex align-items-center">
+                        <div class="content">
+                            <header class="post-header">
+                                <div class="category"><a href="#">Coding</a><a href="#">Artificial Intelligence</a>
+                                </div>
+                                <a href="post.html">
+                                    <h2 class="h4">Aaquib Niaz Can Teach You C++</h2></a>
+                            </header>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude
+                                consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                            <footer class="post-footer d-flex align-items-center"><a href="#"
+                                                                                     class="author d-flex align-items-center flex-wrap">
+                                <div class="avatar"><img
+                                        src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQ3NjM5MTEzMTc5MjEwODI2/eminem_photo_by_dave_j_hogan_getty_images_entertainment_getty_187596325.jpg"
+                                        alt="..." class="img-fluid"></div>
+                                <div class="title"><span>Aaquib </span></div>
+                            </a>
+                                <div class="date"><i class="far fa-clock"></i> 2 months ago</div>
+                                <div class="date"><i class="far fa-heart"></i> 10</div>
+
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End post -->
+            <!-- Post-->
+            <div class="row d-flex align-items-stretch my-5 bg-white">
+                <div class="image col-lg-5"><img
+                        src="https://d19m59y37dris4.cloudfront.net/blog/1-2/img/featured-pic-2.jpeg" alt="..."></div>
+                <div class="text col-lg-6 bg-white">
+                    <div class="text-inner d-flex align-items-center">
+                        <div class="content bg-silver">
+                            <header class="post-header">
+                                <div class="category"><a href="#">Coding</a><a href="#">Artificial Intelligence</a>
+                                </div>
+                                <a href="post.html">
+                                    <h2 class="h4">Aaquib Niaz Can Teach You Flask</h2></a>
+                            </header>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude
+                                consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                            <footer class="post-footer d-flex align-items-center"><a href="#"
+                                                                                     class="author d-flex align-items-center flex-wrap">
+                                <div class="avatar"><img
+                                        src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQ3NjM5MTEzMTc5MjEwODI2/eminem_photo_by_dave_j_hogan_getty_images_entertainment_getty_187596325.jpg"
+                                        alt="..." class="img-fluid"></div>
+                                <div class="title"><span>Aaquib </span></div>
+                            </a>
+                                <div class="date"><i class="far fa-clock"></i> 2 months ago</div>
+                                <div class="date"><i class="far fa-heart"></i> 10</div>
+
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End post -->
+            <!-- Post-->
+            <div class="row d-flex align-items-stretch my-5 bg-light ">
+                <div class="image col-lg-5"><img
+                        src="https://d19m59y37dris4.cloudfront.net/blog/1-2/img/featured-pic-2.jpeg" alt="..."></div>
+                <div class="text col-lg-6 bg-light">
+                    <div class="text-inner d-flex align-items-center">
+                        <div class="content">
+                            <header class="post-header">
+                                <div class="category"><a href="#">Coding</a><a href="#">Artificial Intelligence</a>
+                                </div>
+                                <a href="post.html">
+                                    <h2 class="h4">Aaquib Niazminem Eminem</h2></a>
+                            </header>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude
+                                consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                            <footer class="post-footer d-flex align-items-center"><a href="#"
+                                                                                     class="author d-flex align-items-center flex-wrap">
+                                <div class="avatar"><img
+                                        src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQ3NjM5MTEzMTc5MjEwODI2/eminem_photo_by_dave_j_hogan_getty_images_entertainment_getty_187596325.jpg"
+                                        alt="..." class="img-fluid"></div>
+                                <div class="title"><span>Aaquib </span></div>
+                            </a>
+                                <div class="date"><i class="far fa-clock"></i> 2 months ago</div>
+                                <div class="date"><i class="far fa-heart"></i> 10</div>
+
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End post -->
+{% endcomment %}
+        </div>
+        <!-- </div>--> <!-- container -->
+    </section>
+	<a class="scrollup" style="display: none;">Scroll</a>
+	
+	
+</div>
+<!-- Divider Section-->
+
+<!-- Latest Posts -->
+
+<!-- Newsletter Section-->
+
+<!-- Gallery Section-->
+
+<!-- Page Footer-->
+
+<!-- JavaScript files-->
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/jquery/jquery.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/popper.js/umd/popper.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/js/front.js"></script>
+
+<!-- Custom JavaScript -->
+
+<script src="{% static 'blog/js/script_blog.js' %}"></script>
+<script>
+    function sortbyarg(arg) {
+        tag_name = "";
+        {% if selected_tag|length > 0 %}
+            tag_name = "{{ selected_tag }}";
+        {% endif %}
+
+        window.location.search = '?sortby=' + arg + "&tag=" + tag_name
+    }
+</script>
+<script>
+
+    $(document).ready(function($){
+        {% if selected_tag|length > 0 %}
+            document.getElementById('id_tag_{{ selected_tag }}').click();
+        {% endif %}
+
+        {% for tag in tags %}
+            {% if tag|strtosnake != selected_tag %}
+            $('#id_tag_{{ tag|strtosnake }}').click(function () {
+                window.location = "{% url 'blog:blog_list' %}?tag={{ tag|strtosnake }}"
+            });
+            {% endif %}
+        {% endfor %}
+
+            $('#id_tag_all').click(function () {
+                window.location = "{% url 'blog:blog_list' %}"
+            });
+    });
+</script>
+<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
+<!-- Custom JavaScript -->
+
+</body>
+</html>
