@@ -1,0 +1,868 @@
+﻿{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AI Developer Community</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive Minimal Bootstrap Theme">
+    <meta name="keywords" content="onepage,responsive,minimal,bootstrap,theme">
+    <meta name="author" content="">
+
+
+    <!--[if lt IE 9]>
+	<script src="{% static 'main_page/js/html5shiv.js' %}"></script>
+	<![endif]-->
+
+
+    <!-- CSS Files
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'main_page/css/bootstrap.css' %}" type="text/css">
+{#	<link rel="stylesheet" href="{% static 'main_page/css/Fermat.css' %}" type="text/css">#}
+    <link rel="stylesheet" href="{% static 'main_page/css/jpreloader.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/animate.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/flexslider.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/plugin.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/prettyPhoto.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/owl.carousel.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/owl.theme.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/owl.transitions.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/style.css' %}" type="text/css">
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'main_page/images/favicon.jpg' %}" type="image/jpg" sizes="16x16">
+    <!-- custom style css -->
+    <link rel="stylesheet" href="{% static 'main_page/css/custom-style.css' %}" type="text/css">
+
+    <!-- color scheme -->
+    <link rel="stylesheet" href="{% static 'main_page/css/color.css' %}" type="text/css">
+
+    <!-- revolution slider -->
+    <link rel="stylesheet" href="{% static 'main_page/rs-plugin/css/settings.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/css/rev-settings.css' %}" type="text/css">
+
+    <!-- load fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/fonts/elegant_font/HTML_CSS/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main_page/fonts/et-line-font/style.css' %}" type="text/css">
+	
+	<style>
+		#section-welcome{
+			height:1400px ! important;
+
+		}
+		
+		#myCanvas {
+		position:absolute;
+		z-index:4;
+		  width: 100%;
+		  height: 100%;
+		}
+		
+		
+		#section-welcome{
+			z-index : 1 ! important;
+		}
+		
+		
+		.fixed-footer{
+			position:fixed;
+			height:10px;
+			width:100%;
+			bottom:0px;
+			background-color:black;
+			
+		}
+		
+		
+	</style>
+	
+	
+</head>
+
+<body id="homepage">
+
+    <!-- This section is for Splash Screen -->
+    <div id="jSplash" >
+        <section class="selected" >
+            Hold tight
+        </section>
+        <section>
+            Almost there
+        </section>
+        <section>
+            Breath in, breath out
+        </section>
+    </div>
+    <!-- End of Splash Screen -->
+
+
+    <div id="wrapper">
+        <div class="page-overlay">
+        </div>
+
+
+        <!-- header begin -->
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                   
+                        <!-- small button begin -->
+                        <span id="menu-btn"></span>
+                        <!-- small button close -->
+
+                        <!-- mainmenu begin -->
+                        <nav>
+                            <ul id="mainmenu"> 
+                                <li><a href="#wrapper">Home</a></li>
+                                <li><a href="#section-about">About</a></li>
+                                <li><a href="#section-portfolio">Projects</a></li>
+								<!-- logo begin -->
+								<h1 id="logo">
+									<a href="index.html">
+										<img id = "navbarLogo"class="logo-1" src="{% static 'main_page/images/logo/socaity.svg' %}" alt="">
+									
+									</a>
+								</h1>
+								<!-- logo close -->
+								<li><a href="#section-testimonial">Testimonials</a></li>
+                                
+                                <li><a href="#section-team">Life</a></li>
+                                <li><a href="#section-contact">Contact Us</a></li>
+
+ 
+                            </ul>
+                    </nav>
+                    <!-- mainmenu close -->
+
+                </div>
+            </div>
+            </div>>
+        </header>
+        <!-- header close -->
+
+
+        <!-- content begin -->
+        <div id="content" class="no-bottom no-top">
+			
+			
+			
+            <!-- section begin -->
+            <section style="background-size:cover ! important;" id="section-welcome" class="full-height dark" data-stellar-background-ratio=".2">
+				
+				<canvas id="myCanvas"></canvas>
+				
+            </section>
+			
+			
+			
+            <!-- section close -->
+
+
+            <!-- section begin -->
+            <section id="section-about">
+                <div class="container">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 text-center">
+                                <h1 class="animated" data-animation="fadeInUp">About <span class="id-color"> us</span>
+                                    <span class="small-border animated" data-animation="fadeInUp"></span>
+                                </h1>
+                                
+                                <div class="spacer-single"></div>
+                            </div>
+                        </div>
+                        <!-- featured box begin -->
+                        <div class="feature-box-small-icon box-fx center col-md-4 animated" data-animation="fadeInUp" data-delay="0">
+                            <div class="inner">
+                                <div class="front">
+                                    <i class="icon-genius"></i>
+                                    <h3>Who are we?</h3>
+                                    <span>An obvious first question</span>
+                                </div>
+                                <div class="info">
+                                    We are a group of students who have embarked on a mission to build an AI-powered environment. We are an open community and organise
+                                    various events to share our knowledge of AI among as many developers as possible.                                	<br>
+                                    <a href="#" class="btn btn-border">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- featured box close -->
+
+                        <!-- featured box begin -->
+                        <div class="feature-box-small-icon box-fx center col-md-4 animated" data-animation="fadeInUp" data-delay="200">
+                            <div class="inner">
+                                <div class="front">
+                                    <i class="icon-linegraph"></i>
+                                    <h3>Purpose of AIDC</h3>
+                                    <span>Why we do it?</span>
+                                </div>
+                                <div class="info">
+                                    We do it in order to foster interactions among students and professionals interested in AI, to create awareness about AI and its applications, and to encourage individuals
+                                    to take an interest in open source society and extend learning among peers.                                 	<br>
+                                    <a href="#" class=" btn btn-border">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- featured box close -->
+
+                        <!-- featured box begin -->
+                        <div class="feature-box-small-icon box-fx center col-md-4 animated" data-animation="fadeInUp" data-delay="400">
+                            <div class="inner">
+                                <div class="front">
+                                    <i class="icon-layers"></i>
+                                    <h3>AIDC's plan of action</h3>
+                                    <span>How are we doing it</span>
+                                </div>
+                                <div class="info">
+                                    We organise meetups, tech-discussions, and different coding programmes on Artificial Intelligence and related fields. We bring amazing
+                                    people together to design and develop AI powered web applications and share our work for the benefit of all.
+                                	<br>
+                                    <a href="#" class="btn btn-border">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- featured box close -->
+
+
+                    </div>
+                </div>
+            </section>
+            <!-- section close -->
+
+            <!-- section begin -->
+            <section id="section-about-us-2" class="side-bg no-padding">
+                <div class="image-container col-md-5 pull-left animated" data-animation="fadeInLeft" data-delay="0"></div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="inner-padding">
+                            <div class="col-md-6 col-md-offset-6 animated" data-animation="fadeInRight" data-delay="200">
+                                <h2>We are here to make a difference </h2>
+
+                                <p class="intro">We are a group of students who have embarked on a mission to build an AI-Powered environment. We are members of an open community and we organise
+                                    various events to propagate knowledge of AI among developers.</p>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h3>What we do</h3>
+                                        <p>We organise meetups, tech discussions, and different coding programmes on Artificial Intelligence and its related fields. We bring amazing
+                                    people together to design and develop AI powered applications and share our work for the benefit of all.</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>Our Mission</h3>
+                                        <p>To foster interactions among students and professionals interested in AI. To create awareness about AI and its applications. To encourage individuals
+                                    to take an interest in open source society and extend learning among peers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fun-facts" class="dark" data-stellar-background-ratio=".2">
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-md-12 text-center">
+                            <h1 class="animated" data-animation="fadeInUp">Progress <span class="id-color">so far...</span></h1>
+                            <span class="small-border animated" data-animation="fadeInUp"></span>
+                            <div class="spacer-single"></div>
+                        </div>
+
+
+                        <div class="col-md-3 animated" data-animation="fadeInLeft" data-delay="100">
+                            <div class="de_count">
+                                <i class="icon-alarmclock animated" data-animation="fadeInDown" data-delay="0"></i>
+                                <h3 class="timer" data-to="4" data-speed="2500">0</h3>
+                                <span>Meetups Conducted</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 animated" data-animation="fadeInLeft" data-delay="0">
+                            <div class="de_count">
+                                <i class="icon-documents animated" data-animation="fadeInDown" data-delay="200"></i>
+                                <h3 class="timer" data-to="2" data-speed="2500">0</h3>
+                                <span>Training Session</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 animated" data-animation="fadeInRight" data-delay="0">
+                            <div class="de_count">
+                                <i class="icon-piechart animated" data-animation="fadeInDown" data-delay="400"></i>
+                                <h3 class="timer" data-to="450" data-speed="2500">0</h3>
+                                <span>Members</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 animated" data-animation="fadeInRight" data-delay="100">
+                            <div class="de_count">
+                                <i class="icon-wine animated" data-animation="fadeInDown" data-delay="600"></i>
+                                <h3 class="timer" data-to="30" data-speed="2500">0</h3>
+                                <span>Developers</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="section-portfolio" class="no-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1 class="animated" data-animation="fadeInUp">Our <span class="id-color">Works</span>
+                                <span class="small-border animated" data-animation="fadeInUp"></span>
+                            </h1>
+                            <div class="spacer-single"></div>
+                        </div>
+                    </div>
+
+                    <!-- portfolio filter begin -->
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <ul id="filters" class="animated" data-animation="fadeInUp" data-delay="200">
+                                <li><a href="#" data-filter="*" class="selected">Show All</a></li>
+                                <li><a href="#" data-filter=".illustration"></a></li>
+                                <li><a href="#" data-filter=".mobile">Meetups</a></li>
+                                <li><a href="#" data-filter=".photography">Contests</a></li>
+                                <li><a href="#" data-filter=".website">Workshops</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <!-- portfolio filter close -->
+
+                </div>
+
+                <div id="gallery" class="gallery full-gallery de-gallery pf_full_width animated" data-animation="fadeInUp" data-delay="200">
+
+                    <!-- gallery item -->
+                    <div class="item illustration">
+                        <div class="picframe">
+                            <span class="overlay">
+                                <span class="icon">
+                                    <a href="{% static 'main_page/images/portfolio/pf%20(1).jpg' %}" data-type="prettyPhoto[gallery]"><i class="fa fa-search icon-view"></i></a>
+                                </span>
+                                <span class="icon">
+                                    <i class="fa fa-align-justify fa-external-link icon-info" data-value="project-details-slider.html"></i>
+                                </span>
+                                <span class="pf_text">
+                                    <span class="project-name">Project Name #1</span>
+                                    <span>illustration</span>
+                                </span>
+                            </span>
+
+                            <img src="{% static 'main_page/images/portfolio/pf%20(1).jpg' %}" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="item mobile website">
+                        <div class="picframe">
+                            <span class="overlay">
+                                <span class="icon">
+                                    <a href="{% static 'main_page/images/portfolio/pf%20(2).jpg' %}" data-type="prettyPhoto[gallery]"><i class="fa fa-search icon-view"></i></a>
+                                </span><span class="icon">
+                                    <i class="fa fa-align-justify fa-external-link icon-info" data-value="project-details-youtube.html"></i>
+                                </span>
+                                <span class="pf_text">
+                                    <span class="project-name">Project Name #2</span>
+                                    <span>mobile, website</span>
+                                </span>
+                            </span>
+
+                            <img src="{% static 'main_page/images/portfolio/pf%20(2).jpg' %}" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="item website mobile">
+                        <div class="picframe">
+                            <span class="overlay">
+                                <span class="icon">
+                                    <a href="{% static 'main_page/images/portfolio/pf%20(3).jpg' %}" data-type="prettyPhoto[gallery]"><i class="fa fa-search icon-view"></i></a>
+                                </span><span class="icon">
+                                    <i class="fa fa-align-justify fa-external-link icon-info" data-value="project-details-slider-big.html"></i>
+                                </span>
+                                <span class="pf_text">
+                                    <span class="project-name">Project Name #3</span>
+                                    <span>mobile, website</span>
+                                </span>
+                            </span>
+
+                            <img src="{% static 'main_page/images/portfolio/pf%20(3).jpg' %}" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="item illustration photography">
+                        <div class="picframe">
+                            <span class="overlay">
+                                <span class="icon">
+                                    <a href="{% static 'main_page/images/portfolio/pf%20(4).jpg' %}" data-type="prettyPhoto[gallery]"><i class="fa fa-search icon-view"></i></a>
+                                </span><span class="icon">
+                                    <i class="fa fa-align-justify fa-external-link icon-info" data-value="project-details-youtube-big.html"></i>
+                                </span>
+                                <span class="pf_text">
+                                    <span class="project-name">Project Name #4</span>
+                                    <span>illustration, photography</span>
+                                </span>
+                            </span>
+                            <img src="{% static 'main_page/images/portfolio/pf%20(4).jpg' %}" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="item website photography mobile">
+                        <div class="picframe">
+                            <span class="overlay">
+                                <span class="icon">
+                                    <a href="{% static 'main_page/images/portfolio/pf%20(5).jpg' %}" data-type="prettyPhoto[gallery]"><i class="fa fa-search icon-view"></i></a>
+                                </span><span class="icon">
+                                    <i class="fa fa-align-justify fa-external-link icon-info" data-value="project-details-slider.html"></i>
+                                </span>
+                                <span class="pf_text">
+                                    <span class="project-name">Project Name #5</span>
+                                    <span>mobile, website</span>
+                                </span>
+                            </span>
+                            <img src="{% static 'main_page/images/portfolio/pf%20(5).jpg' %}" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+                    <!-- gallery item -->
+                    <div class="item illustration website">
+                        <div class="picframe">
+                            <span class="overlay">
+                                <span class="icon">
+                                    <a href="{% static 'main_page/images/portfolio/pf%20(6).jpg' %}" data-type="prettyPhoto[gallery]"><i class="fa fa-search icon-view"></i></a>
+                                </span><span class="icon">
+                                    <i class="fa fa-align-justify fa-external-link icon-info" data-value="project-details-slider-big.html"></i>
+                                </span>
+                                <span class="pf_text">
+                                    <span class="project-name">Project Name #6</span>
+                                    <span>illustration, website</span>
+                                </span>
+                            </span>
+                            <img src="{% static 'main_page/images/portfolio/pf%20(6).jpg' %}" alt="" />
+                        </div>
+                    </div>
+                    <!-- close gallery item -->
+
+
+                </div>
+
+                <div id="loader-area">
+                    <div class="project-load"></div>
+                </div>
+            </section>
+            <!-- section close -->
+
+
+            <!-- section begin -->
+            <section id="view-all-projects" class="call-to-action bg-color dark text-center" data-stellar-background-ratio=".2">
+                <a href="#" class="btn btn-border btn-big">View All Works</a>
+            </section>
+            <!-- logo carousel section close -->
+
+
+
+            <!-- section begin -->
+            <section id="section-testimonial" class="dark">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1 class="animated" data-animation="fadeInUp">What our <span class="id-color">sponsors say</span></h1>
+                            <span class="small-border animated" data-animation="fadeInUp"></span>
+                            <div class="spacer-single"></div>
+                        </div>
+                    </div>
+                    <div id="testimonial-carousel" class="de_carousel row animated" data-animation="fadeInUp" data-delay="200">
+
+                        <div class="col-md-4 item">
+                            <div class="de_testi">
+                                <blockquote>
+                                    <h2>GAME <br>CHANGING!!</h2>
+                                </blockquote>
+                                <div class="de_testi_by">
+                                    <div class="de_testi_pic">
+                                        <img src="{% static 'main_page/images/testi_pic%20(1).jpg' %}" alt="" class="img-circle">
+                                    </div>
+                                    <div class="de_testi_company">
+                                        <strong>John Doe</strong>, Intel
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 item">
+                            <div class="de_testi">
+                                <blockquote>
+                                    <p>All of my questions were answered, designesia was very forthcoming and helpful and even sent me custom code for a specific problem I had. I know one thing: whatever theme designesia publishes, you can be assured that you get the best quality and support out there.</p>
+                                </blockquote>
+                                <div class="de_testi_by">
+                                    <span class="de_testi_pic">
+                                        <img src="{% static 'main_page/images/testi_pic%20(2).jpg' %}" alt="" class="img-circle"></span>
+                                    <div class="de_testi_company">
+                                        <strong>Mores</strong>, Customer
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 item">
+                            <div class="de_testi">
+                                <blockquote>
+                                    <p>There are some themes I have bought and are just 'eh' about. This one hands down does so much more than you could think. Perfect theme - and thanks for continually updating and improving it!</p>
+                                </blockquote>
+                                <div class="de_testi_by">
+                                    <div class="de_testi_pic">
+                                        <img src="{% static 'main_page/images/testi-default.jpg' %}" alt="" class="img-circle">
+                                    </div>
+                                    <div class="de_testi_company">
+                                        <strong>Feldhouse</strong>, Customer
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 item">
+                            <div class="de_testi">
+                                <blockquote>
+                                    <p>Again, great template and I love that it works on the computer, iPad, phone, etc. Very clean design, keep up the great work!</p>
+                                </blockquote>
+                                <div class="de_testi_by">
+                                    <div class="de_testi_pic">
+                                        <img src="{% static 'main_page/images/testi_pic%20(1).jpg' %}" alt="" class="img-circle">
+                                    </div>
+                                    <div class="de_testi_company">
+                                        <strong>Barbara</strong>, Customer
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 item">
+                            <div class="de_testi">
+                                <blockquote>
+                                    <p>Everything is nicely accessible inside the theme customization screen. It is easily comprehensible, the way things work is very natural and intuitive.</p>
+                                </blockquote>
+                                <div class="de_testi_by">
+                                    <span class="de_testi_pic">
+                                        <img src="{% static 'main_page/images/testi_pic%20(2).jpg' %}" alt="" class="img-circle"></span>
+                                    <div class="de_testi_company">
+                                        <strong>Mores</strong>, Customer
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 item">
+                            <div class="de_testi">
+                                <blockquote>
+                                    <p>Fit our needs like a glove. 1 hour to setup. I am currently implementing the language support Thanks for the awesome.</p>
+                                </blockquote>
+                                <div class="de_testi_by">
+                                    <div class="de_testi_pic">
+                                        <img src="{% static 'main_page/images/testi-default.jpg' %}" alt="" class="img-circle">
+                                    </div>
+                                    <div class="de_testi_company">
+                                        <strong>Itweb</strong>, Customer
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </section>
+            <!-- section close -->
+
+
+            <!-- section begin -->
+            <section id="section-blog">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <h1 class="animated" data-animation="fadeInUp">Our <span class="id-color">Blog</span>
+                                <span class="small-border animated" data-animation="fadeInUp"></span>
+                            </h1>
+                            
+                            <div class="spacer-single"></div>
+                        </div>
+                    </div>
+
+                        
+                        <div class="spacer-single"></div>
+                        
+                        <div class="text-center">
+                        	<a href="#" class="btn btn-border">View All Posts</a>
+                        </div>
+                    <!--</div>-->
+                </div>
+            </section>
+            <!-- section close -->
+
+            <!-- section begin -->
+            <section id="logo-full">
+                <div class="container">
+                    <!-- logo carousel -->
+                    <div class="row">
+                        <div class="logo-carousel">
+                                    <ul id="logo-carousel" class="slides">
+                                    	 <li>
+                                            <div class="col-md-2">
+                                                
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="col-md-2">
+                                                <img src="{% static 'main_page/images/logo/intel.png' %}" style="width: 10vw;height: 10vh">
+                                            </div>
+                                        </li>
+                                         <li>
+                                            <div class="col-md-2">
+                                                <img src="{% static 'main_page/images/logo/jb.jpg' %}" style="width: 10vw;height: 10vh">
+                                            </div>
+                                        </li>
+                                         <li>
+                                            <div class="col-md-2">
+                                                <img src="{% static 'main_page/images/logo/fb.png' %}" style="width: 10vw;height: 10vh">
+                                            </div>
+                                        </li>
+                                         <li>
+                                            <div class="col-md-2">
+                                                <img src="{% static 'main_page/images/logo/amazon.png' %}" style="width: 10vw;height: 10vh">
+                                            </div>
+                                        </li>
+                            
+                                    </ul>
+                        </div>
+                        <!-- logo carousel close -->
+                    </div>
+
+                </div>
+            </section>
+            <!-- section close -->
+
+
+            <!-- section begin -->
+            <section id="section-contact" class="dark" data-stellar-background-ratio=".2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1 class="animated" data-animation="fadeInUp">Contact <span class="id-color">Us</span>
+                        	<span class="small-border animated" data-animation="fadeInUp"></span>
+                            </h1>
+                            <p class="animated" data-animation="fadeIn">
+                                Get in touch with us. Feel Free to use contact below.
+                            </p>
+                            <div class="spacer-single"></div>
+                        </div>
+
+                        <div class="col-md-8 animated" data-animation="fadeInUp" data-delay="200" data-speed="5">
+
+                            <form name="contactForm" id='contact_form' method="post" action='email.php'>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div id='name_error' class='error'>Please enter your name.</div>
+                                        <div>
+                                            <input type='text' name='name' id='name' class="form-control" placeholder="Your Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id='email_error' class='error'>Please enter your valid E-mail ID.</div>
+                                        <div>
+                                            <input type='text' name='email' id='email' class="form-control" placeholder="Your Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div id='message_error' class='error'>Please enter your message.</div>
+                                        <div>
+                                            <textarea name='message' id='message' class="form-control" placeholder="Your Message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div id='mail_success' class='success'>Your message has been sent successfully.</div>
+                                    <div id='mail_fail' class='error'>Sorry, error occured this time sending your message.</div>
+                                    <div class="col-md-12">
+                                        <p id='submit'>
+                                            <input type='submit' id='send_message' value='Submit' class="btn btn-border">
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <address>
+                                <span><i class="fa fa-map-marker fa-lg"></i>IIIT SriCity, SriCity, Chittoor Dt.</span>
+                                <span><i class="fa fa-phone fa-lg"></i>(+91) 91007 53548</span>
+                                <span><i class="fa fa-envelope-o fa-lg"></i><a href="mailto:contact@example.com">aidevelopercommunity@gmail.com</a></span>
+                                <span><i class="fa fa-globe fa-lg"></i><a href="#">aidevelopercommunity.github.io</a></span>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- section close -->
+
+            <!-- footer begin -->
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="social-icons">
+                                <a href="https://www.facebook.com/groups/1218055828325663/"><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href="https://plus.google.com/105942925167500718168"><i class="fa fa-google-plus fa-lg"></i></a>
+                                <a href="https://github.com/AIDeveloperCommunity"><i class="fa fa-github fa-lg"></i></a>
+                                <a href="https://www.meetup.com/AI-Developer-Community/"><i class="fa fa-meetup fa-lg"></i></a>
+
+                            </div>
+                            <div class="spacer-single"></div>
+                            © Copyright 2018 - SocAIty
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- footer close -->
+        </div>
+    </div>
+
+
+    <!-- Javascript Files
+    ================================================== -->
+    
+    <script src="{% static 'main_page/js/jquery.min.js' %}"></script>
+    <script src="{% static 'main_page/js/jpreLoader.js' %}"></script>
+    <script src="{% static 'main_page/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'main_page/js/jquery.isotope.min.js' %}"></script>
+    <script src="{% static 'main_page/js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'main_page/js/easing.js' %}"></script>
+    <script src="{% static 'main_page/js/jquery.ui.totop.js' %}"></script>
+    <script src="{% static 'main_page/js/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'main_page/js/jquery.scrollto.js' %}"></script>
+    <script src="{% static 'main_page/js/owl.carousel.js' %}"></script>
+    <script src="{% static 'main_page/js/jquery.countTo.js' %}"></script>
+    <script src="{% static 'main_page/js/classie.js' %}"></script>
+    <script src="{% static 'main_page/js/video.resize.js' %}"></script>
+    <script src="{% static 'main_page/js/validation.js' %}"></script>
+    <script src="{% static 'main_page/js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'main_page/js/designesia.js' %}"></script>
+    <script src="{% static 'main_page/js/addServiceWorker.js' %}"></script>
+    <!-- SLIDER REVOLUTION SCRIPTS  -->
+    <script type="text/javascript" src="{% static 'main_page/rs-plugin/js/jquery.themepunch.plugins.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'main_page/rs-plugin/js/jquery.themepunch.revolution.min.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'main_page/js/three.min.js' %}"></script>
+	
+	<script>
+		$(document).ready( function() {
+			$(window).scroll(function() {
+				if($(window).scrollTop() > 15) { //scrolled past the other div?
+					$("#logo").hide(); //reached the desired point -- show div
+				}
+				else{
+					$("#logo").show();
+				}
+			});
+	});
+	</script>
+	
+	
+<!--	
+<script src="js/three.min.js"></script>
+<script>
+	// 参考：
+// Processingで三角関数を使って球体を作る - Processing中毒者の嘔吐物
+// http://p5aholic.hatenablog.com/entry/2015/06/15/194250
+
+
+var bgColor = 0x00FFFFFF;
+
+// シーン作るぞ
+var scene = new THREE.Scene();
+// scene.fog = new THREE.FogExp2(bgColor, 0.004);
+
+// カメラ作る
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+camera.position.set(0,0,250);
+
+// レンダラ作る
+var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'), antialias: true});
+renderer.setClearColor( bgColor );
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// グループつくる
+var group = new THREE.Object3D();
+
+// 半径
+var radius = 120;
+var separation = 10;
+
+for ( var s = 0; s <= 180; s+=separation ) {
+  // 0 <= s <= 180, なんで -1 <= Math.cos(radianS) <= 1
+  // なんで zが -radius <= z <= radius
+  var radianS = s*Math.PI / 180;
+  var pZ = radius * Math.cos(radianS);
+
+  // 円に沿って点描く
+  for ( var t = 0; t < 360; t+=separation ) {
+    // 角度をラジアンに
+    var radianT = t*Math.PI / 180;
+    // 点の座標を計算
+    // sin(radianS)は0→1→0の順で変化する
+    // radius * sin(radianS)は0→200→0になる
+    var pX = radius* Math.sin(radianS) * Math.cos(radianT);
+    var pY = radius* Math.sin(radianS) * Math.sin(radianT);
+
+    var geometory = new THREE.SphereGeometry(1.5,6,6);
+    var material = new THREE.MeshBasicMaterial({
+      color: 0x1a1a1a
+    });
+    var mesh = new THREE.Mesh(geometory, material);
+    mesh.position.x = pX;
+    mesh.position.y = pY;
+    mesh.position.z = pZ;
+    group.add(mesh);
+  }
+
+}
+
+scene.add(group);
+
+// 毎フレームアップデートするぞ
+function update() {
+  // グループを回転
+  var rotateX = group.rotation.x + 0.002;
+  var rotateY = group.rotation.y + 0.005;
+  var rotateZ = group.rotation.z + 0.01;
+  group.rotation.set( rotateX, rotateY, rotateZ );
+
+  // レンダリング
+  camera.lookAt(scene.position);
+  renderer.render(scene,camera);
+
+  // 次のアニメーション呼び出す
+  requestAnimationFrame(update);
+}
+update();
+</script>
+-->	
+	
+	
+</body>
+</html>
