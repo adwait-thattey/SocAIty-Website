@@ -56,11 +56,18 @@
           href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/default.min.css">
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-
+	<script src="{% static 'blog/js/blog.jquery.min.js' %}"></script>
+	
+	
+	
     <style>
         code {
 
         }
+		
+		.scrollup{
+			background: url('{% static "blog/images/icon_top.png" %}') no-repeat;
+		}
     </style>
     <script>
         var disqus_developer = 1;
@@ -90,9 +97,8 @@
         <div class="container">
             <!-- Navbar Brand -->
             <div class="navbar-header d-flex align-items-center justify-content-between">
-                <!-- Navbar Brand --><a href="index.html" class="navbar-brand">
-                <img width="128" height="128" src="socaity.svg">
-            </a>
+                <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><strong style="font-size:2rem;">SocAIty</strong>  Developers</a>
+
                 <!-- Toggle Button-->
                 <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -101,20 +107,30 @@
             <!-- Navbar Menu -->
             <div id="navbarcollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="index.html" class="nav-link active ">Home</a>
+                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link ">Home</a>
                     </li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a>
+                    <li class="nav-item"><a href="{% url 'blog:blog_list' %}" class="nav-link active">Blog</a>
                     </li>
-                    <li class="nav-item"><a href="post.html" class="nav-link ">Signup</a>
+                    {% if user.is_authenticated %}
+
+                        <li class="nav-item"><a href="#" class="nav-link ">Profile</a>
+                        </li>
+{#                        TODO Set Profile link after profile is created#}
+                        <li class="nav-item"><a href="{% url 'registration:logout' %}?next={{ request.path }}" class="nav-link ">Logout</a>
+                        </li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'registration:register' %}?next={{ request.path }}" class="nav-link ">Signup</a>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link ">Login</a>
+                    <li class="nav-item"><a href="{% url 'registration:login' %}?next={{ request.path }}" class="nav-link ">Login</a>
                     </li>
+                    {% endif %}
                 </ul>
 
 
             </div>
         </div>
     </nav>
+
 
 </header>
 
@@ -218,7 +234,11 @@
         </div>
     </section>{% endcomment %}
 
+
     </section>
+
+	<a class="scrollup" style="display: none;">Scroll</a>
+
 </div>
 <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/jquery/jquery.min.js"></script>
 <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/popper.js/umd/popper.min.js"></script>
@@ -228,7 +248,24 @@
 <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2/js/front.js"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-
+<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
 <!-- Custom JavaScript -->
 
 {% comment %}

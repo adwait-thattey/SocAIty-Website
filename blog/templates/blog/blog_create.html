@@ -34,239 +34,23 @@
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-<style>
+	
+	<!-- Custom CSS file -->	  
+	<link href="{% static 'blog/css/style_blog.css' %}" rel="stylesheet">
 
-	@import url('https://fonts.googleapis.com/css?family=Raleway');
-
-	.edit_blog{
-		margin: 0 0rem 0.5rem 0rem;
-		padding: 1.1rem;
-		width: 65vw;
-		background-color: aliceblue;
-		border-radius:3rem;
-		border:none;
-		outline:none;
-		font-size:15px;
-		font-weight:bold;
-		color:#949494;
-		box-shadow:1px 3px 3px 1px;
-	}
-
-	.title{
-		margin-left:3.5rem;
-
-
-	}
-
-
-
-	.title:after {
-		margin-left:0.5rem;
-		margin-bottom:0;
-		content:' ';
-		display:block;
-		border:2px solid #d0d0d0;
-		width:28px;
-		border-radius:4px;
-		-webkit-border-radius:4px;
-		-moz-border-radius:4px;
-		box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-		-webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-		-moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-	}
-
-
-	.description{
-		resize:none;
-		margin-left:3.5rem;
-        padding:3rem;
-	}
-
-	.picture_file{
-		width:30vw;
-
-		outline:none;
-		padding-left:1.5rem;
-	}
-
-
-	.edit_blog_form{
-		width:50%;
-		margin:7rem 5rem;
-		font-family: 'Raleway', sans-serif;
-	}
-
-
-	span{
-		font-size:25px;
-		font-weight:bold;
-		color:#594236
-	}
-
-
-	.edit_blog_body{
+	<script src="{% static 'blog/js/blog.jquery.min.js' %}"></script>
+	
+	<style>
+		.scrollup{
+			background: url('{% static "blog/images/icon_top.png" %}') no-repeat;
+		}
+		
+		.edit_blog_body{
 		background:url('{% static "blog/images/bg.png" %}') no-repeat center;
-		background-size:cover;
+		
     }
-
-
-    .error_field{
-        position: absolute;
-        top:6rem;
-        left:40%;
-        margin-bottom:2rem;
-        font-weight:bold;
-        font-size:1.3rem;
-        color:red;
-        border-bottom:2px solid red;
-        font-family: 'Raleway', sans-serif;
-    }
-
-
-    .help_text{
-       margin: 0.5rem 0 0.5rem 5.5rem;
-        font-weight: bold;
-        font-size: 1rem;
-        font-family: 'Raleway', sans-serif;
-        color: green;
-		width:100%;
-    }
-
-    .error_text{
-        margin: 0.5rem 0 3.0rem 5.5rem;
-    }
-
-    .error_text span{
-        font-weight: bold;
-        font-size: 1rem;
-        font-family: 'Raleway', sans-serif;
-        color: red;
-    }
-
-    .submit_buttonz{
-        width:5vw;
-        border-radius:3rem;
-        background-color: #00FF00;
-        height:15px;
-    }
-
-
-
-    a.button {
-      display: block;
-      position: relative;
-      float: left;
-      width: 120px;
-      padding: 0;
-      margin: 10px 20px 10px 0;
-      font-weight: 600;
-      text-align: center;
-      line-height: 50px;
-      color: #FFF;
-      border-radius: 5px;
-      transition: all 0.2s ;
-    }
-
-
-    .btnLightBlue {
-  background: #5DC8CD;
-}
-    .btnLightBlue.btnBorder {
-  box-shadow: 0px 0px 0px 0px #01939A;
-}
-
-.btnLightBlue.btnBorder:hover {
-  box-shadow: 0px 0px 0px 5px #01939A;
-}
-
-.btnLightBlue.btnPush {
-  box-shadow: 0px 5px 0px 0px #1E8185;
-}
-
-
-.customcheck {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.customcheck input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 5px;
-}
-
-/* On mouse-over, add a grey background color */
-.customcheck:hover input ~ .checkmark {
-    background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.customcheck input:checked ~ .checkmark {
-    background-color: #02cf32;
-    border-radius: 5px;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.customcheck input:checked ~ .checkmark:after {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.customcheck .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-
-.checkbox_div{
-	padding:0.5rem;
-}
-
-
-
-.label_tag{
-
-	padding:0 0.7rem;
-	background-color:#dfdfdf;
-	border-radius:1rem;
-}
-
-</style>
-
+	</style>
+	
 </head>
 
 
@@ -291,7 +75,7 @@
         <div class="container">
             <!-- Navbar Brand -->
             <div class="navbar-header d-flex align-items-center justify-content-between">
-                <!-- Navbar Brand --><a href="index.html" class="navbar-brand">SocAIty</a>
+                <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><strong style="font-size:2rem;">SocAIty</strong>  Developers</a>
                 <!-- Toggle Button-->
                 <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -300,20 +84,30 @@
             <!-- Navbar Menu -->
             <div id="navbarcollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="index.html" class="nav-link active ">Home</a>
+                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a>
                     </li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a>
+                    <li class="nav-item"><a href="{% url 'blog:blog_list' %}" class="nav-link active">Blog</a>
                     </li>
-                    <li class="nav-item"><a href="post.html" class="nav-link ">Signup</a>
+                    {% if user.is_authenticated %}
+
+                        <li class="nav-item"><a href="#" class="nav-link ">Profile</a>
+                        </li>
+{#                        TODO Set Profile link after profile is created#}
+                        <li class="nav-item"><a href="{% url 'registration:logout' %}?next={{ request.path }}" class="nav-link ">Logout</a>
+                        </li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'registration:register' %}?next={{ request.path }}" class="nav-link ">Signup</a>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link ">Login</a>
+                    <li class="nav-item"><a href="{% url 'registration:login' %}?next={{ request.path }}" class="nav-link ">Login</a>
                     </li>
+                    {% endif %}
                 </ul>
                 
 
             </div>
         </div>
     </nav>
+
 
 <span class="error_field">{{ create_form.non_field_errors }}</span>
 
@@ -389,6 +183,8 @@
         <a style="margin-left:3.5rem;" href="javascript:$('#blog_create_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Create</a>
     </div>
 
+	<a class="scrollup" style="display: none;">Scroll</a>
+	
 {#    TODO Tags option not put as new tags need to be created using ajax#}
 </form>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -457,9 +253,27 @@ $('#create_tag_button').click(function () {
         });
     });
 
-
-
 </script>
+<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
+<!-- Custom JavaScript -->
+
 </body>
 
 
