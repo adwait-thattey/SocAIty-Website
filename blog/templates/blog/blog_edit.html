@@ -36,7 +36,7 @@
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 		  
 	<!-- Custom CSS file -->	  
-	<link href="{% static 'blog/css/style_blog.css' %}" rel="stylesheet">
+	<link href="{% static 'blog/css/blog_custom.css' %}" rel="stylesheet">
 	
 	<script src="{% static 'blog/js/blog.jquery.min.js' %}"></script>
 
@@ -94,12 +94,12 @@
                         <li class="nav-item"><a href="#" class="nav-link ">Profile</a>
                         </li>
 {#                        TODO Set Profile link after profile is created#}
-                        <li class="nav-item"><a href="{% url 'registration:logout' %}" class="nav-link ">Logout</a>
+                        <li class="nav-item"><a href="{% url 'registration:logout' %}?next={{ request.path }}" class="nav-link ">Logout</a>
                         </li>
                     {% else %}
-                    <li class="nav-item"><a href="{% url 'registration:register' %}" class="nav-link ">Signup</a>
+                    <li class="nav-item"><a href="{% url 'registration:register' %}?next={{ request.path }}" class="nav-link ">Signup</a>
                     </li>
-                    <li class="nav-item"><a href="{% url 'registration:login' %}" class="nav-link ">Login</a>
+                    <li class="nav-item"><a href="{% url 'registration:login' %}?next={{ request.path }}" class="nav-link ">Login</a>
                     </li>
                     {% endif %}
                 </ul>

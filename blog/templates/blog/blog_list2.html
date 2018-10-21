@@ -113,12 +113,12 @@
                         <li class="nav-item"><a href="#" class="nav-link ">Profile</a>
                         </li>
 {#                        TODO Set Profile link after profile is created#}
-                        <li class="nav-item"><a href="{% url 'registration:logout' %}" class="nav-link ">Logout</a>
+                        <li class="nav-item"><a href="{% url 'registration:logout' %}?next={{ request.path }}" class="nav-link ">Logout</a>
                         </li>
                     {% else %}
-                    <li class="nav-item"><a href="{% url 'registration:register' %}" class="nav-link ">Signup</a>
+                    <li class="nav-item"><a href="{% url 'registration:register' %}?next={{ request.path }}" class="nav-link ">Signup</a>
                     </li>
-                    <li class="nav-item"><a href="{% url 'registration:login' %}" class="nav-link ">Login</a>
+                    <li class="nav-item"><a href="{% url 'registration:login' %}?next={{ request.path }}" class="nav-link ">Login</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -283,7 +283,7 @@
                                     <div class="avatar"><img
                                             src="{{ blog.author.userprofile.profile_pic.url }}"
                                             alt="..." class="img-fluid"></div>
-                                    <div class="title"><span>{{ blog.author.get_full_name }} </span></div>
+                                    <div class="title"><span style="border:none!importa;">{{ blog.author.get_full_name }} </span></div>
                                 </a>
                                     <div class="date"><i class="far fa-clock"></i> {{ blog.create_date }}</div>
                                     <div class="date"><i class="far fa-heart"></i> {{ blog.upvotes }}</div>

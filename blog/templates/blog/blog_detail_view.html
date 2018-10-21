@@ -98,6 +98,7 @@
             <!-- Navbar Brand -->
             <div class="navbar-header d-flex align-items-center justify-content-between">
                 <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><strong style="font-size:2rem;">SocAIty</strong>  Developers</a>
+
                 <!-- Toggle Button-->
                 <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -115,16 +116,16 @@
                         <li class="nav-item"><a href="#" class="nav-link ">Profile</a>
                         </li>
 {#                        TODO Set Profile link after profile is created#}
-                        <li class="nav-item"><a href="{% url 'registration:logout' %}" class="nav-link ">Logout</a>
+                        <li class="nav-item"><a href="{% url 'registration:logout' %}?next={{ request.path }}" class="nav-link ">Logout</a>
                         </li>
                     {% else %}
-                    <li class="nav-item"><a href="{% url 'registration:register' %}" class="nav-link ">Signup</a>
+                    <li class="nav-item"><a href="{% url 'registration:register' %}?next={{ request.path }}" class="nav-link ">Signup</a>
                     </li>
-                    <li class="nav-item"><a href="{% url 'registration:login' %}" class="nav-link ">Login</a>
+                    <li class="nav-item"><a href="{% url 'registration:login' %}?next={{ request.path }}" class="nav-link ">Login</a>
                     </li>
                     {% endif %}
                 </ul>
-                
+
 
             </div>
         </div>
@@ -144,17 +145,24 @@
                 <h1>{{ blog.title|title }}  </h1>
                 <div class="blog-info mt-4">
                     <p><span class="date mr-5"><i class="far fa-eye text-red">&nbsp;</i> {{ blog.views }}</span>
+
+                        <span class="main_tags" id="like_heart_icon"><i class="far fa-heart text-red"></i></span>
+                        <a href="javascript:void(0);" id="like_blog"><span
+                                id="likes_number">{{ blog.upvotes }}</span></a>
+                        <span class="mr-5"></span>
                         <span class="main_tags"><i class="fa fa-bookmark-o text-red">&nbsp;</i></span>
+
                         {% for tag in blog.tags.all %}
-                            <a href="{% url 'blog:blog_list' %}?tag={{ tag.name|strtosnake }}">{{ tag.name }}
+                            <a href="{% url 'blog:blog_list' %}?tag={{ tag.name|strtosnake }}">{{ tag.name }},
                             </a>
                         {% endfor %}
+
                         {% if editable %}
-                        <span class="mr-5"></span>
-                        <span class="main_tags"><i class="far fa-edit text-red"></i></span>
-                        <a href="{{ request.get_full_path }}edit"><span>Edit</span></a>
+                            <span class="mr-5"></span>
+                            <span class="main_tags"><i class="far fa-edit text-red"></i></span>
+                            <a href="{{ request.get_full_path }}edit"><span>Edit</span></a>
                         {% endif %}
-                    {#                TODO Like option not put. Put option and make ajax call to like#}
+                        {#                TODO Like option not put. Put option and make ajax call to like#}
                     </p>
                 </div>
 
@@ -199,7 +207,7 @@
             {{ blog.body|safe }}
         </div>
 
-{#TODO DISQUS NOT WORKING. TRY USING LIBRARY#}
+        {#TODO DISQUS NOT WORKING. TRY USING LIBRARY#}
         {% comment %}<div class=container">
 
         <div id="disqus_thread"></div>
@@ -225,6 +233,10 @@
             Disqus.</a></noscript>
         </div>
     </section>{% endcomment %}
+
+
+    </section>
+
 	<a class="scrollup" style="display: none;">Scroll</a>
 
 </div>
@@ -266,5 +278,58 @@
 </script>
 
 <script id="dsq-count-scr" src="//socaity.disqus.com/count.js" async></script>
-</body>{% endcomment %}
+{% endcomment %}
+<script>
+    blog_like_status = false;
+    like_heart_icon = document.getElementById('like_heart_icon');
+    likes_count = document.getElementById('likes_number');
+    window.onload = function () {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'blog:like_status' %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'blog_id': {{ blog.id }},
+
+            },
+            success: function (result) {
+
+                console.log(result);
+                if (result.like_status == true) {
+
+                    console.log(result.like_status);
+                    blog_like_status = true;
+
+                    like_heart_icon.innerHTML = '<i class="fas fa-heart text-red"></i>'
+
+
+                }
+
+            }
+        });
+    };
+
+    like_heart_icon.onclick = function () {
+        if (blog_like_status == false) {
+
+            blog_like_status = true;
+            like_heart_icon.innerHTML = '<i class="fas fa-heart text-red"></i>'
+            likes_count.innerText = {{ blog.upvotes }} +1
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'blog:like_blog' %}",
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'blog_id': {{ blog.id }},
+
+                },
+                success: function (result) {
+
+                }
+            });
+
+        }
+    };
+</script>
+</body>
 </html>
