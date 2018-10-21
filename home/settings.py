@@ -28,7 +28,7 @@ BASE_DIR = secret_settings.BASE_DIR
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = secret_settings.SECRET_KEY
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = secret_settings.ALLOWED_HOSTS
 
