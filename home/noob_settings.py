@@ -3,11 +3,14 @@
 
 import os
 
+secret_check = False
 SECRET_KEY = 'guaes(d2a#8xv8963i5n##vht^knxk5r@exyv@zvjgase!=+)5'
+
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {

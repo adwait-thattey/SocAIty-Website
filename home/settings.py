@@ -10,17 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 try:
     from . import secret_settings
 except ImportError:
-    if DEBUG is True:
-        from . import noob_settings as secret_settings
 
-    else:
-        raise ImportError(
-            "You need secret settings to run the server in production mode (DEBUG=FALSE) The noob-settings contains false data like SECRET_KEY, OAUTH Keys, Database Credentials. Please contact Website Team, to get this module running on your machine ")
+    from . import noob_settings as secret_settings
 
 import os
 
@@ -33,7 +28,13 @@ BASE_DIR = secret_settings.BASE_DIR
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = secret_settings.SECRET_KEY
 
+DEBUG = False
+
 ALLOWED_HOSTS = secret_settings.ALLOWED_HOSTS
+
+if DEBUG == False and secret_settings.secret_check == False:
+    raise ImportError(
+        "You need secret settings to run the server in production mode (DEBUG=FALSE) The noob-settings contains false data like SECRET_KEY, OAUTH Keys, Database Credentials. Please contact Website Team, to get this module running on your machine ")
 
 # Application definition
 
