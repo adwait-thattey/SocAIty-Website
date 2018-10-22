@@ -95,14 +95,31 @@ class Blog(models.Model):
     # TODO Set Cron Job to call recount periodically
 
     def upvote(self, user):
+        vote = Vote(voter=user, blog=self, upvote_downvote=1)
+        vote.save()
+
+        self.upvotes+=1
+        self.save()
+
+    def unupvote(self, user):
         vote = Vote(voter=user, blog=self, upvote_downvote=0)
         vote.save()
-        vote.upvote()
+
+        self.upvotes-=1
+        self.save()
+
 
     def downvote(self, user):
+        vote = Vote(voter=user, blog=self, upvote_downvote=-1)
+        vote.save()
+        self.downvotes+=1
+        self.save()
+
+    def undownvote(self, user):
         vote = Vote(voter=user, blog=self, upvote_downvote=0)
         vote.save()
-        vote.downvote()
+        self.downvotes -= 1
+        self.save()
 
     def save(self, *args, **kwargs):
         try:
@@ -137,40 +154,7 @@ class Vote(models.Model):
     class Meta:
         unique_together = ('voter', 'blog')
 
-    def upvote(self):
-        if self.upvote_downvote != 1:
-            pre = self.upvote_downvote
-            self.upvote_downvote = 1
-            self.save()
 
-            self.blog.upvotes += 1
-            if pre == -1:
-                self.blog.downvotes -= 1
-            self.blog.save()
-
-    def downvote(self):
-        if self.upvote_downvote != -1:
-            pre = self.upvote_downvote
-            self.upvote_downvote = -1
-            self.save()
-
-            self.blog.upvotes -= 1
-            if pre == 1:
-                self.blog.upvotes -= 1
-            self.blog.save()
-
-    def novote(self):
-        if self.upvote_downvote == 1:
-            self.upvote_downvote = 0
-            self.save()
-            self.blog.upvotes -= 1
-
-        elif self.upvote_downvote == -1:
-            self.upvote_downvote = 0
-            self.save()
-            self.blog.downvotes -= 1
-
-        self.blog.save()
 
     def __str__(self):
         return str(self.id)
@@ -181,15 +165,15 @@ class Vote(models.Model):
         except IntegrityError:
             vote = Vote.objects.get(voter=self.voter, blog=self.blog)
             if self.upvote_downvote == -1:
-                vote.downvote()
+                vote.upvote_downvote = -1
             elif self.upvote_downvote == 0:
-                self.novote()
+                vote.upvote_downvote = 0
             elif self.upvote_downvote == 1:
-                self.upvote()
+                vote.upvote_downvote = 1
             else:
-                self.novote()
-                raise ValueError("One of the votes has a value other than -1, 0 1")
 
+                raise ValueError("One of the votes has a value other than -1, 0 1")
+            vote.save()
 # class BlogMeta(models.Model):
 #     blog = models.OneToOneField(to=Blog, on_delete=models.CASCADE)
 #

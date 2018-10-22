@@ -25,7 +25,8 @@ urlpatterns = [
     path('blog/<str:username>/<slug:slug>/', views.blog_detail, name='blog_detail'),
     path('blog/<str:username>/<slug:slug>/edit', views.blog_edit, name='blog_edit'),
     path('create-tag', views.create_tag, name="create_tag"),
-    path('like_blog', views.like_blog, name="like_blog"),
+    path('/ajax/like_blog', views.like_blog, name="like_blog"),
+    path('/ajax/unlike_blog', views.unlike_blog, name="unlike blog"),
     path('get_like_status', views.like_status, name="like_status")
 
     # path('blog_edit/<str:username>/<slug:blog_slug>/',views.blog_edit,name='blog_edit'),

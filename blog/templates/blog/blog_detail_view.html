@@ -282,6 +282,7 @@
 <script>
     blog_like_status = false;
     like_heart_icon = document.getElementById('like_heart_icon');
+    current_upvotes = {{ blog.upvotes }}
     likes_count = document.getElementById('likes_number');
     window.onload = function () {
         $.ajax({
@@ -314,7 +315,8 @@
 
             blog_like_status = true;
             like_heart_icon.innerHTML = '<i class="fas fa-heart text-red"></i>'
-            likes_count.innerText = {{ blog.upvotes }} +1
+            current_upvotes = current_upvotes+1;
+            likes_count.innerText = current_upvotes;
             $.ajax({
                 type: 'POST',
                 url: "{% url 'blog:like_blog' %}",
@@ -328,6 +330,24 @@
                 }
             });
 
+        }
+        else {
+            blog_like_status = false;
+            like_heart_icon.innerHTML = '<i class="far fa-heart text-red"></i>';
+            current_upvotes = current_upvotes-1;
+            likes_count.innerText = current_upvotes;
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'blog:unlike blog' %}",
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'blog_id': {{ blog.id }},
+
+                },
+                success: function (result) {
+
+                }
+            });
         }
     };
 </script>

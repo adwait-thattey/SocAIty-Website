@@ -189,3 +189,25 @@ def like_status(request):
         ret_data["like_status"] = True
 
     return JsonResponse(ret_data)
+
+
+def unlike_blog(request):
+    ret_data = {
+        "unlike_success": False
+    }
+
+    if request.user.is_anonymous:
+        return JsonResponse(ret_data)
+
+    blog_id = request.POST.get("blog_id")
+
+    blog = get_object_or_404(Blog, pk=blog_id)
+
+    try:
+        blog.unupvote(request.user)
+        ret_data["unlike_success"] = True
+
+    except:
+        pass
+
+    return JsonResponse(ret_data)
