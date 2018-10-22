@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css">
     <link rel="stylesheet" href="{% static 'main_page/fonts/elegant_font/HTML_CSS/style.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'main_page/fonts/et-line-font/style.css' %}" type="text/css">
-	
+
 	<style>
 		#section-welcome{
 			height:1400px ! important;
@@ -53,8 +53,8 @@
 		}
 		
 		#myCanvas {
-		position:absolute;
-		z-index:4;
+		{#position:absolute;#}
+		{#z-index:0;#}
 		  width: 100%;
 		  height: 100%;
 		}
@@ -104,34 +104,41 @@
 
         <!-- header begin -->
         <header>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                   
+
                         <!-- small button begin -->
                         <span id="menu-btn"></span>
                         <!-- small button close -->
 
                         <!-- mainmenu begin -->
                         <nav>
-                            <ul id="mainmenu"> 
+                            <ul id="mainmenu">
+
+									<a style="position: absolute;left:0;top:0;" id="logo" href="{% url 'home' %}">
+										<img id = "navbarLogo" class="logo-1" src="{% static 'main_page/images/logo/socaity.svg' %}" alt="">
+
+									</a>
+
                                 <li><a href="#wrapper">Home</a></li>
                                 <li><a href="#section-about">About</a></li>
+                                <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
                                 <li><a href="#section-portfolio">Projects</a></li>
 								<!-- logo begin -->
-								<h1 id="logo">
-									<a href="index.html">
-										<img id = "navbarLogo"class="logo-1" src="{% static 'main_page/images/logo/socaity.svg' %}" alt="">
-									
-									</a>
-								</h1>
+
 								<!-- logo close -->
 								<li><a href="#section-testimonial">Testimonials</a></li>
-                                
-                                <li><a href="#section-team">Life</a></li>
-                                <li><a href="#section-contact">Contact Us</a></li>
 
- 
+                                <li><a href="#section-contact">Contact Us</a></li>
+                                {% if user.is_authenticated %}
+                                    <li><a href="#">Profile</a></li>
+                                    <li class="mr-5"><a href="{% url 'registration:logout' %}">Logout</a></li>
+                                {% else %}
+                                <li><a href="{% url 'registration:login' %}">Login</a></li>
+                                <li class="mr-5"><a href="{% url 'registration:register' %}">Signup</a></li>
+                                {% endif %}
+
                             </ul>
                     </nav>
                     <!-- mainmenu close -->
@@ -278,7 +285,7 @@
                         <div class="col-md-3 animated" data-animation="fadeInLeft" data-delay="100">
                             <div class="de_count">
                                 <i class="icon-alarmclock animated" data-animation="fadeInDown" data-delay="0"></i>
-                                <h3 class="timer" data-to="4" data-speed="2500">0</h3>
+                                <h3 class="timer" data-to="{{ progress.meetups }}" data-speed="2500">0</h3>
                                 <span>Meetups Conducted</span>
                             </div>
                         </div>
@@ -286,7 +293,7 @@
                         <div class="col-md-3 animated" data-animation="fadeInLeft" data-delay="0">
                             <div class="de_count">
                                 <i class="icon-documents animated" data-animation="fadeInDown" data-delay="200"></i>
-                                <h3 class="timer" data-to="2" data-speed="2500">0</h3>
+                                <h3 class="timer" data-to="{{ progress.training_session }}" data-speed="2500">0</h3>
                                 <span>Training Session</span>
                             </div>
                         </div>
@@ -294,7 +301,7 @@
                         <div class="col-md-3 animated" data-animation="fadeInRight" data-delay="0">
                             <div class="de_count">
                                 <i class="icon-piechart animated" data-animation="fadeInDown" data-delay="400"></i>
-                                <h3 class="timer" data-to="450" data-speed="2500">0</h3>
+                                <h3 class="timer" data-to="{{ progress.members }}" data-speed="2500">0</h3>
                                 <span>Members</span>
                             </div>
                         </div>
@@ -302,7 +309,7 @@
                         <div class="col-md-3 animated" data-animation="fadeInRight" data-delay="100">
                             <div class="de_count">
                                 <i class="icon-wine animated" data-animation="fadeInDown" data-delay="600"></i>
-                                <h3 class="timer" data-to="30" data-speed="2500">0</h3>
+                                <h3 class="timer" data-to="{{ progress.developers }}" data-speed="2500">0</h3>
                                 <span>Developers</span>
                             </div>
                         </div>
@@ -608,10 +615,15 @@
                         <div class="spacer-single"></div>
                         
                         <div class="text-center">
-                        	<a href="#" class="btn btn-border">View All Posts</a>
+                        	<a href="{% url 'blog:blog_list' %}" id="view-posts" class="btn btn-border">View All Posts</a>
                         </div>
                     <!--</div>-->
                 </div>
+                <script>
+                    document.getElementById('view-posts').onclick = function () {
+                        window.location = "{% url 'blog:blog_list' %}";
+                    }
+                </script>
             </section>
             <!-- section close -->
 
@@ -674,31 +686,39 @@
 
                         <div class="col-md-8 animated" data-animation="fadeInUp" data-delay="200" data-speed="5">
 
-                            <form name="contactForm" id='contact_form' method="post" action='email.php'>
+                            <form name="contactForm" id='contact_form' method="post" action=''>
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div id='name_error' class='error'>Please enter your name.</div>
                                         <div>
-                                            <input type='text' name='name' id='name' class="form-control" placeholder="Your Name">
+                                            <span style="color:red;">{{ contact_us_form.name.errors }}</span>
+{#                                            <input type='text' name='name' id='name' class="form-control" placeholder="Your Name">#}
+                                            {{ contact_us_form.name|attr:"placeholder:Your Name"|add_class:"form-control" }}
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div id='email_error' class='error'>Please enter your valid E-mail ID.</div>
                                         <div>
-                                            <input type='text' name='email' id='email' class="form-control" placeholder="Your Email">
+                                            <span style="color:red;">{{ contact_us_form.email.errors }}</span>
+{#                                            <input type='text' name='email' id='email' class="form-control" placeholder="Your Email">#}
+                                            {{ contact_us_form.email|attr:"placeholder:Your Email"|add_class:"form-control" }}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div id='message_error' class='error'>Please enter your message.</div>
                                         <div>
-                                            <textarea name='message' id='message' class="form-control" placeholder="Your Message"></textarea>
+                                            <span style="color:red;">{{ contact_us_form.message.errors }}</span>
+{#                                            <textarea name='message' id='message' class="form-control" placeholder="Your Message"></textarea>#}
+                                            {{ contact_us_form.message|attr:"placeholder:Message"|add_class:"form-control" }}
                                         </div>
                                     </div>
                                     <div id='mail_success' class='success'>Your message has been sent successfully.</div>
                                     <div id='mail_fail' class='error'>Sorry, error occured this time sending your message.</div>
                                     <div class="col-md-12">
                                         <p id='submit'>
-                                            <input type='submit' id='send_message' value='Submit' class="btn btn-border">
+                                            <input type='submit' id='send_message' value='Submit' class="btn btn-border" onclick="document.getElementById('contact_form').submit()">
                                         </p>
                                     </div>
                                 </div>

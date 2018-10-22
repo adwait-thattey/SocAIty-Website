@@ -4,167 +4,110 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/bootstrap/css/bootstrap.min.css">
 
-<style>
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/font-awesome/css/font-awesome.min.css">
 
-	@import url('https://fonts.googleapis.com/css?family=Raleway');
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/fontastic.css">
 
-	.edit_blog{
-		margin: 0 0rem 0.5rem 0rem;
-		padding: 1.1rem;
-		width: 65vw;
-		background-color: aliceblue;
-		border-radius:3rem;
-		border:none;
-		outline:none;
-		font-size:15px;
-		font-weight:bold;
-		color:#949494;
-		box-shadow:1px 3px 3px 1px;
-	}
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 
-	.title{
-		margin-left:3.5rem;
+    <!-- Fancybox-->
+    <link rel="stylesheet"
+          href="https://d19m59y37dris4.cloudfront.net/blog/1-2/vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
 
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/style.default.css"
+          id="theme-stylesheet">
 
-	}
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2/css/custom.css">
 
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="favicon.png">
 
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+	
+	<!-- Custom CSS file -->	  
+	<link href="{% static 'blog/css/blog_custom.css' %}" rel="stylesheet">
 
-	.title:after {
-		margin-left:3.5rem;
-		margin-bottom:0;
-		content:' ';
-		display:block;
-		border:2px solid #d0d0d0;
-		width:28px;
-		border-radius:4px;
-		-webkit-border-radius:4px;
-		-moz-border-radius:4px;
-		box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-		-webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-		-moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-	}
-
-
-	.description{
-		resize:none;
-		margin-left:3.5rem;
-        padding:3rem;
-	}
-
-	.picture_file{
-		width:30vw;
-
-		outline:none;
-		padding-left:1.5rem;
-	}
-
-
-	.edit_blog_form{
-		width:50%;
-		margin:7rem 5rem;
-		font-family: 'Raleway', sans-serif;
-	}
-
-
-	span{
-		font-size:25px;
-		font-weight:bold;
-		color:#594236
-	}
-
-
-	.edit_blog_body{
+	<script src="{% static 'blog/js/blog.jquery.min.js' %}"></script>
+	
+	<style>
+		.scrollup{
+			background: url('{% static "blog/images/icon_top.png" %}') no-repeat;
+		}
+		
+		.edit_blog_body{
 		background:url('{% static "blog/images/bg.png" %}') no-repeat center;
-		background-size:cover;
+		
     }
-
-
-    .error_field{
-        position: absolute;
-        top:5%;
-        left:50%;
-        margin-bottom:2rem;
-        font-weight:bold;
-        font-size:2rem;
-        color:red;
-        border-bottom:2px solid red;
-        font-family: 'Raleway', sans-serif;
-    }
-
-
-    .help_text{
-       margin: 0.5rem 0 0 5.5rem;
-        font-weight: bold;
-        font-size: 1.3rem;
-        font-family: 'Raleway', sans-serif;
-        color: green;
-    }
-
-    .error_text{
-        margin: 0.5rem 0 3.0rem 5.5rem;
-    }
-
-    .error_text span{
-        font-weight: bold;
-        font-size: 1.5rem;
-        font-family: 'Raleway', sans-serif;
-        color: red;
-    }
-
-    .submit_buttonz{
-        width:5vw;
-        border-radius:3rem;
-        background-color: #00FF00;
-        height:15px;
-    }
-
-
-
-    a.button {
-      display: block;
-      position: relative;
-      float: left;
-      width: 120px;
-      padding: 0;
-      margin: 10px 20px 10px 0;
-      font-weight: 600;
-      text-align: center;
-      line-height: 50px;
-      color: #FFF;
-      border-radius: 5px;
-      transition: all 0.2s ;
-    }
-
-
-    .btnLightBlue {
-  background: #5DC8CD;
-}
-    .btnLightBlue.btnBorder {
-  box-shadow: 0px 0px 0px 0px #01939A;
-}
-
-.btnLightBlue.btnBorder:hover {
-  box-shadow: 0px 0px 0px 5px #01939A;
-}
-
-.btnLightBlue.btnPush {
-  box-shadow: 0px 5px 0px 0px #1E8185;
-}
-
-</style>
-
+	</style>
+	
 </head>
 
 
 
 <body class="edit_blog_body">
+<nav class="navbar navbar-expand-lg">
+        <div class="search-area">
+            <div class="search-area-inner d-flex align-items-center justify-content-center">
+                <div class="close-btn"><i class="icon-close"></i></div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8">
+                        <form action="#">
+                            <div class="form-group">
+                                <input type="search" name="search" id="search" placeholder="What are you looking for?">
+                                <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Navbar Brand -->
+            <div class="navbar-header d-flex align-items-center justify-content-between">
+                <!-- Navbar Brand --><a href="{% url 'home' %}" class="navbar-brand"><strong style="font-size:2rem;">SocAIty</strong>  Developers</a>
+                <!-- Toggle Button-->
+                <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
+                        aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler"><span></span><span></span><span></span></button>
+            </div>
+            <!-- Navbar Menu -->
+            <div id="navbarcollapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'blog:blog_list' %}" class="nav-link active">Blog</a>
+                    </li>
+                    {% if user.is_authenticated %}
+
+                        <li class="nav-item"><a href="#" class="nav-link ">Profile</a>
+                        </li>
+{#                        TODO Set Profile link after profile is created#}
+                        <li class="nav-item"><a href="{% url 'registration:logout' %}?next={{ request.path }}" class="nav-link ">Logout</a>
+                        </li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'registration:register' %}?next={{ request.path }}" class="nav-link ">Signup</a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'registration:login' %}?next={{ request.path }}" class="nav-link ">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+
+            </div>
+        </div>
+    </nav>
+
 
 <span class="error_field">{{ create_form.non_field_errors }}</span>
 
@@ -203,14 +146,45 @@
 
     </div>
 
+    <span class="title" style="margin-bottom:0rem ! important;" id="select_tags">Tags :- </span>
+    <span class="help_text" >{{ edit_form.tags.help_text }}</span>
+    <div class="row justify-content-center ml-5">
+        {% for tag in tags %}
+        <div id="checkbox" class="d-flex col-3 checkbox_div">
+			<label class="customcheck">
+			<div class="label_tag">{{ tag.name }}</div>
+			  <input type="checkbox" name="selected_tags" value="{{ tag.name }}" {% if tag.name in selected_tags %} checked="checked" {% endif %}>
+			  <span class="checkmark"></span>
+			</label>
+
+		</div>
+        {% endfor %}
+
+    </div>
+	<br>
+
+
+    <span class="title" style="margin-bottom:0.8rem ! important;">Add Another Tag </span>
+
+	<div style="margin-bottom:5rem;">
+		<input class="edit_blog title" type="text" style="width:32vw;" placeholder="Create a new tag if required" id="create_tag_input">
+		<a style="margin-left:3.5rem;" href="javascript:void(0);" title="Button fade lightblue" class="button btnFade btnLightBlue" id="create_tag_button">Add</a>
+	    <div class="error_text" style="margin-left: 17.5rem;"><span id="create_tag_status"></span></div><br>
+    </div>
+
+    <input name="validation_status" id="edit_form_validation_status" type="number" style="display: none;" value="1">
+
+
 	<span class="title">URL Slug :- </span>
     <span class="help_text">{{ create_form.slug.help_text }}</span>
 	{{ create_form.slug|add_class:"edit_blog title"}}
     <div class="error_text"><span>{{ create_form.slug.errors }}</span></div><br>
     <div>
-        <a style="margin-left:3.5rem;" href="javascript:$('#blog_create_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Edit Changes</a>
+        <a style="margin-left:3.5rem;" href="javascript:$('#blog_create_form').submit();" title="Button fade lightblue" class="button btnFade btnLightBlue">Create</a>
     </div>
 
+	<a class="scrollup" style="display: none;">Scroll</a>
+	
 {#    TODO Tags option not put as new tags need to be created using ajax#}
 </form>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -244,9 +218,62 @@
     $('#{{ create_form.title.id_for_label }}').on('keyup', function(){
     $('#{{ create_form.slug.id_for_label }}').val($(this).val());
     slug.value = slug.value.toLowerCase().replace(/ /g, '-')
-    })
+    });
+
+     create_tag_status = document.getElementById('create_tag_status');
+    edit_form_validation_status = document.getElementById('edit_form_validation_status');
+$('#create_tag_button').click(function () {
+        console.log("sendingrequest");
+
+        create_tag_status.innerText = "Creating...";
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'blog:create_tag' %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'tag_name': document.getElementById('create_tag_input').value,
+
+            },
+            success: function(result){
+
+                console.log(result);
+                if (result.tag_created == false){
+
+                    error = result.error;
+                    create_tag_status.innerText = error;
+
+
+
+                }
+                else{
+                    edit_form_validation_status.value = 0;
+                    document.getElementById('blog_create_form').submit()
+                }
+            }
+        });
+    });
 
 </script>
+<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
+<!-- Custom JavaScript -->
+
 </body>
 
 

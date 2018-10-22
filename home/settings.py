@@ -9,16 +9,18 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
+# SECURITY WARNING: don't run with debug turned on in production!
+
 try:
     from . import secret_settings
 except ImportError:
-    raise ImportError("This module contains contains secret settings and is not uploaded on GitHub. Please contact Adwait Thattey, to get this module running on your machine ")
+
+    from . import noob_settings as secret_settings
 
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = secret_settings.BASE_DIR
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -26,11 +28,13 @@ BASE_DIR = secret_settings.BASE_DIR
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = secret_settings.SECRET_KEY
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = secret_settings.ALLOWED_HOSTS
 
+if DEBUG == False and secret_settings.secret_check == False:
+    raise ImportError(
+        "You need secret settings to run the server in production mode (DEBUG=FALSE) The noob-settings contains false data like SECRET_KEY, OAUTH Keys, Database Credentials. Please contact Website Team, to get this module running on your machine ")
 
 # Application definition
 
@@ -91,7 +95,7 @@ CKEDITOR_CONFIGS = {
 
             ]},
             '/',
-            {'name':'CODE','items':['CodeSnippet']},
+            {'name': 'CODE', 'items': ['CodeSnippet']},
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
@@ -103,7 +107,7 @@ CKEDITOR_CONFIGS = {
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
+            'uploadimage',  # the upload image feature
             # your extra plugins here
             'div',
             'autolink',
@@ -124,9 +128,9 @@ CKEDITOR_CONFIGS = {
     'special': {
         'toolbar': 'Special',
         'toolbar_Special': [
-            ['Bold','CodeSnippet','Youtube'],
+            ['Bold', 'CodeSnippet', 'Youtube'],
         ],
-        'extraPlugins':','.join(['codesnippet','youtube']),
+        'extraPlugins': ','.join(['codesnippet', 'youtube']),
     }
 }
 
@@ -172,12 +176,10 @@ AUTHENTICATION_BACKENDS = (
 
 WSGI_APPLICATION = 'home.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = secret_settings.DATABASES
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -197,13 +199,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -211,25 +212,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'registration:login'
 
+# OAuth Keys
+# TODO Replace with javascript oauth (Go to google dev console to see javascript oauth redirects)
 
-#OAuth Keys
-#TODO Replace with javascript oauth (Go to google dev console to see javascript oauth redirects)
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = secret_settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = secret_settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='488190015416-mr8l4qv8fe27fgf0c696la03gsdgmnpc.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'puKXZyEbH4x4w0yBnOiKWLM1'
-
-SOCIAL_AUTH_GITHUB_KEY = '8b678c55e669235eeafd'
-SOCIAL_AUTH_GITHUB_SECRET = '6d7a801769bc8410f5254c7aed4ef1c71c244c0b'
+SOCIAL_AUTH_GITHUB_KEY = secret_settings.SOCIAL_AUTH_GITHUB_KEY
+SOCIAL_AUTH_GITHUB_SECRET = secret_settings.SOCIAL_AUTH_GITHUB_SECRET

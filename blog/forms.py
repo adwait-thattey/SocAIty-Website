@@ -10,5 +10,6 @@ class BlogCreateForm(forms.ModelForm):
             'short_description',
             'picture',
             'body',
-            'slug'
+            'slug',
+            'tags'
         )

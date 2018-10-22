@@ -19,7 +19,7 @@ def tag_name_validator(tag_name):
 
 
 class Tag(models.Model):
-    name = models.CharField(verbose_name="Tag Name", max_length=15, validators=[tag_name_validator])
+    name = models.CharField(verbose_name="Tag Name", max_length=15, validators=[tag_name_validator], unique=True)
 
     def __str__(self):
         return self.name
@@ -62,7 +62,7 @@ class Blog(models.Model):
     picture = models.ImageField(blank=False, upload_to=get_blog_image_upload_path, help_text="This picture is the cover image of your blog.")
     slug = models.SlugField(max_length=60, null=True, blank=True,
                             help_text="This slug will form the url of your blog. The Url will be blogs/blog/<your username>/<slug>")
-    tags = models.ManyToManyField(to=Tag, blank=True, help_text="Please select relevant tags for your blog. or create a new tag")
+    tags = models.ManyToManyField(to=Tag, blank=True, help_text="Please select one or more tags for your blog or create a new tag")
     views = models.PositiveIntegerField(verbose_name="Views", default=0, editable=False)
 
     disqus_identifier = models.BigIntegerField(editable=False, default=0)
