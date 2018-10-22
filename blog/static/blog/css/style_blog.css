@@ -156,3 +156,16 @@
 	color:#0def0d ! important;
 }
 
+
+.scrollup{
+			width:40px;
+			height:40px;
+			text-indent:-9999px;
+			opacity:0.3;
+			position:fixed;
+			bottom:20px;
+			right:10px;
+			display:none;
+
+		}
+			
