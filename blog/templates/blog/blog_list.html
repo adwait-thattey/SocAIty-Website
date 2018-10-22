@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+          href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/default.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <title></title>
+  </head>
+  <body>
+    <div class="row">
+      {% for b in blogs %}
+      <div class="col-md-6">
+        <br><br>
+        <div class="img-thumbnail">
+          <a href="{% url 'blog:blog_detail' b.author.username b.slug %}">{{b.title}}</a><br>
+          <p>{{b.short_description | safe }}</p>
+          <p>{{b.body | safe}}</p>
+        </div>
+        <br><br>
+      </div>
+      {% empty %}
+        <div class="container-fluid">
+          <h3>No blogs Found Having Search Query "{{request.GET.q}}"</h3>
+        </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
