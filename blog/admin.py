@@ -29,7 +29,7 @@ class VoteAdmin(admin.ModelAdmin):
     def blog_name(self, obj):
         return obj.blog.title
 
-    list_display = ['username', 'blog_name', 'result']
+    list_display = ['username', 'blog_name', 'result', 'vote_time']
 
     list_filter = ['voter', 'blog', 'upvote_downvote']
 
